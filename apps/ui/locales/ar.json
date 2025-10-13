@@ -1,0 +1,224 @@
+{
+  "seo": {
+    "metaTitle": "DEV-TEMPLATE-SEO",
+    "metaDescription": "DEV-TEMPLATE-SEO",
+    "metaImageUrl": "DEV-TEMPLATE-SEO",
+    "keywords": "DEV-TEMPLATE-SEO",
+    "metaRobots": "DEV-TEMPLATE-SEO",
+    "applicationName": "DEV-TEMPLATE-SEO",
+    "siteName": "DEV-TEMPLATE-SEO",
+    "email": "DEV-TEMPLATE-SEO",
+    "twitter": {
+      "card": "DEV-TEMPLATE-SEO",
+      "title": "DEV-TEMPLATE-SEO",
+      "description": "DEV-TEMPLATE-SEO",
+      "siteId": "DEV-TEMPLATE-SEO",
+      "creator": "DEV-TEMPLATE-SEO",
+      "creatorId": "DEV-TEMPLATE-SEO",
+      "imageUrl": "DEV-TEMPLATE-SEO"
+    }
+  },
+
+  "general": {
+    "language": "لغة",
+    "mobileNavigationMenu": "قائمة التنقل على الجوال",
+    "article": "مقال",
+    "post": "منشور",
+    "contactUs": "اتصل بنا",
+    "successMessage": "تم إرسال طلبك بنجاح، يرجى الانتظار — سنتواصل معك.",
+    "errorMessage": "حدث خطأ ما!",
+
+    "noOptionsAvailable": "Žádné možnosti k dispozici",
+    "search": "Vyhledat",
+    "loading": "Načítání",
+    "cancel": "Zrušit",
+    "close": "Zavřít",
+    "submitForm": "Odeslat",
+    "saveChanges": "Uložit změny"
+  },
+
+  "tables": {
+    "previousPage": "Předchozí stránka",
+    "nextPage": "Další stránka",
+    "lastPage": "Poslední stránka",
+    "firstPage": "První stránka",
+    "rowsPerPage": "Počet řádků na stránku",
+    "pageXOfY": "Stránka {x} z {y}",
+    "ascending": "Vzestupně",
+    "descending": "Sestupně",
+    "noData": "Žádná data"
+  },
+
+  "comps": {
+    "fileInput": {
+      "label": "Vybrat soubor",
+      "dragAndDrop": "Přidejte soubor přetažením nebo vyberte kliknutím",
+      "validFileTypes": "Soubor musí být ve formátu {validFileTypes}",
+      "wrongFileType": "Tento typ souboru není podporován",
+      "selectedFile": "Vybraný soubor: {fileName}",
+      "removeFile": "Odstranit soubor"
+    },
+    "datePicker": {
+      "label": "Vyberte datum"
+    },
+    "dateRangePicker": {
+      "label": "Vyberte období"
+    },
+    "themeToggle": {
+      "label": "Přepnout motiv"
+    },
+    "dialog": {
+      "confirmClose": "Chcete zavřít dialog? Ztratíte tím všechny rozpracované změny."
+    }
+  },
+
+  "errors": {
+    "global": {
+      "title": "Nastala neznámá chyba",
+      "tryAgain": "Zkusit znovu",
+      "invalidContent": "Tenhle obsah se nepodařilo načíst",
+      "somethingWentWrong": "Něco se pokazilo 🥺"
+    },
+
+    "notFound": {
+      "title": "لم يتم العثور على الصفحة",
+      "description": "Stránka, kterou hledáte, nebyla nalezena.",
+      "solution": "Zkontrolujte prosím, zda jste zadali správnou adresu anebo se vraťte na úvodní stránku.",
+      "redirect": "Přejít na úvodní stránku"
+    },
+
+    "forms": {
+      "errorsInForm": "Formulář obsahuje chyby",
+      "checkFormForErrors": "Zkontrolujte prosím, zda nechybí žádné hodnoty"
+    },
+
+    "zodValidation": {
+      "invalid_type": "Požadovaný typ je {expected}, zadán byl {received}",
+      "invalid_type_received_undefined": "Pole je požadované",
+      "invalid_literal": "Nesprávná hodnota, očekává sa {expected}",
+
+      "invalid_string": {
+        "regex": "Nesprávný formát"
+      },
+      "too_small": {
+        "string": {
+          "exact": "Řetězec musí obsahovat přesně {minimum} znaků",
+          "inclusive": "Řetězec musí obsahovat alespoň {minimum} znaků",
+          "not_inclusive": "Řetězec musí obsahovat více jak {minimum} znaků"
+        },
+        "number": {
+          "exact": "Hodnota musí být přesně {minimum}",
+          "inclusive": "Minimální hodnota je {minimum}",
+          "not_inclusive": "Číslo musí být větší než {minimum}"
+        }
+      },
+      "too_big": {
+        "string": {
+          "exact": "Řetězec musí obsahovat přesně {maximum} znaků",
+          "inclusive": "Řetězec musí obsahovat maximálně {maximum} znaků",
+          "not_inclusive": "Řetězec musí obsahovat méně jak {maximum} znaků"
+        },
+        "number": {
+          "exact": "Hodnota musí být přesně {maximum}",
+          "inclusive": "Maximální hodnota je {maximum}",
+          "not_inclusive": "Číslo musí být menší než {maximum}"
+        }
+      },
+      "custom": {
+        "password": "Hesla se neshodují",
+        "passwordWithNumber": "Řetězec musí obsahovat alespoň 1 číslo",
+        "phoneNumber": "Toto pole musí obsahovat 9 čísel"
+      }
+    }
+  },
+
+  "auth": {
+    "signIn": {
+      "status": {
+        "fail": "Nepodařilo se přihlásit",
+        "success": "Přihlášení proběhlo úspěšně",
+        "checkCredentials": "Zkontrolujte prosím přihlašovací údaje"
+      },
+      "errors": {
+        "CredentialsSignin": "Zadal/a jste nesprávné přihlašovací údaje."
+      },
+      "header": "Přihlášení",
+      "description": "Zadejte přihlašovací údaje.",
+      "email": "E-mail",
+      "password": "Heslo",
+      "submit": "Přihlásit se",
+      "forgotPassword": "Zapomenuté heslo",
+      "createAccount": "Vytvořit účet"
+    },
+
+    "register": {
+      "status": {
+        "fail": "Registrace selhala",
+        "success": "Registrace úspěšná",
+        "checkCredentials": "Zkontrolujte prosím své přihlašovací údaje"
+      },
+      "errors": {
+        "credentials": "Zadali jste nesprávné přihlašovací údaje",
+        "unexpectedError": "Registrace selhala. Zkuste to prosím později.",
+        "emailUsernameTaken": "E-mail je již obsazen. Vyberte prosím jiný."
+      },
+      "header": "Registrace",
+      "description": "Vytvořte si účet pro přístup do systému.",
+      "email": "Zadejte svou e-mailovou adresu",
+      "password": "Vytvořte heslo",
+      "checkPassword": "Potvrďte heslo",
+      "submit": "Vytvořit účet",
+      "forgotPassword": "Již máte účet? Přihlaste se.",
+      "checkEmail": "Postupujte podle instrukcí ve vašem e-mailu pro potvrzení e-mailové adresy.",
+      "signInLinkLinkDescription": "Již máte účet?",
+      "signInLink": "Přihlásit se"
+    },
+
+    "changePassword": {
+      "errors": {
+        "invalidCurrentPassword": "Současné heslo se neshoduje",
+        "unexpectedError": "An unexpected error occurred. Please try again later.",
+        "newPasswordSameAsCurrent": "Nové heslo se shoduje s aktuálním heslem"
+      },
+      "successfullyChanged": "Heslo bylo úspěšně změněno",
+      "header": "Změna hesla",
+      "description": "Vyberte si nové heslo, které budete nově používat pro přístup do systému.",
+      "currentPassword": "Aktuální heslo",
+      "password": "Nové heslo",
+      "confirmPassword": "Potvrdit nové heslo",
+      "submit": "Změnit heslo"
+    },
+
+    "accountActivation": {
+      "successfullySet": "Účet byl úspěšně aktivován. Můžete se přihlásit.",
+      "errors": {
+        "Incorrect code provided": "Byl vám vygenerován nesprávný odkaz. Kontaktujte podporu."
+      },
+      "welcome": "Vítej",
+      "activateAccount": "Byl Vám založen nový účet s emailem {email}.",
+      "invalidLink": "Tento odkaz nie je platný.",
+      "activate": "Aktivovat účet",
+      "header": "Zvolení hesla",
+      "description": "Zvolte si heslo, které budete používat k přihlašování.",
+      "submit": "Aktivovat účet",
+      "password": "Nové heslo",
+      "confirmPassword": "Potvrdit heslo"
+    },
+
+    "resetPassword": {
+      "header": "Resetování hesla",
+      "description": "Zvolte si nové heslo, které budete používat k přihlašování.",
+      "submit": "Nastavit heslo",
+      "password": "Nové heslo",
+      "confirmPassword": "Potvrdit heslo"
+    },
+
+    "forgotPassword": {
+      "passwordChangeEmailSent": "Byl vám zaslán e-mail s instrukcemi pro obnovení hesla.",
+      "header": "Zapomenuté heslo",
+      "description": "Zadejte email se kterým se zvyknete přihlašovat. Na tento email odešleme instrukce k obnově hesla.",
+      "email": "E-mail",
+      "submit": "Obnovit účet"
+    }
+  }
+}

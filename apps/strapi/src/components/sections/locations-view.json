@@ -1,0 +1,74 @@
+{
+  "collectionName": "components_sections_locations_views",
+  "info": {
+    "displayName": "LocationsView",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "catalogTitle": {
+      "type": "string",
+      "default": "Catalog",
+      "required": true
+    },
+    "all": {
+      "type": "string",
+      "default": "All",
+      "required": true
+    },
+    "mapTitle": {
+      "type": "string",
+      "default": "Map",
+      "required": true
+    },
+    "regionTitle": {
+      "type": "string",
+      "default": "Region",
+      "required": true
+    },
+    "cityTitle": {
+      "type": "string",
+      "required": true,
+      "default": "City"
+    },
+    "typeTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Type"
+    },
+    "sizeTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Size"
+    },
+    "bookButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button",
+      "required": true
+    },
+    "seeDetailsButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button",
+      "required": true
+    },
+    "continueTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Continue"
+    },
+    "initialLatitude": {
+      "type": "float",
+      "required": true
+    },
+    "initialLongitude": {
+      "type": "float",
+      "required": true
+    },
+    "initialZoom": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

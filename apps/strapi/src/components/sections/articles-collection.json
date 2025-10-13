@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_sections_articles_collections",
+  "info": {
+    "displayName": "ArticlesCollection"
+  },
+  "options": {},
+  "attributes": {
+    "searchPlaceholder": {
+      "type": "string",
+      "default": "Search",
+      "required": true
+    },
+    "filterPlaceholder": {
+      "type": "string",
+      "required": true,
+      "default": "Filter by tags"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "news",
+        "blog"
+      ],
+      "required": true
+    }
+  }
+}

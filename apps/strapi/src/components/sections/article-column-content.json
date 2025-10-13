@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_article_column_contents",
+  "info": {
+    "displayName": "ArticleColumnContent",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "columns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.article-content",
+      "required": true,
+      "max": 2,
+      "min": 2
+    }
+  }
+}

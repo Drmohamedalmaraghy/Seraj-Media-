@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_utilities_form_fields",
+  "info": {
+    "displayName": "FormField"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "requiredErrorText": {
+      "type": "text",
+      "default": "This filed is required"
+    }
+  }
+}

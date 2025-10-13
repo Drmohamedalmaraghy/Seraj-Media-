@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_sections_contacts",
+  "info": {
+    "displayName": "Contacts",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "form": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.contact-us-form"
+    },
+    "cards": {
+      "displayName": "ContactsCard",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.contacts-card"
+    },
+    "pinLatitude": {
+      "type": "float"
+    },
+    "pinLongitude": {
+      "type": "float"
+    },
+    "mapZoom": {
+      "type": "integer"
+    },
+    "customMapPin": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    }
+  }
+}

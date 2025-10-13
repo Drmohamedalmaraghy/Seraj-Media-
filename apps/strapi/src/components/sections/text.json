@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_texts",
+  "info": {
+    "displayName": "Text"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "utilities.button"
+    }
+  }
+}

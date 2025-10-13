@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_sections_one_page_helpers",
+  "info": {
+    "displayName": "OnePageHelper"
+  },
+  "options": {},
+  "attributes": {
+    "screenInfo": {
+      "type": "string",
+      "default": "Screen Information",
+      "required": true
+    },
+    "alsoInterested": {
+      "type": "string",
+      "default": "Might also be interested in",
+      "required": true
+    },
+    "seeMore": {
+      "type": "string",
+      "default": "See more",
+      "required": true
+    },
+    "prev": {
+      "type": "string",
+      "default": "Prev",
+      "required": true
+    },
+    "next": {
+      "type": "string",
+      "default": "Next",
+      "required": true
+    },
+    "contactUsLabel": {
+      "type": "string",
+      "required": true,
+      "default": "Contact For Booking"
+    },
+    "seeDetails": {
+      "type": "string",
+      "default": "See Details",
+      "required": true
+    }
+  }
+}

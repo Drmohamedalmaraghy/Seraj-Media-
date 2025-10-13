@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_sections_main_locations",
+  "info": {
+    "displayName": "MainLocations",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "utilities.button"
+    },
+    "note": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "backgroundColor": {
+      "type": "customField",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "customField": "plugin::color-picker.color",
+      "default": "#EC2426"
+    },
+    "itemsCount": {
+      "type": "integer",
+      "default": 3,
+      "required": true
+    },
+    "contactUsLabel": {
+      "type": "string",
+      "default": "Contact For Booking"
+    },
+    "seeDetailsLabel": {
+      "type": "string",
+      "default": "See Details"
+    }
+  }
+}

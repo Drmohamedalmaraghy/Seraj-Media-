@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_elements_text_image_items",
+  "info": {
+    "displayName": "TextImageItem"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    }
+  }
+}

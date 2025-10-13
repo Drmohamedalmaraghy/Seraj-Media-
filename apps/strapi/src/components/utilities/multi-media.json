@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_utilities_multi_medias",
+  "info": {
+    "displayName": "MultiMedia"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    },
+    "video": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-video"
+    }
+  }
+}

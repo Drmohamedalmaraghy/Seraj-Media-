@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_sections_contact_us_forms",
+  "info": {
+    "displayName": "ContactUsForm"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "nameField": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.form-field"
+    },
+    "mailField": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.form-field"
+    },
+    "businessField": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.form-field"
+    },
+    "descriptionField": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.form-field"
+    },
+    "submitButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button"
+    }
+  }
+}

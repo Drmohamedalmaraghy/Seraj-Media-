@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_sections_news",
+  "info": {
+    "displayName": "News"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button"
+    },
+    "itemsCount": {
+      "type": "integer"
+    }
+  }
+}

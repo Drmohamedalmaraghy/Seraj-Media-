@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_statistics",
+  "info": {
+    "displayName": "Statistics",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "displayName": "StatisticItem",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.statistic-item",
+      "required": true
+    }
+  }
+}

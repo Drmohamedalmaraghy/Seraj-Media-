@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_elements_industries_items",
+  "info": {
+    "displayName": "IndustriesItem"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    },
+    "image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    }
+  }
+}

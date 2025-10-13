@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_sections_industries",
+  "info": {
+    "displayName": "Industries"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "items": {
+      "displayName": "IndustriesItem",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.industries-item",
+      "required": true
+    }
+  }
+}

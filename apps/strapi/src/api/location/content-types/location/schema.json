@@ -1,0 +1,110 @@
+{
+  "kind": "collectionType",
+  "collectionName": "locations",
+  "info": {
+    "singularName": "location",
+    "pluralName": "locations",
+    "displayName": "Location",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::city.city",
+      "inversedBy": "locations"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "OOH",
+        "DOOH"
+      ],
+      "default": "DOOH",
+      "required": true
+    },
+    "isMainLocation": {
+      "type": "boolean",
+      "default": false
+    },
+    "photo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    },
+    "multimedia": {
+      "type": "component",
+      "repeatable": true,
+      "component": "utilities.multi-media"
+    },
+    "latitude": {
+      "type": "float",
+      "required": true
+    },
+    "longitude": {
+      "type": "float",
+      "required": true
+    },
+    "width": {
+      "type": "integer",
+      "required": true
+    },
+    "height": {
+      "type": "integer",
+      "required": true
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page",
+      "inversedBy": "location"
+    },
+    "mapIcon": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "sizeFormFactor": {
+      "type": "enumeration",
+      "enum": [
+        "megacom",
+        "unipole",
+        "mupi",
+        "screen"
+      ]
+    },
+    "installationType": {
+      "type": "enumeration",
+      "enum": [
+        "landscape",
+        "rooftop",
+        "bridge",
+        "wallscape"
+      ],
+      "required": true
+    }
+  }
+}

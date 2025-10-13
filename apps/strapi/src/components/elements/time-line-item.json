@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_elements_time_line_items",
+  "info": {
+    "displayName": "TimeLineItem"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    }
+  }
+}

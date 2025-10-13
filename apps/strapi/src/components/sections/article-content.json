@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_sections_article_contents",
+  "info": {
+    "displayName": "ArticleContent",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "anchorTitle": {
+      "type": "text"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "medias": {
+      "type": "component",
+      "repeatable": true,
+      "component": "utilities.multi-media"
+    },
+    "mediaPosition": {
+      "type": "enumeration",
+      "enum": ["before_title", "after_title", "bottom"],
+      "required": true
+    }
+  }
+}

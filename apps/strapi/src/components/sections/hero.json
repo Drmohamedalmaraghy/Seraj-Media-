@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_sections_heroes",
+  "info": {
+    "displayName": "Hero",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titles": {
+      "type": "component",
+      "repeatable": true,
+      "required": true,
+      "component": "utilities.text"
+    },
+    "titlesSize": {
+      "type": "enumeration",
+      "enum": ["small", "medium", "large"],
+      "default": "medium",
+      "required": true
+    },
+    "topDescription": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "botDescription": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button"
+    },
+    "backgroundMedia": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.multi-media"
+    },
+    "isWithFilters": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

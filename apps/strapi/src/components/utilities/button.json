@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_utilities_buttons",
+  "info": {
+    "displayName": "Button",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "href": {
+      "type": "text"
+    },
+    "newTab": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary"
+      ],
+      "default": "primary",
+      "required": true
+    },
+    "icon": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    }
+  }
+}

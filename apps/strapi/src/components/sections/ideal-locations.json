@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_sections_ideal_locations",
+  "info": {
+    "displayName": "IdealLocations"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "note": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "video": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-video"
+    },
+    "items": {
+      "displayName": "IdealLocationsItem",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.ideal-locations-item"
+    }
+  }
+}

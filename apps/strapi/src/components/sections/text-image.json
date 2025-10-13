@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_sections_text_images",
+  "info": {
+    "displayName": "TextImage",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    },
+    "items": {
+      "displayName": "TextImageItem",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.text-image-item"
+    }
+  }
+}

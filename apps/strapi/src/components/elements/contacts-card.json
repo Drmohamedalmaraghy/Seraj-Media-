@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_elements_contacts_cards",
+  "info": {
+    "displayName": "ContactsCard"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    }
+  }
+}

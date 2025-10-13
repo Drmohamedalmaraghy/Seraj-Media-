@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_seo_utilities_meta_socials",
+  "info": {
+    "displayName": "metaSocial",
+    "icon": "project-diagram"
+  },
+  "options": {},
+  "attributes": {
+    "socialNetwork": {
+      "type": "enumeration",
+      "enum": ["Facebook", "Twitter"],
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "allowedTypes": ["images", "files", "videos"],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

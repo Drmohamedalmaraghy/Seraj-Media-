@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_sections_teams",
+  "info": {
+    "displayName": "Team"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "prevLabel": {
+      "type": "string",
+      "default": "Prev"
+    },
+    "nextLabel": {
+      "type": "string",
+      "default": "Next"
+    },
+    "items": {
+      "displayName": "Teammate",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.teammate"
+    }
+  }
+}

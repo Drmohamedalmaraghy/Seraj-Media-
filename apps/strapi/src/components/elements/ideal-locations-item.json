@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_elements_ideal_locations_items",
+  "info": {
+    "displayName": "IdealLocationsItem"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    },
+    "gridSize": {
+      "type": "enumeration",
+      "enum": ["one", "two", "three", "four"],
+      "default": "one",
+      "required": true
+    }
+  }
+}
