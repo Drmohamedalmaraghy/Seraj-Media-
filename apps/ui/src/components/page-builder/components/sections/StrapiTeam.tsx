@@ -117,8 +117,7 @@ export function StrapiTeam({
                   className={cn(
                     "bg-stroke relative h-60 max-w-50 min-w-50 overflow-hidden rounded",
                     "lg:h-120 lg:max-w-100 lg:min-w-100",
-                    lastItem && "me-4",
-                    !selected && "max-w-20 min-w-20 lg:max-w-40 lg:min-w-40"
+                    lastItem && "me-4"
                   )}
                 >
                   {item.photo ? (
