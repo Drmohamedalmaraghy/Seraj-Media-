@@ -24,19 +24,18 @@ const HeaderItems = ({
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [open, setOpen] = useState(false)
- const currentFullPath =
-  pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "")
+  const currentFullPath =
+    pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "")
 
-  const normalize = (url: string) =>
-  url.replace(/^\/(ar|en|ua)(\/|$)/, "/")
+  const normalize = (url: string) => url.replace(/^\/(ar|en|ua)(\/|$)/, "/")
   const currentNorm = normalize(currentFullPath)
 
-const isLinkActive = (href?: string | null) => {
-  if (!href) return false
-  const hrefNorm = normalize(href)
-  if (hrefNorm === "/") return currentNorm === "/"
-  return currentNorm.startsWith(hrefNorm)
-}
+  const isLinkActive = (href?: string | null) => {
+    if (!href) return false
+    const hrefNorm = normalize(href)
+    if (hrefNorm === "/") return currentNorm === "/"
+    return currentNorm.startsWith(hrefNorm)
+  }
 
   return (
     <div

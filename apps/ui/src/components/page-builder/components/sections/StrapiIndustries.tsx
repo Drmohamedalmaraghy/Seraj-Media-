@@ -18,11 +18,11 @@ export function StrapiIndustries({
   return (
     <Section>
       <Container className="flex-col gap-3 md:gap-10">
-        <div className="flex flex-col items-center md:gap-7 gap-3">
+        <div className="flex flex-col items-center gap-3 md:gap-7">
           {title ? (
             <CkEditorSSRRenderer
               htmlContent={title?.content}
-              className="lg:text-[40px] text-[27px] font-medium text-black"
+              className="text-[27px] font-medium text-black lg:text-[40px]"
             />
           ) : null}
 
