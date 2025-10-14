@@ -58,7 +58,11 @@ export function StrapiTeam({
       <Carousel
         className={cn("mx-auto flex w-full max-w-384 flex-col gap-4 lg:gap-8")}
         setApi={setApi}
-        opts={{ loop: true }}
+        opts={{
+          loop: true,
+          align: "start",
+          containScroll: "trimSnaps",
+        }}
       >
         <div
           className={cn(
@@ -100,6 +104,9 @@ export function StrapiTeam({
         {items ? (
           <CarouselContent className="ms-0 me-0 items-end gap-4">
             {items.map((item, index, itemsArr) => {
+              const selected = selectedIndex === index
+              const lastItem = index === itemsArr.length - 1
+
               return (
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events
                 <div
@@ -108,14 +115,15 @@ export function StrapiTeam({
                   onClick={() => api?.scrollTo(index)}
                   key={item.id}
                   className={cn(
-                    "bg-stroke relative h-70 min-w-70 overflow-hidden rounded",
-                    "lg:h-120 lg:min-w-120",
-                    index === itemsArr.length - 1 && "me-4"
+                    "bg-stroke relative h-60 max-w-50 min-w-50 overflow-hidden rounded",
+                    "lg:h-120 lg:max-w-100 lg:min-w-100",
+                    lastItem && "me-4",
+                    !selected && "max-w-20 min-w-20 lg:max-w-40 lg:min-w-40"
                   )}
                 >
                   {item.photo ? (
                     <StrapiBasicImage
-                      className="!h-auto !w-full"
+                      className="!h-full !w-full object-cover"
                       component={item.photo}
                     />
                   ) : null}
@@ -123,8 +131,7 @@ export function StrapiTeam({
                   <div
                     className={cn(
                       "absolute bottom-0 left-0 z-20 flex h-full w-full flex-col justify-end gap-3 p-6",
-                      selectedIndex === index &&
-                        "from-primary bg-linear-to-t to-transparent"
+                      selected && "from-primary bg-linear-to-t to-transparent"
                     )}
                   >
                     {item.name ? (

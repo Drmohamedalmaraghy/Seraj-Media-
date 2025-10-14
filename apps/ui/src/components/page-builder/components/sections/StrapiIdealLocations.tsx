@@ -66,9 +66,9 @@ export function StrapiIdealLocations({
         ) : null}
 
         <div className="flex flex-col gap-7">
-          {video?.youtubeUrl ? (
+          {video?.youtubeUrl || video?.uploadedVideo?.url ? (
             <div className="h-80 w-full sm:h-100 lg:h-148">
-              <VideoCSR src={video.youtubeUrl} />
+              <VideoCSR src={video?.uploadedVideo?.url ?? video?.youtubeUrl} />
             </div>
           ) : null}
 

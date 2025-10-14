@@ -46,7 +46,7 @@ export async function fetchPage(
               },
               multimedia: {
                 populate: {
-                  video: true,
+                  video: { populate: { uploadedVideo: true } },
                   image: {
                     populate: {
                       media: true,

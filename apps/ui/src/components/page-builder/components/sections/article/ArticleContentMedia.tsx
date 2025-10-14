@@ -123,13 +123,16 @@ const ArticleContentMediaItem = ({
     )
   }
 
-  if (singleVideo && singleVideo.youtubeUrl) {
+  if (
+    singleVideo &&
+    (singleVideo?.uploadedVideo?.url || singleVideo.youtubeUrl)
+  ) {
     return (
       <div className="flex min-w-full cursor-pointer justify-center">
         <VideoCSR
           className="rounded-[10px]"
           key={`${singleVideo.id}-video`}
-          src={singleVideo.youtubeUrl}
+          src={singleVideo?.uploadedVideo?.url ?? singleVideo.youtubeUrl}
         />
       </div>
     )

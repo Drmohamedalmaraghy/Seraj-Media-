@@ -49,6 +49,7 @@ export function OnePageHelperMedia({
       )}
     />
   )
+  console.log("multimedia ", multimedia)
 
   if (multimedia && multimedia?.length) {
     return (
@@ -57,7 +58,7 @@ export function OnePageHelperMedia({
           className="overflow-hidden rounded-[10px]"
           ref={emblaRef}
         >
-          <div className="flex max-h-145">
+          <div className="flex h-full">
             {[{ id: 0, image: photo }, ...multimedia].map((mediaItem) => {
               const { image, video } = mediaItem
 
@@ -68,14 +69,14 @@ export function OnePageHelperMedia({
                     className="flex min-w-full cursor-pointer justify-center rounded-[10px]"
                   >
                     <StrapiBasicImage
-                      className="!h-full !w-full object-cover"
+                      className="!h-full !w-auto object-cover object-bottom"
                       component={image}
                     />
                   </div>
                 )
               }
 
-              if (video?.youtubeUrl) {
+              if (video?.youtubeUrl || video?.uploadedVideo?.url) {
                 return (
                   <div
                     key={`${video.id}-video`}
@@ -84,7 +85,7 @@ export function OnePageHelperMedia({
                     <VideoCSR
                       className="rounded-[10px]"
                       key={`${video.id}-video`}
-                      src={video.youtubeUrl}
+                      src={video?.uploadedVideo?.url ?? video?.youtubeUrl}
                     />
                   </div>
                 )
@@ -127,7 +128,7 @@ export function OnePageHelperMedia({
     <div className="relative max-h-145 w-full rounded-[10px]">
       <StrapiBasicImage
         component={photo}
-        className="!h-full !w-full rounded-[10px] object-cover"
+        className="!h-full !w-auto rounded-[10px] object-cover object-bottom"
       />
       {shadowGradient}
     </div>

@@ -3,6 +3,7 @@ import { Data } from "@repo/strapi"
 import { cn } from "@/lib/styles"
 import CkEditorSSRRenderer from "@/components/elementary/ck-editor/CkEditorSSRRenderer"
 import { InfoCarousel } from "@/components/elementary/InfoCarousel"
+import ScrollArrow from "@/components/icons/ScrollArrow"
 import StrapiButton from "@/components/page-builder/components/utilities/StrapiButton"
 
 const BG_GRADIENT =
@@ -85,7 +86,7 @@ export function StrapiHero({
           />
         </>
       ) : null}
-
+      <ScrollArrow className="absolute bottom-5 hidden lg:block" />
       <div id="portal-filters-location" className="mb-6 w-full px-4" />
     </section>
   )

@@ -1,6 +1,7 @@
 import { Data } from "@repo/strapi"
 
 import { PublicStrapiClient } from "@/lib/strapi-api"
+import BackButton from "@/components/elementary/BackButton"
 import { Container } from "@/components/elementary/Container"
 import { Section } from "@/components/elementary/Section"
 import { LocationIcon } from "@/components/icons/LocationIcon"
@@ -56,95 +57,102 @@ export async function StrapiOnePageHelper({
   return (
     <Section className="mt-5 flex-col gap-5 !pt-[80px] md:gap-10 lg:gap-15 lg:pt-0">
       {location.photo ? (
-        <Container size="3xl">
-          <OnePageHelperMedia
-            multimedia={location.multimedia}
-            photo={location.photo}
-          />
+        <Container className="flex-col gap-5" size="3xl">
+          <div className="flex flex-col gap-5 lg:gap-15 xl:flex-row">
+            <div className="flex h-full flex-col gap-5 xl:max-w-2/3">
+              <OnePageHelperMedia
+                multimedia={location.multimedia}
+                photo={location.photo}
+              />
+
+              <div className="flex flex-col gap-5 xl:hidden">
+                {seo?.metaDescription ? (
+                  <p className="text-dark-50 text-base leading-[132%] font-normal">
+                    {seo.metaDescription}
+                  </p>
+                ) : null}
+
+                <BackButton />
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-between gap-5 md:gap-10">
+              <div className="flex flex-col gap-4">
+                {seo?.metaTitle ? (
+                  <h1 className="text-[40px] font-bold md:text-[60px]">
+                    {seo.metaTitle}
+                  </h1>
+                ) : null}
+
+                {title ? (
+                  <div className="flex items-center gap-2 text-base font-medium sm:text-[24px]">
+                    <LocationIcon className="w-[20px] sm:w-auto" />
+                    <span>{location.name}</span>
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="flex w-fit flex-col gap-6">
+                {screenInfo ? (
+                  <h3 className="text-3xl leading-[normal] font-semibold">
+                    {screenInfo}
+                  </h3>
+                ) : null}
+
+                <div className="bg-dark-5 text-dark-50 flex flex-wrap gap-8 rounded-xl px-6 py-5 text-xs lg:text-base">
+                  {location.width || location.height ? (
+                    <div className="flex items-center gap-2">
+                      <ResolutionIcon />
+                      {`${location.width ?? "00"}x${location.height ?? "00"}`}
+                    </div>
+                  ) : null}
+
+                  {location.sizeFormFactor ? (
+                    <div className="flex items-center gap-2 capitalize">
+                      <PlaySmallIcon />
+                      {location.sizeFormFactor}
+                    </div>
+                  ) : null}
+
+                  {location.installationType ? (
+                    <div className="flex items-center gap-2 capitalize">
+                      <ScreenIcon />
+                      {location.installationType}
+                    </div>
+                  ) : null}
+
+                  {location.type ? (
+                    <div className="flex items-center gap-2 capitalize">
+                      <SizeIcon />
+                      {location.type}
+                    </div>
+                  ) : null}
+                </div>
+                <StrapiButton
+                  className="m-0 flex self-start"
+                  size="lg"
+                  component={{
+                    label: contactUsLabel,
+                    id: 1,
+                    variant: "primary",
+                    href: `#contact-us`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden flex-col gap-5 xl:flex">
+            {seo?.metaDescription ? (
+              <p className="text-dark-50 text-base leading-[132%] font-normal">
+                {seo.metaDescription}
+              </p>
+            ) : null}
+
+            <BackButton />
+          </div>
         </Container>
       ) : null}
-
-      <Container
-        size="2xl"
-        className="flex-col justify-between gap-5 md:gap-10 lg:flex-row"
-      >
-        <div className="flex flex-col gap-4">
-          {seo?.metaTitle ? (
-            <h1 className="text-[40px] font-bold md:text-[60px]">
-              {seo.metaTitle}
-            </h1>
-          ) : null}
-
-          {title ? (
-            <div className="flex items-center gap-2 text-base font-medium sm:text-[24px]">
-              <LocationIcon className="w-[20px] sm:w-auto" />
-              <span>{location.name}</span>
-            </div>
-          ) : null}
-
-          {seo?.metaDescription ? (
-            <p className="text-dark-50 text-base leading-[132%] font-normal">
-              {seo.metaDescription}
-            </p>
-          ) : null}
-
-          {/* <StrapiLink
-            className="text-primary text-base leading-[132%] font-medium underline-offset-2 hover:underline"
-            component={{ id: 2, href: "/" }}
-          >
-            {seeMore}
-            <ChevronRight className="h-4 w-4" />
-          </StrapiLink> */}
-        </div>
-
-        <div className="flex w-fit flex-col gap-6">
-          {screenInfo ? (
-            <h3 className="text-3xl leading-[normal] font-semibold">
-              {screenInfo}
-            </h3>
-          ) : null}
-
-          <div className="bg-dark-5 text-dark-50 flex flex-wrap gap-8 rounded-xl px-6 py-5 text-xs lg:text-base">
-            {location.width || location.height ? (
-              <div className="flex items-center gap-2">
-                <ResolutionIcon />
-                {`${location.width ?? "00"}x${location.height ?? "00"}`}
-              </div>
-            ) : null}
-
-            {location.sizeFormFactor ? (
-              <div className="flex items-center gap-2 capitalize">
-                <PlaySmallIcon />
-                {location.sizeFormFactor}
-              </div>
-            ) : null}
-
-            {location.installationType ? (
-              <div className="flex items-center gap-2 capitalize">
-                <ScreenIcon />
-                {location.installationType}
-              </div>
-            ) : null}
-
-            {location.type ? (
-              <div className="flex items-center gap-2 capitalize">
-                <SizeIcon />
-                {location.type}
-              </div>
-            ) : null}
-          </div>
-          <StrapiButton
-            className="m-0 flex self-start"
-            size="lg"
-            component={{
-              label: contactUsLabel,
-              id: 1,
-              variant: "primary",
-              href: `#contact-us`,
-            }}
-          />
-        </div>
-      </Container>
 
       <Container size="2xl" className="flex-col">
         <OnePageLocationCarousel

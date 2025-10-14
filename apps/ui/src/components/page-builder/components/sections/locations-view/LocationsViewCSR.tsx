@@ -111,7 +111,7 @@ const LocationsViewCSR: FC<Props> = ({ regions, component, locale }) => {
             type="button"
             onClick={scrollToSection}
             className={cn(
-              "fixed right-3 bottom-6 z-[1000] flex cursor-pointer items-center justify-center rounded-full",
+              "fixed right-3 bottom-6 z-[1000] flex items-center cursor-pointer justify-center rounded-full",
               "bg-white p-3 shadow-[1px_3.5px_12.5px_0_rgba(0,0,0,0.15)] transition hover:scale-120"
             )}
           >

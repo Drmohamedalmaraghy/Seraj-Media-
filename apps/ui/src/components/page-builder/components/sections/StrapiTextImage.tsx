@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Data } from "@repo/strapi"
 import { CircleCheck } from "lucide-react"
 
@@ -62,11 +63,11 @@ export function StrapiTextImage({
           ) : null}
         </div>
 
-        <div className="flex md:w-1/2">
+        <Link className="flex md:w-1/2" href="/locations?tab=map">
           {image?.media ? (
             <StrapiBasicImage className="!h-auto !w-full" component={image} />
           ) : null}
-        </div>
+        </Link>
       </Container>
     </Section>
   )
