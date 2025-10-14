@@ -17,7 +17,7 @@ export default [
             "*.amazonaws.com",
             "https://seraj-media-contents.fra1.digitaloceanspaces.com",
             "https://seraj-media-content.fra1.digitaloceanspaces.com",
-            "https://seraj-media-contents.fra1.cdn.digitaloceanspaces.com/",
+            "https://seraj-media-contents.fra1.cdn.digitaloceanspaces.com",
           ],
           "img-src": [
             "'self'",
@@ -48,7 +48,7 @@ export default [
             "*.amazonaws.com",
             "https://seraj-media-contents.fra1.digitaloceanspaces.com",
             "https://seraj-media-content.fra1.digitaloceanspaces.com",
-            "https://seraj-media-contents.fra1.cdn.digitaloceanspaces.com/",
+            "https://seraj-media-contents.fra1.cdn.digitaloceanspaces.com",
           ],
         },
       },
