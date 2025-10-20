@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Data } from "@repo/strapi"
 
 import { cn } from "@/lib/styles"
@@ -21,24 +21,6 @@ export function StrapiTeam({
   readonly component: Data.Component<"sections.team">
 }) {
   const [api, setApi] = useState<CarouselApi | null>(null)
-  const [selectedIndex, setSelectedIndex] = useState(0)
-
-  useEffect(() => {
-    if (!api) return
-
-    const onSelect = () => {
-      const index = api.selectedScrollSnap()
-      setSelectedIndex(index)
-    }
-
-    api.on("select", onSelect)
-
-    onSelect()
-
-    return () => {
-      api.off("select", onSelect)
-    }
-  }, [api])
 
   if (!component) {
     return null
@@ -52,7 +34,7 @@ export function StrapiTeam({
         "from-dark-5 bg-linear-to-b from-65% to-white to-35%",
         "lg:from-75% lg:to-25%",
         "ltr:!pr-0",
-        "rtl:-ms-5 rtl:md:-ms-10 rtl:lg:-ms-15"
+        "rtl:-ms-5 rtl:md:-ms-10 rtl:lg:-ms-1"
       )}
     >
       <Carousel
@@ -104,7 +86,6 @@ export function StrapiTeam({
         {items ? (
           <CarouselContent className="ms-0 me-0 items-end gap-4">
             {items.map((item, index, itemsArr) => {
-              const selected = selectedIndex === index
               const lastItem = index === itemsArr.length - 1
 
               return (
@@ -129,8 +110,7 @@ export function StrapiTeam({
 
                   <div
                     className={cn(
-                      "absolute bottom-0 left-0 z-20 flex h-full w-full flex-col justify-end gap-3 p-6",
-                      selected && "from-primary bg-linear-to-t to-transparent"
+                      "absolute bottom-0 left-0 z-20 flex h-full w-full flex-col justify-end gap-3 p-6"
                     )}
                   >
                     {item.name ? (

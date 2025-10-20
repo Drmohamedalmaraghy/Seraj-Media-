@@ -143,13 +143,16 @@ export async function StrapiOnePageHelper({
           </div>
 
           <div className="hidden flex-col gap-5 xl:flex">
+            <div className="flex items-center gap-2">
+              <BackButton />
+              {/* TODO add text for strapi */}
+              <p>Back</p>
+            </div>
             {seo?.metaDescription ? (
               <p className="text-dark-50 text-base leading-[132%] font-normal">
                 {seo.metaDescription}
               </p>
             ) : null}
-
-            <BackButton />
           </div>
         </Container>
       ) : null}

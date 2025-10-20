@@ -19,7 +19,7 @@ export function getDefaultMetadata(
     applicationName: t("applicationName"),
 
     icons: {
-      icon: "favicon.ico",
+      icon: "favicon.png",
     },
 
     alternates: {

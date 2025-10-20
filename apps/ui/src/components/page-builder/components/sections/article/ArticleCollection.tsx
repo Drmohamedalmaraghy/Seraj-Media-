@@ -51,7 +51,7 @@ const ArticleCollection: FC<Props> = ({ infoContentFilter, type }) => {
       )}
 
       <div
-        className="grid w-full grid-cols-1 justify-center gap-3 md:grid-cols-3 md:gap-6"
+        className="mt-8 grid w-full grid-cols-1 justify-center gap-3 md:grid-cols-3 md:gap-6"
         ref={cardsRef}
       >
         {articles.map((item) => {

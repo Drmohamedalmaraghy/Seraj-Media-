@@ -55,6 +55,6 @@ export const config = {
     `/(ar|en)/:path*`,
 
     // Skip all paths that should not be internationalized
-    "/((?!_next|_vercel|api|robots.txt|favicon.ico|sitemap|.*\\..*).*)",
+    "/((?!_next|_vercel|api|robots.txt|favicon.png|sitemap|.*\\..*).*)",
   ],
 }
