@@ -27,42 +27,47 @@ export function ArticleHero({
         className="mt-15 flex-col gap-5 md:mt-10 lg:mt-5 lg:gap-7"
         size="2xl"
       >
-        <div className="flex items-center justify-between">
-          {title ? (
-            <h1
-              className={cn(
-                "w-full text-[20px] leading-[120%] font-normal text-black",
-                "md:text-[30px]",
-                "lg:text-[40px]"
-              )}
-            >
-              {title}
-            </h1>
-          ) : null}
-        </div>
-
-        {image ? (
-          <StrapiBasicImage
-            component={image}
-            className="!h-auto max-h-123 !w-full rounded-[10px] object-cover"
-          />
-        ) : null}
-
-        {author ? (
-          <div className="flex justify-between gap-12.5">
-            <AuthorBlock author={author} />
-
-            {articlePublicationDate ? (
-              <div className="text-dark-50 flex items-center gap-1 text-xs leading-5 font-medium lg:ms-auto">
-                <Calendar className="h-4 w-4" />
-                {getFormattedDate(
-                  articlePublicationDate,
-                  (author.locale as AppLocale) ?? "en"
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
+          <div className="flex h-full flex-1 flex-col justify-between gap-5">
+            {title ? (
+              <h1
+                className={cn(
+                  "w-full text-[20px] leading-[120%] font-normal text-black",
+                  "md:text-[30px]",
+                  "lg:text-[40px]"
                 )}
+              >
+                {title}
+              </h1>
+            ) : null}
+
+            {author ? (
+              <div className="flex justify-between gap-12.5">
+                <AuthorBlock author={author} />
+
+                {articlePublicationDate ? (
+                  <div className="text-dark-50 flex items-center gap-1 text-xs leading-5 font-medium lg:ms-auto">
+                    <Calendar className="h-4 w-4" />
+                    {getFormattedDate(
+                      articlePublicationDate,
+                      (author.locale as AppLocale) ?? "en"
+                    )}
+                  </div>
+                ) : null}
               </div>
             ) : null}
           </div>
-        ) : null}
+
+          {/* RIGHT SIDE (IMAGE) */}
+          {image ? (
+            <div className="w-full shrink-0 lg:w-[45%]">
+              <StrapiBasicImage
+                component={image}
+                className="!h-auto max-h-123 !w-full rounded-[10px] object-cover"
+              />
+            </div>
+          ) : null}
+        </div>
       </Container>
     </Section>
   )
@@ -86,7 +91,7 @@ const AuthorBlock = async ({
         />
       ) : null}
 
-      {author.name || author.pages?.length ? (
+      {(author.name || author.pages?.length) && (
         <div className="flex flex-col gap-0.5">
           {author.name ? (
             <span className="text-xs leading-[normal] font-medium lg:text-sm">
@@ -100,7 +105,7 @@ const AuthorBlock = async ({
             </span>
           ) : null}
         </div>
-      ) : null}
+      )}
     </div>
   )
 }
