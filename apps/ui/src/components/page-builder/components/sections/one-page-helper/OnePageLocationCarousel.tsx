@@ -56,7 +56,7 @@ export const OnePageLocationCarousel = ({
             return (
               <CardLocation
                 image={location.photo}
-                leftPart={`${location.longitude ?? "00"}x${location.latitude ?? "00"}`}
+                leftPart={`${location.width ?? "00"}x${location.height ?? "00"}`}
                 rightPart={location.type ?? ""}
                 title={location.name ?? ""}
                 key={index}

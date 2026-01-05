@@ -49,7 +49,6 @@ export function OnePageHelperMedia({
       )}
     />
   )
-  console.log("multimedia ", multimedia)
 
   if (multimedia && multimedia?.length) {
     return (
