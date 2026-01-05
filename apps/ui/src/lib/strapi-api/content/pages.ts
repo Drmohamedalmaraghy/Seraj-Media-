@@ -1,3 +1,5 @@
+import { AppLocale } from "@/types/general"
+
 import { PublicStrapiClient } from "@/lib/strapi-api"
 
 export const PARENT_FULL_PATHS = {
@@ -11,15 +13,18 @@ export async function fetchArticle({
   pathName,
   tagIds,
   search,
+  locale = "en",
 }: {
   page?: number
   pageSize?: number
   pathName?: string
   tagIds?: number[]
   search?: string
+  locale?: AppLocale
 } = {}) {
   try {
     return await PublicStrapiClient.fetchMany("api::page.page", {
+      locale,
       filters: {
         parent: {
           fullPath: { $eq: pathName },

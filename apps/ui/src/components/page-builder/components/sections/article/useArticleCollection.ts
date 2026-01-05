@@ -3,6 +3,9 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Data } from "@repo/strapi"
+import { useLocale } from "next-intl"
+
+import { AppLocale } from "@/types/general"
 
 import { fetchArticle, PARENT_FULL_PATHS } from "@/lib/strapi-api/content/pages"
 import { ArticleCollectionTypes } from "@/components/page-builder/components/sections/article/ArticleCollection"
@@ -25,6 +28,7 @@ interface Output {
 }
 
 const useArticleCollection = ({ type }: Input): Output => {
+  const locale = useLocale() as AppLocale
   const router = useRouter()
   const params =
     typeof window !== "undefined"
@@ -73,6 +77,7 @@ const useArticleCollection = ({ type }: Input): Output => {
     }) => {
       try {
         const res = await fetchArticle({
+          locale,
           page: pageNumber,
           pageSize,
           tagIds: tags,
@@ -91,7 +96,7 @@ const useArticleCollection = ({ type }: Input): Output => {
         setTotalPages(1)
       }
     },
-    [pageSize, type]
+    [locale, pageSize, type]
   )
 
   useEffect(() => {
