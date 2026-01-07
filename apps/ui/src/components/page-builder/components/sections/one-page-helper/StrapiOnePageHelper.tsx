@@ -2,6 +2,7 @@ import { Data } from "@repo/strapi"
 
 import { PublicStrapiClient } from "@/lib/strapi-api"
 import BackButton from "@/components/elementary/BackButton"
+import CkEditorSSRRenderer from "@/components/elementary/ck-editor/CkEditorSSRRenderer"
 import { Container } from "@/components/elementary/Container"
 import { Section } from "@/components/elementary/Section"
 import { LocationIcon } from "@/components/icons/LocationIcon"
@@ -34,8 +35,15 @@ export async function StrapiOnePageHelper({
 
   const { seo, title, location } = page
 
-  const { alsoInterested, contactUsLabel, next, prev, screenInfo, seeDetails } =
-    component
+  const {
+    alsoInterested,
+    contactUsLabel,
+    next,
+    prev,
+    screenInfo,
+    seeDetails,
+    description,
+  } = component
 
   const { data: locationsCards } = await PublicStrapiClient.fetchMany(
     "api::location.location",
@@ -66,10 +74,11 @@ export async function StrapiOnePageHelper({
               />
 
               <div className="flex flex-col gap-5 xl:hidden">
-                {seo?.metaDescription ? (
-                  <p className="text-dark-50 text-base leading-[132%] font-normal">
-                    {seo.metaDescription}
-                  </p>
+                {description ? (
+                  <CkEditorSSRRenderer
+                    htmlContent={description?.content}
+                    className="text-dark-50 text-base leading-[132%] font-normal"
+                  />
                 ) : null}
 
                 <BackButton />

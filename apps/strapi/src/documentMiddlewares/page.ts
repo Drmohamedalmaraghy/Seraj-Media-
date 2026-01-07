@@ -49,7 +49,13 @@ export const registerPopulatePageMiddleware = ({ strapi }) => {
 const pagePopulateObject: FindOne<"api::page.page">["populate"] = {
   content: {
     on: {
-      "sections.one-page-helper": { populate: "*" },
+      "sections.one-page-helper": {
+        populate: {
+          description: {
+            fields: ["content", "id"],
+          },
+        },
+      },
       "sections.contacts": {
         populate: {
           customMapPin: {

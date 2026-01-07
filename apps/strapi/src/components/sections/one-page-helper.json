@@ -1,7 +1,8 @@
 {
   "collectionName": "components_sections_one_page_helpers",
   "info": {
-    "displayName": "OnePageHelper"
+    "displayName": "OnePageHelper",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -39,6 +40,11 @@
       "type": "string",
       "default": "See Details",
       "required": true
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
     }
   }
 }

@@ -381,6 +381,7 @@ export interface SectionsNews extends Struct.ComponentSchema {
 export interface SectionsOnePageHelper extends Struct.ComponentSchema {
   collectionName: "components_sections_one_page_helpers"
   info: {
+    description: ""
     displayName: "OnePageHelper"
   }
   attributes: {
@@ -390,6 +391,10 @@ export interface SectionsOnePageHelper extends Struct.ComponentSchema {
     contactUsLabel: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<"Contact For Booking">
+    description: Schema.Attribute.Component<
+      "utilities.ck-editor-content",
+      false
+    >
     next: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<"Next">
