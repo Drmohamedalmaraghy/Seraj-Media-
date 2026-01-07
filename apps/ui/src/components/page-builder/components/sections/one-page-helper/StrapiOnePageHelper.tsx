@@ -74,11 +74,10 @@ export async function StrapiOnePageHelper({
               />
 
               <div className="flex flex-col gap-5 xl:hidden">
-                {description ? (
-                  <CkEditorSSRRenderer
-                    htmlContent={description?.content}
-                    className="text-dark-50 text-base leading-[132%] font-normal"
-                  />
+                {seo?.metaDescription ? (
+                  <p className="text-dark-50 text-base leading-[132%] font-normal">
+                    {seo.metaDescription}
+                  </p>
                 ) : null}
 
                 <BackButton />
@@ -157,10 +156,11 @@ export async function StrapiOnePageHelper({
               {/* TODO add text for strapi */}
               <p>Back</p>
             </div>
-            {seo?.metaDescription ? (
-              <p className="text-dark-50 text-base leading-[132%] font-normal">
-                {seo.metaDescription}
-              </p>
+            {description ? (
+              <CkEditorSSRRenderer
+                htmlContent={description?.content}
+                className="text-dark-50 text-base leading-[132%] font-normal"
+              />
             ) : null}
           </div>
         </Container>
