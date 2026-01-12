@@ -23,6 +23,11 @@
       "repeatable": false,
       "component": "utilities.form-field"
     },
+    "phoneField": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.form-field"
+    },
     "descriptionField": {
       "type": "component",
       "repeatable": false,

@@ -618,6 +618,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Required
     isMainLocation: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>
+    isSizesHidden: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>
     latitude: Schema.Attribute.Float & Schema.Attribute.Required
     locale: Schema.Attribute.String
     localizations: Schema.Attribute.Relation<

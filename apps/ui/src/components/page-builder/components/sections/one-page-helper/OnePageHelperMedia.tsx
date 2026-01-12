@@ -41,15 +41,6 @@ export function OnePageHelperMedia({
     emblaApi.on("select", onSelect)
   }, [emblaApi, onSelect])
 
-  const shadowGradient = (
-    <div
-      className={cn(
-        "from-primary absolute rounded-b-[10px] bg-gradient-to-t to-transparent",
-        "bottom-0 h-[30%] w-full transition-opacity duration-300"
-      )}
-    />
-  )
-
   if (multimedia && multimedia?.length) {
     return (
       <Carousel className="mg:mt-3 relative mt-8 overflow-hidden rounded-[10px] lg:mt-0">
@@ -117,8 +108,6 @@ export function OnePageHelperMedia({
             ))}
           </div>
         ) : null}
-
-        {shadowGradient}
       </Carousel>
     )
   }
@@ -129,7 +118,6 @@ export function OnePageHelperMedia({
         component={photo}
         className="!h-full !w-auto rounded-[10px] object-cover object-bottom"
       />
-      {shadowGradient}
     </div>
   )
 }

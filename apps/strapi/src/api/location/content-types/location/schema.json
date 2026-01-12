@@ -105,6 +105,10 @@
         "wallscape"
       ],
       "required": true
+    },
+    "isSizesHidden": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

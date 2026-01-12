@@ -45,7 +45,11 @@ const MarkerWithInfoWindow = ({
               href={card?.page?.fullPath}
               image={card.photo}
               type={card.type}
-              size={`${card?.width}x${card?.height}${card?.sizeFormFactor && ` - ${card?.sizeFormFactor}`}`}
+              size={
+                card?.isSizesHidden
+                  ? ""
+                  : `${card?.width}x${card?.height}${card?.sizeFormFactor && ` - ${card?.sizeFormFactor}`}`
+              }
               title={card.fullName}
               contactUsLabel={contactUsLabel}
               seeDetailsButton={seeDetailsButton}
