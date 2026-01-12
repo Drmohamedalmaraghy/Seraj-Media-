@@ -81,7 +81,11 @@ export async function StrapiMainLocations({
                   imageContainerClassName="h-72"
                   image={location.photo}
                   leftPart={location.type ?? ""}
-                  rightPart={`${location?.width}x${location?.height}${location?.sizeFormFactor && ` - ${location?.sizeFormFactor}`}`}
+                  rightPart={
+                    location?.isSizesHidden
+                      ? ""
+                      : `${location?.width}x${location?.height}${location?.sizeFormFactor && ` - ${location?.sizeFormFactor}`}`
+                  }
                   title={location.name ?? ""}
                   key={location.id}
                   contactUsLabel={contactUsLabel ?? ""}

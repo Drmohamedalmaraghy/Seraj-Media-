@@ -218,6 +218,7 @@ export interface SectionsContactUsForm extends Struct.ComponentSchema {
     descriptionField: Schema.Attribute.Component<"utilities.form-field", false>
     mailField: Schema.Attribute.Component<"utilities.form-field", false>
     nameField: Schema.Attribute.Component<"utilities.form-field", false>
+    phoneField: Schema.Attribute.Component<"utilities.form-field", false>
     submitButton: Schema.Attribute.Component<"utilities.button", false>
     title: Schema.Attribute.String
   }

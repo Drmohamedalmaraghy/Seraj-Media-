@@ -113,7 +113,11 @@ export function LocationsViewMap({
                   key={index}
                   image={item?.photo}
                   type={item?.type}
-                  size={`${item?.width}x${item?.height}${item?.sizeFormFactor && ` - ${item?.sizeFormFactor}`}`}
+                  size={
+                    item?.isSizesHidden
+                      ? ""
+                      : `${item?.width}x${item?.height}${item?.sizeFormFactor && ` - ${item?.sizeFormFactor}`}`
+                  }
                   title={item?.fullName}
                   contactUsLabel={contactUsLabel}
                   seeDetailsButton={seeDetailsButton}

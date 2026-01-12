@@ -187,7 +187,10 @@ const FilterHeader: FC<Props> = ({
             ...loc,
             city: city.name,
             region: region.name,
-            fullName: `${region.name} ${city.name} ${loc.name}`,
+            fullName:
+              region.name === city.name
+                ? `${loc.name}`
+                : `${region.name} ${loc.name}`,
             regionId: region.id,
             cityId: city.id,
           }))
