@@ -18,7 +18,7 @@ export type TagsType = APIResponseCollection<{
 
 export async function FetchTags(locale: AppLocale, filters?: any) {
   // eslint-disable-next-line no-console
-  console.log({ message: `Fetching tags:  ${locale}` })
+  console.log({ message: `Fetching tags: ${locale}` })
 
   try {
     return await PublicStrapiClient.fetchAll("api::tag.tag", {
