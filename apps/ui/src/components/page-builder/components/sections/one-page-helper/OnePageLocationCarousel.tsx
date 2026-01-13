@@ -56,8 +56,8 @@ export const OnePageLocationCarousel = ({
             return (
               <CardLocation
                 image={location.photo}
-                leftPart={`${location.width ?? "00"}x${location.height ?? "00"}`}
-                rightPart={location.type ?? ""}
+                rightPart={`${location.width ?? "00"}x${location.height ?? "00"}`}
+                leftPart={location.type ?? ""}
                 title={location.name ?? ""}
                 key={index}
                 className="min-w-75 md:min-w-118"
@@ -65,6 +65,7 @@ export const OnePageLocationCarousel = ({
                 contactUsLabel={contactUsLabel ?? ""}
                 seeMoreLabel={seeMoreLabel ?? ""}
                 seeMoreHref={location.page?.fullPath ?? ""}
+                isSizesHidden={!!location.isSizesHidden}
               />
             )
           })}

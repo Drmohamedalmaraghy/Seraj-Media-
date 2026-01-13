@@ -20,6 +20,7 @@ export const CardLocationFilter = ({
   seeDetailsButton,
   href,
   flexRowStyle,
+  isSizesHidden,
 }: any) => {
   const router = useRouter()
   return (
@@ -47,7 +48,9 @@ export const CardLocationFilter = ({
           className="flex flex-1 cursor-pointer flex-col gap-1 text-start md:gap-3"
         >
           <div className="text-base font-semibold">{title}</div>
-          <div className="text-dark-50 text-xs">{size}</div>
+          {isSizesHidden ? null : (
+            <div className="text-dark-50 text-xs">{size}</div>
+          )}
           <div className="text-dark-50 text-xs">{type}</div>
         </button>
         <div className="flex flex-1 flex-col gap-1 md:gap-3">
@@ -113,14 +116,11 @@ export function LocationsViewMap({
                   key={index}
                   image={item?.photo}
                   type={item?.type}
-                  size={
-                    item?.isSizesHidden
-                      ? ""
-                      : `${item?.width}x${item?.height}${item?.sizeFormFactor && ` - ${item?.sizeFormFactor}`}`
-                  }
+                  size={`${item?.width}x${item?.height}${item?.sizeFormFactor && ` - ${item?.sizeFormFactor}`}`}
                   title={item?.fullName}
                   contactUsLabel={contactUsLabel}
                   seeDetailsButton={seeDetailsButton}
+                  isSizesHidden={!!item?.isSizesHidden}
                 />
               )
             })}

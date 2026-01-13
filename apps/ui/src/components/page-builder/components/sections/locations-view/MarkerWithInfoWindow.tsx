@@ -45,15 +45,12 @@ const MarkerWithInfoWindow = ({
               href={card?.page?.fullPath}
               image={card.photo}
               type={card.type}
-              size={
-                card?.isSizesHidden
-                  ? ""
-                  : `${card?.width}x${card?.height}${card?.sizeFormFactor && ` - ${card?.sizeFormFactor}`}`
-              }
+              size={`${card?.width}x${card?.height}${card?.sizeFormFactor && ` - ${card?.sizeFormFactor}`}`}
               title={card.fullName}
               contactUsLabel={contactUsLabel}
               seeDetailsButton={seeDetailsButton}
               flexRowStyle
+              isSizesHidden={!!card?.isSizesHidden}
             />
           </div>
         </InfoWindow>

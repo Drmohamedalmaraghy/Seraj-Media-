@@ -15,7 +15,7 @@ export async function StrapiLocationsView({
   if (!component) {
     return null
   }
-
+  console.log("StrapiLocationsView StrapiLocationsView StrapiLocationsView")
   const regions = await PublicStrapiClient.fetchMany("api::region.region", {
     populate: {
       cities: {
