@@ -108,7 +108,8 @@ export async function StrapiOnePageHelper({
                 ) : null}
 
                 <div className="bg-dark-5 text-dark-50 flex flex-wrap gap-8 rounded-xl px-6 py-5 text-xs lg:text-base">
-                  {location.width || location.height ? (
+                  {(location.width || location.height) &&
+                  !location?.isSizesHidden ? (
                     <div className="flex items-center gap-2">
                       <ResolutionIcon />
                       {`${location.width ?? "00"}x${location.height ?? "00"}`}

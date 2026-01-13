@@ -32,14 +32,11 @@ const LocationsViewList: FC<Props> = ({
           imageContainerClassName="lg:!h-72 !h-50 [&>img]:!rounded-none"
           image={item?.photo}
           leftPart={item?.type}
-          rightPart={
-            item?.isSizesHidden
-              ? ""
-              : `${item?.width}x${item?.height}${item?.sizeFormFactor && ` - ${item?.sizeFormFactor}`}`
-          }
+          rightPart={`${item?.width}x${item?.height}${item?.sizeFormFactor && ` - ${item?.sizeFormFactor}`}`}
           title={item?.fullName}
           seeMoreHref={item?.page?.fullPath}
           seeMoreLabel={seeDetailsLabel}
+          isSizesHidden={!!item?.isSizesHidden}
         />
       ))}
     </div>

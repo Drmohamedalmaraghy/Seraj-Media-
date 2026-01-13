@@ -2,6 +2,8 @@
 
 import { FC } from "react"
 
+import { AppLocale } from "@/types/general"
+
 import { getFormattedDate } from "@/lib/dates"
 import { TagsType } from "@/lib/strapi-api/content/tags"
 import { cn } from "@/lib/styles"
@@ -67,7 +69,12 @@ const ArticleCollection: FC<Props> = ({ infoContentFilter, type }) => {
               }}
               subTitle={item.seo?.metaDescription ?? ""}
               rightPart={
-                item.updatedAt ? getFormattedDate(item.updatedAt, "en") : ""
+                item?.articlePublicationDate
+                  ? getFormattedDate(
+                      item?.articlePublicationDate,
+                      (item?.locale as AppLocale) ?? "en"
+                    )
+                  : ""
               }
               title={item.seo?.metaTitle ?? ""}
               leftPart={item.author?.name ?? ""}

@@ -26,6 +26,7 @@ interface Props {
   seeMoreLabel?: string
   seeMoreHref: string
   styleTitle?: string
+  isSizesHidden?: boolean
 }
 
 const CardLocation: FC<Props> = ({
@@ -41,6 +42,7 @@ const CardLocation: FC<Props> = ({
   styleTitle,
   seeMoreLabel,
   seeMoreHref,
+  isSizesHidden,
 }) => {
   const router = useRouter()
   return (
@@ -74,8 +76,8 @@ const CardLocation: FC<Props> = ({
             {leftPart}
           </div>
           <div className="text-dark-50 flex items-center gap-1 text-xs lg:text-base">
-            {isAuthor ? <CalendarIcon /> : <SizeIcon />}
-            {rightPart}
+            {isAuthor ? <CalendarIcon /> : isSizesHidden ? null : <SizeIcon />}
+            {isSizesHidden ? null : rightPart}
           </div>
         </button>
         <button
