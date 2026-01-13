@@ -26,6 +26,7 @@ async function fetchData(locale: AppLocale) {
               descriptionField: true,
               mailField: true,
               nameField: true,
+              phoneField: true,
               submitButton: {
                 populate: {
                   icon: {
