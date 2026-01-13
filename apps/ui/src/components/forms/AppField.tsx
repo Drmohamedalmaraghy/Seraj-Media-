@@ -50,7 +50,11 @@ export function AppField({
                 {...nativeProps}
                 value={field.value ?? ""}
                 onChange={(event) => {
-                  const value = event.target.value
+                  const value =
+                    nativeProps.type === "tel"
+                      ? event.target.value.replace(/[^0-9+()\-\s]/g, "")
+                      : event.target.value
+                  // const value = event.target.value
                   if (nativeProps.type === "number") {
                     field.onChange(parseFloat(value))
                   } else {

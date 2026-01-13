@@ -39,6 +39,7 @@ export function ContactUsForm({
     businessField,
     descriptionField,
     submitButton,
+    phoneField,
   } = component
 
   const form = useForm<z.infer<ContactUsFormSchemaType>>({
@@ -62,6 +63,7 @@ export function ContactUsForm({
 <b>Full name:</b> ${values.name}
 <b>Email:</b> ${values.email}
 <b>Business Name:</b> ${values.businessName}
+<b>Phone:</b> ${values.phone}
 <b>Description:</b> ${values.description}
           `,
             parse_mode: "HTML",
@@ -122,13 +124,24 @@ export function ContactUsForm({
             placeholder={mailField?.placeholder ?? ""}
           />
         </div>
-
-        <AppField
-          name="businessName"
-          type="text"
-          label={businessField?.label}
-          placeholder={businessField?.placeholder ?? ""}
-        />
+        <div className="flex w-full flex-col gap-2 lg:flex-row lg:gap-6">
+          <AppField
+            name="businessName"
+            type="text"
+            label={businessField?.label}
+            placeholder={businessField?.placeholder ?? ""}
+            containerClassName="w-full"
+          />
+          <AppField
+            name="phone"
+            type="tel"
+            label={phoneField?.label}
+            placeholder={phoneField?.placeholder ?? ""}
+            containerClassName="w-full"
+            inputMode="tel"
+            autoComplete="tel"
+          />
+        </div>
 
         <AppTextArea
           textAreaWrapperClassName="bg-white rounded-[10px] h-75 px-4 py-4.5 shadow-[0_0_26px_0_rgba(0,0,0,0.07)]"
@@ -163,6 +176,10 @@ export const contactUsFormSchema = z.object({
   email: z.string().trim().min(1).email(),
   businessName: z.string().trim(),
   description: z.string().trim(),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^\+?[0-9\s\-()]+$/, "Invalid phone format"),
 })
 
 type ContactUsFormSchemaType = typeof contactUsFormSchema
