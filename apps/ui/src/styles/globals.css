@@ -49,7 +49,7 @@ html[lang="ar"] body {
 }
 
 html[lang="en"] body {
-  font-family:  '__nextjs-Geist';
+  font-family: var(--font-geist), sans-serif;
 }
 
 html body[data-scroll-locked] {

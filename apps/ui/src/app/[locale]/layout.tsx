@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server"
 
 import { LayoutProps } from "@/types/next"
 
+import { geist } from "@/lib/fonts"
 import { routing } from "@/lib/navigation"
 import { ErrorBoundary } from "@/components/elementary/ErrorBoundary"
 import StrapiPreviewListener from "@/components/elementary/StrapiPreviewListener"
@@ -42,7 +43,12 @@ export default async function RootLayout({ children, params }: LayoutProps) {
   setRequestLocale(locale)
 
   return (
-    <html dir={isArabic ? "rtl" : "ltr"} lang={locale} suppressHydrationWarning>
+    <html
+      dir={isArabic ? "rtl" : "ltr"}
+      lang={locale}
+      className={geist.variable}
+      suppressHydrationWarning
+    >
       <head />
       <body className="min-h-screen font-sans antialiased">
         <StrapiPreviewListener />
