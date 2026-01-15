@@ -48,6 +48,10 @@ html[lang="ar"] body {
   font-family: "GE SS TWO", sans-serif;
 }
 
+html[lang="en"] body {
+  font-family:  '__nextjs-Geist';
+}
+
 html body[data-scroll-locked] {
   overflow: visible !important;
   margin-right: 0 !important;
