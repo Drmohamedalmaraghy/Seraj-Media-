@@ -25,6 +25,7 @@ async function fetchData(locale: AppLocale) {
               businessField: true,
               descriptionField: true,
               mailField: true,
+              attachmentButton: true,
               nameField: true,
               phoneField: true,
               submitButton: {

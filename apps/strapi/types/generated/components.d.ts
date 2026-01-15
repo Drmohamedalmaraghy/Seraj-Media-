@@ -211,9 +211,11 @@ export interface SectionsCarousel extends Struct.ComponentSchema {
 export interface SectionsContactUsForm extends Struct.ComponentSchema {
   collectionName: "components_sections_contact_us_forms"
   info: {
+    description: ""
     displayName: "ContactUsForm"
   }
   attributes: {
+    attachmentButton: Schema.Attribute.Component<"utilities.button", false>
     businessField: Schema.Attribute.Component<"utilities.form-field", false>
     descriptionField: Schema.Attribute.Component<"utilities.form-field", false>
     mailField: Schema.Attribute.Component<"utilities.form-field", false>

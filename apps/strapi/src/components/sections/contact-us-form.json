@@ -1,7 +1,8 @@
 {
   "collectionName": "components_sections_contact_us_forms",
   "info": {
-    "displayName": "ContactUsForm"
+    "displayName": "ContactUsForm",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -34,6 +35,11 @@
       "component": "utilities.form-field"
     },
     "submitButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button"
+    },
+    "attachmentButton": {
       "type": "component",
       "repeatable": false,
       "component": "utilities.button"

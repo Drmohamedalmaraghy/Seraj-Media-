@@ -81,6 +81,17 @@ const pagePopulateObject: FindOne<"api::page.page">["populate"] = {
               phoneField: {
                 fields: ["label", "placeholder", "requiredErrorText"],
               },
+              attachmentButton: {
+                fields: ["label", "href", "newTab", "variant"],
+                populate: {
+                  icon: {
+                    fields: ["alt", "width", "height", "fallbackSrc"],
+                    populate: {
+                      media: true,
+                    },
+                  },
+                },
+              },
               submitButton: {
                 fields: ["label", "href", "newTab", "variant"],
                 populate: {
