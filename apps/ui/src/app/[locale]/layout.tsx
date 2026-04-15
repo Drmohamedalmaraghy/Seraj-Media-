@@ -12,6 +12,7 @@ import { routing } from "@/lib/navigation"
 import { ErrorBoundary } from "@/components/elementary/ErrorBoundary"
 import StrapiPreviewListener from "@/components/elementary/StrapiPreviewListener"
 import { TailwindIndicator } from "@/components/elementary/TailwindIndicator"
+import { WhatsAppButton } from "@/components/elementary/WhatsAppButton"
 import StrapiFooter from "@/components/page-builder/single-types/footer/StrapiFooter"
 import StrapiHeader from "@/components/page-builder/single-types/header/StrapiHeader"
 import { ClientProviders } from "@/components/providers/ClientProviders"
@@ -104,6 +105,8 @@ export default async function RootLayout({ children, params }: LayoutProps) {
                 <StrapiFooter locale={locale} />
               </ErrorBoundary>
             </div>
+
+            <WhatsAppButton isArabic={isArabic} />
           </ClientProviders>
         </ServerProviders>
       </body>

@@ -60,9 +60,17 @@ export default async function StrapiPage(props: Props) {
   setRequestLocale(params.locale)
 
   const fullPath = ROOT_PAGE_PATH + (params.rest ?? []).join("/")
-  const response = await fetchPage(fullPath, params.locale)
+  let response = await fetchPage(fullPath, params.locale)
+  let data = response?.data
 
-  const data = response?.data
+  if (data?.content == null && params.locale !== "en") {
+    const fallbackResponse = await fetchPage(fullPath, "en")
+
+    if (fallbackResponse?.data?.content != null) {
+      response = fallbackResponse
+      data = fallbackResponse.data
+    }
+  }
 
   if (data?.content == null) {
     notFound()
