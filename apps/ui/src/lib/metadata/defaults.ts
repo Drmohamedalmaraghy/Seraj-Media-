@@ -9,8 +9,14 @@ type TranslateFn = Awaited<ReturnType<typeof getTranslations>>
 export function getDefaultMetadata(
   customMetadata: Metadata | undefined,
   siteUrl: string,
-  t: TranslateFn
+  t: TranslateFn,
+  locale: AppLocale,
+  fullPath: string | undefined
 ) {
+  const baseUrl = siteUrl.replace(/\/+$/, "")
+  const pathSuffix = fullPath && fullPath !== "/" ? fullPath : ""
+  const buildUrl = (loc: string) => `${baseUrl}/${loc}${pathSuffix}`
+
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
@@ -23,18 +29,16 @@ export function getDefaultMetadata(
     },
 
     alternates: {
-      canonical: siteUrl,
-      languages: routing.locales.reduce(
-        (acc, locale) => {
-          acc[locale] = `${siteUrl}/${locale}`
-
-          return acc
-        },
-        {} as Record<AppLocale, string>
-      ),
+      canonical: buildUrl(locale),
+      languages: {
+        ...Object.fromEntries(
+          routing.locales.map((loc) => [loc, buildUrl(loc)])
+        ),
+        "x-default": buildUrl(routing.defaultLocale),
+      },
     },
 
-    metadataBase: new URL(siteUrl),
+    metadataBase: new URL(baseUrl),
 
     ...customMetadata,
   } as Metadata
