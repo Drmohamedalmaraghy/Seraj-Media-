@@ -11,6 +11,10 @@ import { fetchAllPages } from "@/lib/strapi-api/content/server"
 // The URL should be absolute, including the baseUrl (e.g. http://localhost:3000/some/nested-page)
 const baseUrl = env.APP_PUBLIC_URL
 
+// Cache the sitemap for 1 day. Crawlers don't need a fresh response on every
+// hit, and this avoids re-fetching all pages from Strapi for each request.
+export const revalidate = 86400
+
 type PageWithLocalizations = {
   fullPath?: string | null
   locale?: string | null
