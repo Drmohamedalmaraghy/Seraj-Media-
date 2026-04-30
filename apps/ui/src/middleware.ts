@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { withAuth } from "next-auth/middleware"
 import createMiddleware from "next-intl/middleware"
 
@@ -25,9 +25,60 @@ const authMiddleware = withAuth(
   }
 )
 
+// Normalizes a pathname by collapsing duplicate slashes, dropping the trailing
+// slash (except for root), and lowercasing. Returns null if no change needed.
+function normalizePath(pathname: string): string | null {
+  let normalized = pathname.replace(/\/+/g, "/")
+  if (normalized.length > 1 && normalized.endsWith("/")) {
+    normalized = normalized.slice(0, -1)
+  }
+  normalized = normalized.toLowerCase()
+  return normalized === pathname ? null : normalized
+}
+
+// Legacy/duplicate homepage paths that should funnel to the canonical homepage.
+const HOMEPAGE_DUPLICATES = ["/home", "/index.html", "/index.php"]
+
+// Returns the canonical homepage URL for a duplicate path (with optional locale
+// prefix), or null if the path is not a homepage duplicate.
+function getHomepageRedirect(pathname: string): string | null {
+  for (const locale of routing.locales) {
+    for (const dup of HOMEPAGE_DUPLICATES) {
+      if (pathname === `/${locale}${dup}`) {
+        return locale === routing.defaultLocale ? "/" : `/${locale}`
+      }
+    }
+  }
+  if (HOMEPAGE_DUPLICATES.includes(pathname)) {
+    return "/"
+  }
+  return null
+}
+
 export default function middleware(req: NextRequest) {
-  // Handle HTTPS redirection in production in Heroku servers
-  // Comment this block when running locally (using `next start`)
+  // 1. www → non-www (301 permanent redirect for SEO canonicalization)
+  const host = req.headers.get("host") ?? ""
+  if (host.startsWith("www.")) {
+    const url = req.nextUrl.clone()
+    url.host = host.slice(4)
+    return NextResponse.redirect(url, 301)
+  }
+
+  // 2. Path normalization: collapse slashes, drop trailing slash, lowercase
+  const normalized = normalizePath(req.nextUrl.pathname)
+  if (normalized !== null) {
+    const url = req.nextUrl.clone()
+    url.pathname = normalized
+    return NextResponse.redirect(url, 301)
+  }
+
+  // 3. Homepage duplicates: /home, /index.html, /index.php → canonical homepage
+  const homeRedirect = getHomepageRedirect(req.nextUrl.pathname)
+  if (homeRedirect !== null) {
+    const url = req.nextUrl.clone()
+    url.pathname = homeRedirect
+    return NextResponse.redirect(url, 301)
+  }
 
   // Build regex for auth (non-public) pages
   const authPathnameRegex = RegExp(

@@ -81,7 +81,9 @@ export async function fetchAllPages(
     return await PublicStrapiClient.fetchAll(uid, {
       locale,
       fields: ["fullPath", "locale", "updatedAt", "createdAt", "slug"],
-      populate: {},
+      populate: {
+        localizations: { fields: ["fullPath", "locale"] },
+      },
       status: "published",
     })
   } catch (e: any) {
