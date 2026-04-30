@@ -36,6 +36,25 @@ function normalizePath(pathname: string): string | null {
   return normalized === pathname ? null : normalized
 }
 
+// Legacy/duplicate homepage paths that should funnel to the canonical homepage.
+const HOMEPAGE_DUPLICATES = ["/home", "/index.html", "/index.php"]
+
+// Returns the canonical homepage URL for a duplicate path (with optional locale
+// prefix), or null if the path is not a homepage duplicate.
+function getHomepageRedirect(pathname: string): string | null {
+  for (const locale of routing.locales) {
+    for (const dup of HOMEPAGE_DUPLICATES) {
+      if (pathname === `/${locale}${dup}`) {
+        return locale === routing.defaultLocale ? "/" : `/${locale}`
+      }
+    }
+  }
+  if (HOMEPAGE_DUPLICATES.includes(pathname)) {
+    return "/"
+  }
+  return null
+}
+
 export default function middleware(req: NextRequest) {
   // 1. www → non-www (301 permanent redirect for SEO canonicalization)
   const host = req.headers.get("host") ?? ""
@@ -50,6 +69,14 @@ export default function middleware(req: NextRequest) {
   if (normalized !== null) {
     const url = req.nextUrl.clone()
     url.pathname = normalized
+    return NextResponse.redirect(url, 301)
+  }
+
+  // 3. Homepage duplicates: /home, /index.html, /index.php → canonical homepage
+  const homeRedirect = getHomepageRedirect(req.nextUrl.pathname)
+  if (homeRedirect !== null) {
+    const url = req.nextUrl.clone()
+    url.pathname = homeRedirect
     return NextResponse.redirect(url, 301)
   }
 
