@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { withAuth } from "next-auth/middleware"
 import createMiddleware from "next-intl/middleware"
 
@@ -25,9 +25,33 @@ const authMiddleware = withAuth(
   }
 )
 
+// Normalizes a pathname by collapsing duplicate slashes, dropping the trailing
+// slash (except for root), and lowercasing. Returns null if no change needed.
+function normalizePath(pathname: string): string | null {
+  let normalized = pathname.replace(/\/+/g, "/")
+  if (normalized.length > 1 && normalized.endsWith("/")) {
+    normalized = normalized.slice(0, -1)
+  }
+  normalized = normalized.toLowerCase()
+  return normalized === pathname ? null : normalized
+}
+
 export default function middleware(req: NextRequest) {
-  // Handle HTTPS redirection in production in Heroku servers
-  // Comment this block when running locally (using `next start`)
+  // 1. www → non-www (301 permanent redirect for SEO canonicalization)
+  const host = req.headers.get("host") ?? ""
+  if (host.startsWith("www.")) {
+    const url = req.nextUrl.clone()
+    url.host = host.slice(4)
+    return NextResponse.redirect(url, 301)
+  }
+
+  // 2. Path normalization: collapse slashes, drop trailing slash, lowercase
+  const normalized = normalizePath(req.nextUrl.pathname)
+  if (normalized !== null) {
+    const url = req.nextUrl.clone()
+    url.pathname = normalized
+    return NextResponse.redirect(url, 301)
+  }
 
   // Build regex for auth (non-public) pages
   const authPathnameRegex = RegExp(
