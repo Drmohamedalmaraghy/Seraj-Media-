@@ -15,7 +15,10 @@ export function getDefaultMetadata(
 ) {
   const baseUrl = siteUrl.replace(/\/+$/, "")
   const pathSuffix = fullPath && fullPath !== "/" ? fullPath : ""
-  const buildUrl = (loc: string) => `${baseUrl}/${loc}${pathSuffix}`
+  const buildUrl = (loc: string) => {
+    const localePrefix = loc === routing.defaultLocale ? "" : `/${loc}`
+    return `${baseUrl}${localePrefix}${pathSuffix}`
+  }
 
   return {
     title: t("metaTitle"),
