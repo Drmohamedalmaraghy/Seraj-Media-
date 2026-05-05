@@ -23,7 +23,26 @@
       "Bash(curl -s \"http://localhost:3000/about?utm_source=test&gclid=xyz\")",
       "Bash(curl -s \"http://localhost:3000/ar/about?utm_medium=cpc\")",
       "Bash(curl -s \"http://localhost:3000/?utm_source=test\")",
-      "Bash(yarn typecheck *)"
+      "Bash(yarn typecheck *)",
+      "Bash(yarn build *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:1337/api/page)",
+      "Bash(curl -s http://localhost:3000/about)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/about)",
+      "Bash(curl -s http://localhost:3000/about > /tmp/about.html && grep -E \"ld\\\\+json|breadcrumb|BreadcrumbList\" /tmp/about.html | head -10)",
+      "Bash(grep -ciE \"ld\\\\\\\\+json\" /tmp/about2.html)",
+      "Bash(grep -oE '\"ld\\\\\\\\+json\"\\\\\\\\,\"[^\"]*\"|application/ld\\\\\\\\+json' /tmp/about2.html)",
+      "Bash(tasklist)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill /PID 19008 /F)",
+      "PowerShell(Stop-Process -Id 19008 -Force -ErrorAction SilentlyContinue)",
+      "Bash(yarn dev:ui)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/about)",
+      "Bash(grep -iE \"ld\\\\\\\\+json|BreadcrumbList\")",
+      "Bash(curl -s \"http://localhost:3000/blog/our-new-presence-in-sur\")",
+      "Bash(curl -s \"http://localhost:3000/ar/blog/our-new-presence-in-sur\")"
+    ],
+    "additionalDirectories": [
+      "\\tmp"
     ]
   }
 }

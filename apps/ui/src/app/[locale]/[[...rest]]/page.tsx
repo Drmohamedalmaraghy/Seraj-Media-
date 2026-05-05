@@ -126,6 +126,7 @@ export default async function StrapiPage(props: Props) {
 
       <Breadcrumbs
         breadcrumbs={response?.meta?.breadcrumbs}
+        locale={params.locale}
         className={cn(
           "absolute top-16 z-1 w-fit text-white",
           "ltr:left-5 ltr:md:left-10 ltr:lg:left-15",
