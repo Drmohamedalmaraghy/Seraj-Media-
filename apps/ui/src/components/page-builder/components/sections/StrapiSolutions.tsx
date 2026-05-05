@@ -38,14 +38,14 @@ export function StrapiSolutions({
       <Container className="max-w-[unset] flex-col gap-7">
         <div className="flex flex-col gap-7 lg:max-w-1/2">
           {title ? (
-            <h1
+            <h2
               className={cn(
                 "text-center text-[25px] leading-[normal] font-medium",
                 "lg:text-start lg:text-4xl lg:leading-[150%]"
               )}
             >
               {title}
-            </h1>
+            </h2>
           ) : null}
 
           {description ? (

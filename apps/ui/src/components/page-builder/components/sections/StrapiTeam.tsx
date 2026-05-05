@@ -56,14 +56,14 @@ export function StrapiTeam({
         >
           <div className={cn("flex max-w-160 flex-col gap-5")}>
             {title ? (
-              <h1
+              <h2
                 className={cn(
                   "text-[25px] leading-[normal] font-medium",
                   "lg:text-4xl lg:leading-[150%]"
                 )}
               >
                 {title}
-              </h1>
+              </h2>
             ) : null}
 
             {description ? (
