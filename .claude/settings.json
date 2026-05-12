@@ -57,12 +57,10 @@
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3002/about)",
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3002/blog)",
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3002/news)",
-      "Bash(npx vercel *)",
-      "Bash(rm \"/c/Users/User/Desktop/seraj-media-prodution/Seraj-Media-/apps/ui/src/app/[locale]/loading.tsx\" && echo \"removed\")"
+      "Bash(npx vercel *)"
     ],
     "additionalDirectories": [
-      "\\tmp",
-      "C:\\Users\\User\\Desktop\\seraj-media-prodution\\Seraj-Media-\\apps\\ui\\src\\app\\[locale]"
+      "\\tmp"
     ]
   }
 }
