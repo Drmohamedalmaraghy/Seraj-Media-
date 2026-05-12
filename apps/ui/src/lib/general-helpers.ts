@@ -2,10 +2,6 @@ import { env } from "@/env.mjs"
 
 import { setupDayJs } from "./dates"
 
-export const isProduction = () => env.APP_ENV === "production"
-
-export const isTesting = () => env.APP_ENV === "testing"
-
 export const isDevelopment = () => env.NODE_ENV === "development"
 
 export const setupLibraries = () => {

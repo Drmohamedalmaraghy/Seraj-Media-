@@ -4,7 +4,6 @@ import { ROOT_PAGE_PATH } from "@repo/shared-data"
 import type { MetadataRoute } from "next"
 import { AppLocale } from "@/types/general"
 
-import { isDevelopment, isProduction } from "@/lib/general-helpers"
 import { routing } from "@/lib/navigation"
 import { fetchAllPages } from "@/lib/strapi-api/content/server"
 
@@ -27,10 +26,6 @@ type PageWithLocalizations = {
  * Note: We could use generateSitemaps to separate the sitemaps, however that does not create the root sitemap.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  if (!isProduction() && !isDevelopment()) {
-    return []
-  }
-
   // Fetch pages for every locale in parallel
   const perLocale = await Promise.allSettled(
     routing.locales.map(async (locale) => {
