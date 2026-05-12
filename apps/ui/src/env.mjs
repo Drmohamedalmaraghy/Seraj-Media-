@@ -53,8 +53,6 @@ export const env = createEnv({
   shared: {
     // NODE_ENV makes app to behave as it's in production mode (optimized builds, no dev-only behavior, etc.)
     NODE_ENV: z.enum(["development", "production"]).optional(),
-    // APP_ENV is used to determine the environment the app is running in. Used to divide deployments.
-    APP_ENV: z.enum(["testing", "production"]).optional(),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -85,7 +83,6 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 
     NODE_ENV: process.env.NODE_ENV,
-    APP_ENV: process.env.APP_ENV,
 
     SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
     SENTRY_ORG: process.env.SENTRY_ORG,
