@@ -140,7 +140,6 @@ export default function GlobalError({ error, reset }: Props) {
               Refresh page
             </button>
           </div>
-
         </div>
       </body>
     </html>

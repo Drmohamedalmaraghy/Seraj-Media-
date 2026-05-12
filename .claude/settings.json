@@ -59,7 +59,10 @@
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3002/news)",
       "Bash(npx vercel *)",
       "Bash(grep -iE \"\\\\.example$\")",
-      "Bash(git ls-tree *)"
+      "Bash(git ls-tree *)",
+      "Bash(yarn format *)",
+      "Bash(yarn format:check)",
+      "Bash(yarn lint *)"
     ],
     "additionalDirectories": [
       "\\tmp"

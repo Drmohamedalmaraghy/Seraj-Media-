@@ -2,12 +2,12 @@
 
 // Error boundaries must be Client Components - https://nextjs.org/docs/14/app/building-your-application/routing/error-handling
 import { useEffect } from "react"
-import * as Sentry from "@sentry/nextjs"
 import Image from "next/image"
+import * as Sentry from "@sentry/nextjs"
 import { useTranslations } from "next-intl"
 
-import { Link } from "@/lib/navigation"
 import { isDevelopment } from "@/lib/general-helpers"
+import { Link } from "@/lib/navigation"
 import { cn } from "@/lib/styles"
 
 interface Props {
