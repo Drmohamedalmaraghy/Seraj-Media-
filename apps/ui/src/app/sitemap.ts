@@ -57,7 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (!page.fullPath) return acc
     acc.push({
       url: generateSitemapEntryUrl(page.fullPath, locale),
-      lastModified: page.updatedAt ?? page.createdAt ?? undefined,
+      lastModified: formatLastModified(page.updatedAt ?? page.createdAt),
       changeFrequency: "monthly",
       alternates: {
         languages: buildLanguagesMap(locale, page, fullPathIndex),
@@ -65,6 +65,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
     return acc
   }, [])
+}
+
+// Strapi timestamps include milliseconds (e.g. 2025-10-06T08:38:51.065Z),
+// which some sitemap validators reject. Strip to seconds precision.
+const formatLastModified = (iso?: string | null): string | undefined => {
+  if (!iso) return undefined
+  return iso.replace(/\.\d+Z$/, "Z")
 }
 
 const buildLanguagesMap = (
