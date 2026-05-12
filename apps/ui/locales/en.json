@@ -87,7 +87,8 @@
       "title": "Page not found",
       "description": "The page you are looking for was not found.",
       "solution": "Please check if you have entered the correct URL or return to the home page.",
-      "redirect": "Go to home page"
+      "redirect": "Go to home page",
+      "contactUs": "Contact us"
     },
 
     "forms": {

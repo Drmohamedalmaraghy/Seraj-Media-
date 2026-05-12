@@ -87,7 +87,8 @@
       "title": "لم يتم العثور على الصفحة",
       "description": "Stránka, kterou hledáte, nebyla nalezena.",
       "solution": "Zkontrolujte prosím, zda jste zadali správnou adresu anebo se vraťte na úvodní stránku.",
-      "redirect": "Přejít na úvodní stránku"
+      "redirect": "Přejít na úvodní stránku",
+      "contactUs": "اتصل بنا"
     },
 
     "forms": {

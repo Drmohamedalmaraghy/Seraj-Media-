@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { getLocale, getTranslations } from "next-intl/server"
+import { getTranslations } from "next-intl/server"
 
 import { cn } from "@/lib/styles"
 import StrapiLink from "@/components/page-builder/components/utilities/StrapiLink"
@@ -9,7 +9,6 @@ const BG_GRADIENT =
 
 export default async function NotFound() {
   const t = await getTranslations("errors.notFound")
-  const locale = await getLocale()
   return (
     <div className="bg-dark relative flex min-h-screen flex-col items-center justify-center gap-2 overflow-hidden pt-20">
       <div className="text-center text-[100px] leading-[200px] text-white/90 lg:text-[240px]">
@@ -32,7 +31,7 @@ export default async function NotFound() {
       <StrapiLink
         component={{
           href: "#contact-us",
-          label: locale === "en" ? "Contact us" : "اتصل بنا",
+          label: t("contactUs"),
           id: 0,
         }}
         className="mt-10 rounded-[10px] bg-red-600 px-9 py-2 text-white"
