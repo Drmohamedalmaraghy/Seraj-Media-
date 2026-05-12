@@ -24,8 +24,14 @@ const CkEditorCSRRenderer = ({
       return
     }
 
+    // Demote any <h1> in body content to <h2>. The page-level h1 is provided
+    // by hero sections; body content must not introduce a second h1.
+    const demotedHtml = htmlContent
+      .replace(/<h1(\s[^>]*)?>/gi, "<h2$1>")
+      .replace(/<\/h1>/gi, "</h2>")
+
     const parser = new DOMParser()
-    const doc = parser.parseFromString(htmlContent, "text/html")
+    const doc = parser.parseFromString(demotedHtml, "text/html")
 
     const links = doc.getElementsByTagName("a")
     for (const link of links) {
@@ -35,7 +41,7 @@ const CkEditorCSRRenderer = ({
       }
     }
 
-    const tagNames = ["h1", "h2", "h3", "h4", "h5", "h6", "p"]
+    const tagNames = ["h2", "h3", "h4", "h5", "h6", "p"]
     for (const tagName of tagNames) {
       const elements = doc.getElementsByTagName(tagName)
       for (const element of elements) {

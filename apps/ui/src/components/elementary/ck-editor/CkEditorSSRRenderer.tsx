@@ -19,9 +19,14 @@ const CkEditorSSRRenderer = async ({
   const locale = await getLocale()
 
   const processHtmlContent = (html: string, locale: string) => {
-    // Create a DOM parser to work with the HTML content
+    // Demote any <h1> in body content to <h2>. The page-level h1 is provided
+    // by hero sections; body content must not introduce a second h1.
+    const demotedHtml = html
+      .replace(/<h1(\s[^>]*)?>/gi, "<h2$1>")
+      .replace(/<\/h1>/gi, "</h2>")
 
-    const doc = parse(html)
+    // Create a DOM parser to work with the HTML content
+    const doc = parse(demotedHtml)
 
     // Find all anchor tags
     const links = doc.getElementsByTagName("a")
@@ -35,7 +40,7 @@ const CkEditorSSRRenderer = async ({
       }
     }
 
-    const tagNames = ["h1", "h2", "h3", "h4", "h5", "h6", "p"]
+    const tagNames = ["h2", "h3", "h4", "h5", "h6", "p"]
     for (const tagName of tagNames) {
       const elements = doc.getElementsByTagName(tagName)
       for (const element of elements) {

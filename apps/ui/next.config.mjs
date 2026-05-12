@@ -43,6 +43,33 @@ const nextConfig = {
     ],
   },
 
+  async headers() {
+    // Long-lived cache for static assets in /public. Files in /public are
+    // bundled with the deployment, so they're effectively immutable per build.
+    // 30-day max-age + 1-day stale-while-revalidate balances freshness with
+    // performance. Hashed assets in /_next/static get their own 1-year
+    // immutable headers from Next.js automatically.
+    const STATIC_CACHE = "public, max-age=2592000, stale-while-revalidate=86400"
+    return [
+      {
+        source: "/images/:path*",
+        headers: [{ key: "Cache-Control", value: STATIC_CACHE }],
+      },
+      {
+        source: "/fonts/:path*",
+        headers: [{ key: "Cache-Control", value: STATIC_CACHE }],
+      },
+      {
+        source: "/favicon.png",
+        headers: [{ key: "Cache-Control", value: STATIC_CACHE }],
+      },
+      {
+        source: "/meta-image.jpg",
+        headers: [{ key: "Cache-Control", value: STATIC_CACHE }],
+      },
+    ]
+  },
+
   webpack: (config, { dev }) => {
     if (config.cache && !dev) {
       // Switching between memory and filesystem cache

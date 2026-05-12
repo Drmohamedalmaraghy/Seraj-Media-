@@ -36,7 +36,13 @@ export async function getMetadataFromStrapi({
     return null
   }
 
-  const defaultMeta: Metadata = getDefaultMetadata(customMetadata, siteUrl, t)
+  const defaultMeta: Metadata = getDefaultMetadata(
+    customMetadata,
+    siteUrl,
+    t,
+    locale,
+    fullPath
+  )
   const defaultOgMeta: Metadata["openGraph"] = getDefaultOgMeta(
     locale,
     fullPath,

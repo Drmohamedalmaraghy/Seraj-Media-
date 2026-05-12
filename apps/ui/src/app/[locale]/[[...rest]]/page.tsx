@@ -8,6 +8,7 @@ import type { PageProps } from "@/types/next"
 import { isDevelopment } from "@/lib/general-helpers"
 import { getMetadataFromStrapi } from "@/lib/metadata"
 import { routing } from "@/lib/navigation"
+import { buildArticleJsonLd, getArticleType } from "@/lib/seo/article"
 import { fetchAllPages, fetchPage } from "@/lib/strapi-api/content/server"
 import { cn } from "@/lib/styles"
 import { Breadcrumbs } from "@/components/elementary/Breadcrumbs"
@@ -120,12 +121,26 @@ export default async function StrapiPage(props: Props) {
     (fullPath?.startsWith("/blog") && fullPath !== "/blog") ||
     (fullPath?.startsWith("/news") && fullPath !== "/news")
 
+  const articleType = fullPath ? getArticleType(fullPath) : null
+  const articleJsonLd = articleType
+    ? buildArticleJsonLd(articleType, pageData, params.locale)
+    : null
+
   return (
     <>
       <StrapiStructuredData structuredData={data?.seo?.structuredData} />
 
+      {articleJsonLd ? (
+        <script
+          id="articleJsonLd"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
+      ) : null}
+
       <Breadcrumbs
         breadcrumbs={response?.meta?.breadcrumbs}
+        locale={params.locale}
         className={cn(
           "absolute top-16 z-1 w-fit text-white",
           "ltr:left-5 ltr:md:left-10 ltr:lg:left-15",

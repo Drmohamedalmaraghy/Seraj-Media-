@@ -74,10 +74,13 @@
 
   "errors": {
     "global": {
-      "title": "Nastala neznámá chyba",
-      "tryAgain": "Zkusit znovu",
-      "invalidContent": "Tenhle obsah se nepodařilo načíst",
-      "somethingWentWrong": "Něco se pokazilo 🥺"
+      "title": "عذراً، حدث خطأ في الخادم",
+      "description": "يرجى تحديث الصفحة أو العودة لاحقاً.",
+      "tryAgain": "حاول مرة أخرى",
+      "refresh": "تحديث الصفحة",
+      "goHome": "العودة إلى الصفحة الرئيسية",
+      "invalidContent": "تعذر عرض هذا المحتوى",
+      "somethingWentWrong": "حدث خطأ ما 🥺"
     },
 
     "notFound": {

@@ -20,9 +20,9 @@ export function StrapiText({
     <Section>
       <Container className="flex-col items-center">
         {text ? (
-          <h1 className="text-center text-4xl leading-[normal] font-medium md:leading-[150%] md:font-medium lg:text-[40px]">
+          <h2 className="text-center text-4xl leading-[normal] font-medium md:leading-[150%] md:font-medium lg:text-[40px]">
             {text}
-          </h1>
+          </h2>
         ) : null}
         {description ? (
           <CkEditorSSRRenderer

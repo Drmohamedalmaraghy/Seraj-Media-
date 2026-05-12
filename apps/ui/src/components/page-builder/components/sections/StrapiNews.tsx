@@ -47,7 +47,7 @@ export async function StrapiNews({
         className="flex-col items-center justify-center gap-3 md:gap-12"
       >
         {title ? (
-          <h1 className="text-center text-[40px] text-black">{title}</h1>
+          <h2 className="text-center text-[40px] text-black">{title}</h2>
         ) : null}
 
         {newsCards.length ? (

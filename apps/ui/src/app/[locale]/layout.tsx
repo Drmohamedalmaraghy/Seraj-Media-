@@ -9,6 +9,7 @@ import { LayoutProps } from "@/types/next"
 
 import { geist } from "@/lib/fonts"
 import { routing } from "@/lib/navigation"
+import { buildOrganizationJsonLd } from "@/lib/seo/organization"
 import { ErrorBoundary } from "@/components/elementary/ErrorBoundary"
 import StrapiPreviewListener from "@/components/elementary/StrapiPreviewListener"
 import { TailwindIndicator } from "@/components/elementary/TailwindIndicator"
@@ -72,6 +73,14 @@ export default async function RootLayout({ children, params }: LayoutProps) {
         {/* ContentSquare Code End*/}
       </head>
       <body className="min-h-screen font-sans antialiased">
+        <script
+          id="organizationJsonLd"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(buildOrganizationJsonLd()),
+          }}
+        />
+
         {/* Google Tag Manager noscript Start*/}
         <noscript>
           <iframe

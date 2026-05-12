@@ -74,8 +74,11 @@
 
   "errors": {
     "global": {
-      "title": "An unknown error occurred",
+      "title": "Sorry, a server error occurred",
+      "description": "Please try refreshing the page or come back later.",
       "tryAgain": "Try again",
+      "refresh": "Refresh page",
+      "goHome": "Go to home page",
       "invalidContent": "This content could not be displayed",
       "somethingWentWrong": "Something went wrong 🥺"
     },

@@ -52,6 +52,10 @@ export function StrapiHero({
       ) : null}
 
       <div className="flex flex-col items-center justify-center px-3 text-center lg:px-0">
+        {titles?.[0]?.text ? (
+          <h1 className="sr-only">{titles[0].text}</h1>
+        ) : null}
+
         {titles?.length ? (
           <div className="relative mx-auto max-w-[100vw] lg:max-w-225">
             <InfoCarousel textArray={titles} titlesSize={titlesSize} />
