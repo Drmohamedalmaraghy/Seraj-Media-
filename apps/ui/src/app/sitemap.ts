@@ -108,6 +108,12 @@ const buildLanguagesMap = (
     })
   }
 
+  // 3) x-default points to the default-locale version when available
+  const defaultLocaleUrl = languages[routing.defaultLocale]
+  if (defaultLocaleUrl) {
+    languages["x-default"] = defaultLocaleUrl
+  }
+
   return languages
 }
 
