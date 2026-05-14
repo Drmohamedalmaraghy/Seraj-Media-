@@ -1,7 +1,4 @@
-"use client"
-
 import { FC } from "react"
-import { useRouter } from "next/navigation"
 import { Data } from "@repo/strapi"
 
 import { Link } from "@/lib/navigation"
@@ -44,7 +41,8 @@ const CardLocation: FC<Props> = ({
   seeMoreHref,
   isSizesHidden,
 }) => {
-  const router = useRouter()
+  const hasActionButtons = Boolean(contactUsLabel || seeMoreLabel)
+
   return (
     <div
       className={cn(
@@ -55,22 +53,30 @@ const CardLocation: FC<Props> = ({
     >
       {image ? (
         <div className={cn(imageContainerClassName)}>
-          <StrapiBasicImage
-            onClick={() => seeMoreHref && router.push(seeMoreHref)}
-            component={image}
-            className={cn(
-              "!h-full !w-full cursor-pointer rounded-[10px] object-cover"
-            )}
-          />
+          {seeMoreHref ? (
+            <Link
+              href={seeMoreHref}
+              className="block h-full w-full"
+              aria-label={title}
+            >
+              <StrapiBasicImage
+                component={image}
+                className={cn(
+                  "!h-full !w-full cursor-pointer rounded-[10px] object-cover"
+                )}
+              />
+            </Link>
+          ) : (
+            <StrapiBasicImage
+              component={image}
+              className={cn("!h-full !w-full rounded-[10px] object-cover")}
+            />
+          )}
         </div>
       ) : null}
 
       <div className="flex flex-col gap-4 p-4">
-        <button
-          type="button"
-          onClick={() => seeMoreHref && router.push(seeMoreHref)}
-          className="flex cursor-pointer flex-wrap items-center gap-5"
-        >
+        <div className="flex flex-wrap items-center gap-5">
           <div className="text-dark-50 flex items-center gap-1 text-xs lg:text-base">
             {isAuthor ? <AuthorIcon /> : <BannerIcon />}
             {leftPart}
@@ -79,28 +85,43 @@ const CardLocation: FC<Props> = ({
             {isAuthor ? <CalendarIcon /> : isSizesHidden ? null : <SizeIcon />}
             {isSizesHidden ? null : rightPart}
           </div>
-        </button>
-        <button
-          type="button"
-          className="w-full cursor-pointer text-start"
-          onClick={() => seeMoreHref && router.push(seeMoreHref)}
-        >
-          <div
-            className={cn(
-              styleTitle ? styleTitle : "text-xs lg:text-[20px]",
-              "font-semibold"
-            )}
-          >
-            {title}
-          </div>
-          {subTitle && (
-            <div className="text-dark-50 text-xs font-medium lg:text-[20px]">
-              {subTitle}
-            </div>
-          )}
-        </button>
+        </div>
 
-        {contactUsLabel || seeMoreLabel ? (
+        {seeMoreHref ? (
+          <Link href={seeMoreHref} className="w-full text-start">
+            <div
+              className={cn(
+                styleTitle ? styleTitle : "text-xs lg:text-[20px]",
+                "font-semibold"
+              )}
+            >
+              {title}
+            </div>
+            {subTitle && (
+              <div className="text-dark-50 text-xs font-medium lg:text-[20px]">
+                {subTitle}
+              </div>
+            )}
+          </Link>
+        ) : (
+          <div className="w-full text-start">
+            <div
+              className={cn(
+                styleTitle ? styleTitle : "text-xs lg:text-[20px]",
+                "font-semibold"
+              )}
+            >
+              {title}
+            </div>
+            {subTitle && (
+              <div className="text-dark-50 text-xs font-medium lg:text-[20px]">
+                {subTitle}
+              </div>
+            )}
+          </div>
+        )}
+
+        {hasActionButtons ? (
           <div className="flex flex-wrap gap-4">
             {seeMoreLabel && seeMoreHref ? (
               <StrapiButton
@@ -126,11 +147,7 @@ const CardLocation: FC<Props> = ({
               />
             ) : null}
           </div>
-        ) : (
-          <Link href={seeMoreHref} className="absolute inset-0 z-10">
-            <span className="sr-only">{title}</span>
-          </Link>
-        )}
+        ) : null}
       </div>
     </div>
   )

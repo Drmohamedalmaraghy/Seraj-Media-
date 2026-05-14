@@ -63,7 +63,8 @@
       "Bash(yarn format *)",
       "Bash(yarn format:check)",
       "Bash(yarn lint *)",
-      "WebFetch(domain:serajmedia.com)"
+      "WebFetch(domain:serajmedia.com)",
+      "Bash(yarn workspace *)"
     ],
     "additionalDirectories": [
       "\\tmp"

@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { env } from "@/env.mjs"
 import { APIProvider, Map } from "@vis.gl/react-google-maps"
 
+import { Link } from "@/lib/navigation"
 import { cn } from "@/lib/styles"
 import MarkerWithInfoWindow from "@/components/page-builder/components/sections/locations-view/MarkerWithInfoWindow"
 import { StrapiBasicImage } from "@/components/page-builder/components/utilities/StrapiBasicImage"
@@ -22,7 +22,6 @@ export const CardLocationFilter = ({
   flexRowStyle,
   isSizesHidden,
 }: any) => {
-  const router = useRouter()
   return (
     <div
       className={cn(
@@ -33,26 +32,45 @@ export const CardLocationFilter = ({
       )}
     >
       <div className="max-h-full flex-1">
-        <StrapiBasicImage
-          onClick={() => href && router.push(href)}
-          component={image}
-          className={cn(
-            "!h-full max-h-[200px] !w-full cursor-pointer rounded-[10px] object-cover"
-          )}
-        />
+        {href ? (
+          <Link href={href} className="block h-full w-full" aria-label={title}>
+            <StrapiBasicImage
+              component={image}
+              className={cn(
+                "!h-full max-h-[200px] !w-full cursor-pointer rounded-[10px] object-cover"
+              )}
+            />
+          </Link>
+        ) : (
+          <StrapiBasicImage
+            component={image}
+            className={cn(
+              "!h-full max-h-[200px] !w-full rounded-[10px] object-cover"
+            )}
+          />
+        )}
       </div>
       <div className="flex flex-1 flex-col gap-1 md:gap-3">
-        <button
-          type="button"
-          onClick={() => href && router.push(href)}
-          className="flex flex-1 cursor-pointer flex-col gap-1 text-start md:gap-3"
-        >
-          <div className="text-base font-semibold">{title}</div>
-          {isSizesHidden ? null : (
-            <div className="text-dark-50 text-xs">{size}</div>
-          )}
-          <div className="text-dark-50 text-xs">{type}</div>
-        </button>
+        {href ? (
+          <Link
+            href={href}
+            className="flex flex-1 cursor-pointer flex-col gap-1 text-start md:gap-3"
+          >
+            <div className="text-base font-semibold">{title}</div>
+            {isSizesHidden ? null : (
+              <div className="text-dark-50 text-xs">{size}</div>
+            )}
+            <div className="text-dark-50 text-xs">{type}</div>
+          </Link>
+        ) : (
+          <div className="flex flex-1 flex-col gap-1 text-start md:gap-3">
+            <div className="text-base font-semibold">{title}</div>
+            {isSizesHidden ? null : (
+              <div className="text-dark-50 text-xs">{size}</div>
+            )}
+            <div className="text-dark-50 text-xs">{type}</div>
+          </div>
+        )}
         <div className="flex flex-1 flex-col gap-1 md:gap-3">
           <div className="flex flex-col gap-4">
             {seeDetailsButton && href ? (
