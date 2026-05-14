@@ -41,9 +41,7 @@ const ArticleFilters: FC<Props> = ({
   // Skip the first debounce so we don't echo the URL back to itself on mount.
   const skipDebounceRef = useRef(true)
 
-  const pushWith = (
-    next: Partial<{ search: string; tags: number[] }>
-  ) => {
+  const pushWith = (next: Partial<{ search: string; tags: number[] }>) => {
     const params = new URLSearchParams(searchParams?.toString() ?? "")
 
     if (next.search !== undefined) {

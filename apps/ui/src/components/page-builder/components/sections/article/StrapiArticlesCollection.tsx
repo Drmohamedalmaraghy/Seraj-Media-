@@ -4,11 +4,8 @@ import type { AppLocale } from "@/types/general"
 
 import { getFormattedDate } from "@/lib/dates"
 import { Link } from "@/lib/navigation"
-import {
-  fetchArticle,
-  PARENT_FULL_PATHS,
-} from "@/lib/strapi-api/content/pages"
 import { PublicStrapiClient } from "@/lib/strapi-api"
+import { fetchArticle, PARENT_FULL_PATHS } from "@/lib/strapi-api/content/pages"
 import { cn } from "@/lib/styles"
 import CardLocation from "@/components/elementary/CardLocation"
 import { Container } from "@/components/elementary/Container"
@@ -144,9 +141,7 @@ export async function StrapiArticlesCollection({
             search={search}
             tagIds={tagIds}
             pathname={
-              collectionType === ArticleCollectionTypes.Blog
-                ? "/blog"
-                : "/news"
+              collectionType === ArticleCollectionTypes.Blog ? "/blog" : "/news"
             }
           />
         ) : null}

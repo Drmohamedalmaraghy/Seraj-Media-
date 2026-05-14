@@ -33,11 +33,7 @@ export const CardLocationFilter = ({
     >
       <div className="max-h-full flex-1">
         {href ? (
-          <Link
-            href={href}
-            className="block h-full w-full"
-            aria-label={title}
-          >
+          <Link href={href} className="block h-full w-full" aria-label={title}>
             <StrapiBasicImage
               component={image}
               className={cn(

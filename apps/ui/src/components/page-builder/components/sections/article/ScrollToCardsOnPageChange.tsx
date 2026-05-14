@@ -19,8 +19,7 @@ const ScrollToCardsOnPageChange: FC = () => {
     const anchor = document.getElementById("articles-cards")
     if (!anchor) return
 
-    const topPosition =
-      anchor.getBoundingClientRect().top + window.scrollY - 60
+    const topPosition = anchor.getBoundingClientRect().top + window.scrollY - 60
     window.scrollTo({ top: topPosition, behavior: "smooth" })
   }, [page])
 
