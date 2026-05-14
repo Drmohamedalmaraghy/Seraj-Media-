@@ -50,13 +50,41 @@ type Props = PageProps<{
 
 export async function generateMetadata(props: Props) {
   const params = await props.params
+  const searchParams = await props.searchParams
   const fullPath = ROOT_PAGE_PATH + (params.rest ?? []).join("/")
 
-  return getMetadataFromStrapi({ fullPath, locale: params.locale })
+  const base = await getMetadataFromStrapi({ fullPath, locale: params.locale })
+
+  // Faceted/filtered URLs should not be indexed as separate pages — they are
+  // views of the same underlying content. Crawler still follows links from
+  // them via `follow`.
+  const isArticleListing = fullPath === "/blog" || fullPath === "/news"
+  const hasArticleFilters =
+    isArticleListing &&
+    (searchParams?.search != null || searchParams?.tags != null)
+
+  const isLocationsListing = fullPath === "/locations"
+  const hasLocationFilters =
+    isLocationsListing &&
+    (searchParams?.region != null ||
+      searchParams?.city != null ||
+      searchParams?.type != null ||
+      searchParams?.sizes != null ||
+      searchParams?.tab != null)
+
+  if (hasArticleFilters || hasLocationFilters) {
+    return {
+      ...base,
+      robots: { index: false, follow: true },
+    }
+  }
+
+  return base
 }
 
 export default async function StrapiPage(props: Props) {
   const params = await props.params
+  const searchParams = await props.searchParams
 
   setRequestLocale(params.locale)
 
@@ -188,6 +216,7 @@ export default async function StrapiPage(props: Props) {
               <Component
                 component={comp}
                 pageParams={params}
+                searchParams={searchParams}
                 page={restPageData}
               />
             </ErrorBoundary>
