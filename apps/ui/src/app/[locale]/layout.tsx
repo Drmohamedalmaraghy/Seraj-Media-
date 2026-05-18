@@ -14,6 +14,7 @@ import { ErrorBoundary } from "@/components/elementary/ErrorBoundary"
 import StrapiPreviewListener from "@/components/elementary/StrapiPreviewListener"
 import { TailwindIndicator } from "@/components/elementary/TailwindIndicator"
 import { WhatsAppButton } from "@/components/elementary/WhatsAppButton"
+import LayoutHider from "@/components/MainSections/LayoutHider"
 import StrapiFooter from "@/components/page-builder/single-types/footer/StrapiFooter"
 import StrapiHeader from "@/components/page-builder/single-types/header/StrapiHeader"
 import { ClientProviders } from "@/components/providers/ClientProviders"
@@ -98,9 +99,11 @@ export default async function RootLayout({ children, params }: LayoutProps) {
         <ServerProviders params={params}>
           <ClientProviders>
             <div className="bg-destructive relative flex min-h-screen flex-col">
-              <ErrorBoundary hideFallback>
-                <StrapiHeader locale={locale} />
-              </ErrorBoundary>
+              <LayoutHider>
+                <ErrorBoundary hideFallback>
+                  <StrapiHeader locale={locale} />
+                </ErrorBoundary>
+              </LayoutHider>
 
               <div className="flex-1">
                 <div>{children}</div>
@@ -110,9 +113,11 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
               <Toaster />
 
-              <ErrorBoundary hideFallback>
-                <StrapiFooter locale={locale} />
-              </ErrorBoundary>
+              <LayoutHider>
+                <ErrorBoundary hideFallback>
+                  <StrapiFooter locale={locale} />
+                </ErrorBoundary>
+              </LayoutHider>
             </div>
 
             <WhatsAppButton isArabic={isArabic} />
