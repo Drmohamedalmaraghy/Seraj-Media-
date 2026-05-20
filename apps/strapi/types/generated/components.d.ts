@@ -170,7 +170,8 @@ export interface SectionsArticleContent extends Struct.ComponentSchema {
     mediaPosition: Schema.Attribute.Enumeration<
       ["before_title", "after_title", "bottom"]
     > &
-      Schema.Attribute.Required
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"bottom">
     medias: Schema.Attribute.Component<"utilities.multi-media", true>
   }
 }
