@@ -713,6 +713,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         "sections.locations-view",
         "sections.one-page-helper",
         "sections.contacts",
+        "sections.faq",
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
