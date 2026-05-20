@@ -74,7 +74,8 @@
         "sections.article-column-content",
         "sections.locations-view",
         "sections.one-page-helper",
-        "sections.contacts"
+        "sections.contacts",
+        "sections.faq"
       ],
       "pluginOptions": {
         "i18n": {

@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_sections_faqs",
+  "info": {
+    "displayName": "FAQ"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.ck-editor-content"
+    },
+    "items": {
+      "displayName": "FaqItem",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.faq-item",
+      "required": true
+    }
+  }
+}

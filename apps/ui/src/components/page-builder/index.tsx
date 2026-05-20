@@ -8,6 +8,7 @@ import StrapiLocationsView from "@/components/page-builder/components/sections/l
 import StrapiOnePageHelper from "@/components/page-builder/components/sections/one-page-helper/StrapiOnePageHelper"
 import StrapiBanner from "@/components/page-builder/components/sections/StrapiBanner"
 import StrapiCarousel from "@/components/page-builder/components/sections/StrapiCarousel"
+import StrapiFAQ from "@/components/page-builder/components/sections/StrapiFAQ"
 import StrapiHero from "@/components/page-builder/components/sections/StrapiHero"
 import StrapiIdealLocations from "@/components/page-builder/components/sections/StrapiIdealLocations"
 import StrapiIndustries from "@/components/page-builder/components/sections/StrapiIndustries"
@@ -58,5 +59,6 @@ export const PageContentComponents: {
   "sections.locations-view": StrapiLocationsView,
   "sections.one-page-helper": StrapiOnePageHelper,
   "sections.contacts": StrapiContacts,
+  "sections.faq": StrapiFAQ,
   // Add more components here
 }

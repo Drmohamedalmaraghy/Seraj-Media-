@@ -14,6 +14,17 @@ export interface ElementsContactsCard extends Struct.ComponentSchema {
   }
 }
 
+export interface ElementsFaqItem extends Struct.ComponentSchema {
+  collectionName: "components_elements_faq_items"
+  info: {
+    displayName: "FaqItem"
+  }
+  attributes: {
+    answer: Schema.Attribute.Component<"utilities.ck-editor-content", false>
+    question: Schema.Attribute.String & Schema.Attribute.Required
+  }
+}
+
 export interface ElementsFooterItem extends Struct.ComponentSchema {
   collectionName: "components_elements_footer_items"
   info: {
@@ -239,6 +250,22 @@ export interface SectionsContacts extends Struct.ComponentSchema {
     mapZoom: Schema.Attribute.Integer
     pinLatitude: Schema.Attribute.Float
     pinLongitude: Schema.Attribute.Float
+  }
+}
+
+export interface SectionsFaq extends Struct.ComponentSchema {
+  collectionName: "components_sections_faqs"
+  info: {
+    displayName: "FAQ"
+  }
+  attributes: {
+    description: Schema.Attribute.Component<
+      "utilities.ck-editor-content",
+      false
+    >
+    items: Schema.Attribute.Component<"elements.faq-item", true> &
+      Schema.Attribute.Required
+    title: Schema.Attribute.Component<"utilities.ck-editor-content", false>
   }
 }
 
@@ -746,6 +773,7 @@ declare module "@strapi/strapi" {
   export module Public {
     export interface ComponentSchemas {
       "elements.contacts-card": ElementsContactsCard
+      "elements.faq-item": ElementsFaqItem
       "elements.footer-item": ElementsFooterItem
       "elements.ideal-locations-item": ElementsIdealLocationsItem
       "elements.industries-item": ElementsIndustriesItem
@@ -761,6 +789,7 @@ declare module "@strapi/strapi" {
       "sections.carousel": SectionsCarousel
       "sections.contact-us-form": SectionsContactUsForm
       "sections.contacts": SectionsContacts
+      "sections.faq": SectionsFaq
       "sections.hero": SectionsHero
       "sections.ideal-locations": SectionsIdealLocations
       "sections.industries": SectionsIndustries
