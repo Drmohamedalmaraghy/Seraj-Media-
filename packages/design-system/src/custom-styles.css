@@ -38,34 +38,52 @@
   @apply mb-5;
 }
 
-.ck-editor__main h1,
-.typo-h1 {
+.ck-editor__main h1 {
   @apply text-10xl mb-2;
 }
 
-.ck-editor__main h2,
-.typo-h2 {
+.ck-editor__main h2 {
   @apply text-8xl mb-1.5;
 }
 
-.ck-editor__main h3,
-.typo-h3 {
+.ck-editor__main h3 {
   @apply text-7xl mb-1;
 }
 
-.ck-editor__main h4,
-.typo-h4 {
+.ck-editor__main h4 {
   @apply text-6xl mb-1;
 }
 
-.ck-editor__main h5,
-.typo-h5 {
+.ck-editor__main h5 {
   @apply text-5xl mb-1;
 }
 
-.ck-editor__main h6,
-.typo-h6 {
+.ck-editor__main h6 {
   @apply text-4xl mb-1;
+}
+
+.typo-h1 {
+  @apply text-3xl mb-2 font-semibold md:text-4xl lg:text-[40px];
+}
+
+.typo-h2 {
+  @apply text-2xl mb-1.5 font-semibold md:text-3xl lg:text-[32px];
+}
+
+.typo-h3 {
+  @apply text-xl mb-1 font-semibold md:text-2xl lg:text-[26px];
+}
+
+.typo-h4 {
+  @apply text-lg mb-1 font-semibold md:text-xl lg:text-[22px];
+}
+
+.typo-h5 {
+  @apply text-base mb-1 font-semibold md:text-lg;
+}
+
+.typo-h6 {
+  @apply text-sm mb-1 font-semibold md:text-base;
 }
 
 .ck-editor__main p,

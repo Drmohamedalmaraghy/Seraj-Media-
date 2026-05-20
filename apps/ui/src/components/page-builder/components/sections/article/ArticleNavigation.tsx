@@ -19,7 +19,7 @@ export function ArticleNavigation({
       className={cn(
         "grid grid-cols-1 gap-x-8 gap-y-4",
         "md:grid-cols-2",
-        "lg:flex lg:w-[22%] lg:min-w-60 lg:flex-col"
+        "lg:flex lg:w-auto lg:max-w-[40%] lg:min-w-60 lg:flex-col"
       )}
     >
       {block.map((comp: ContentItem, index) => {
@@ -45,7 +45,7 @@ export function ArticleNavigation({
               "text-dark-50 text-xs leading-[120%] font-normal",
               "hover:text-primary hover:underline",
               "md:text-base md:font-medium",
-              "lg:bg-primary-5 lg:text-dark-50 lg:h-12.5 lg:items-center lg:rounded-[10px] lg:px-5 lg:text-center lg:no-underline",
+              "lg:bg-primary-5 lg:text-dark-50 lg:min-h-12.5 lg:items-center lg:rounded-[10px] lg:px-5 lg:py-3 lg:text-start lg:no-underline",
               "lg:hover:bg-primary lg:hover:text-white lg:hover:no-underline",
               isActive && "text-primary lg:bg-primary underline lg:text-white"
             )}
