@@ -22,16 +22,16 @@ export function ArticleContent({
       ) : null}
 
       {anchorTitle ? (
-        <h4
+        <h2
           className={cn(
             "text-[20px] leading-[132%] font-normal text-black",
             "md:text-[30px]",
             "lg:text-[40px]",
-            !columnType && "text-center"
+            "text-start"
           )}
         >
           {anchorTitle}
-        </h4>
+        </h2>
       ) : null}
 
       {mediaPosition === "after_title" && medias?.length ? (

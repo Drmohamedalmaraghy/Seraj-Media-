@@ -84,10 +84,11 @@ const AuthorBlock = async ({
 
   return (
     <div className={cn("flex items-center gap-2 lg:gap-3", className)}>
-      {author.avatar ? (
+      {author.avatar?.media ? (
         <StrapiBasicImage
           component={author.avatar}
           className="!h-8 !w-auto rounded-md lg:!h-12.5"
+          hideWhenMissing
         />
       ) : null}
 
