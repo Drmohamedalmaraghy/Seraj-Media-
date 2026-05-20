@@ -1,6 +1,7 @@
 "use client"
 
 import { Data } from "@repo/strapi"
+import { ChevronDownIcon } from "@radix-ui/react-icons"
 
 import { cn } from "@/lib/styles"
 import CkEditorCSRRenderer from "@/components/elementary/ck-editor/CkEditorCSRRenderer"
@@ -77,10 +78,10 @@ export function StrapiFAQ({
         <Accordion
           type="single"
           collapsible
-          className="border-stroke flex w-full flex-col rounded-2xl border bg-white"
+          className="border-stroke flex w-full flex-col overflow-hidden rounded-2xl border bg-white"
           defaultValue={items[0]?.id ? `${items[0].id}` : undefined}
         >
-          {items.map((item, index) => (
+          {items.map((item) => (
             <AccordionItem
               key={item.id}
               value={`${item.id}`}
@@ -90,19 +91,22 @@ export function StrapiFAQ({
               )}
             >
               <AccordionTrigger
-                showArrow
                 className={cn(
-                  "text-start text-base font-medium text-black hover:no-underline",
+                  "cursor-pointer text-start text-base font-medium text-black hover:no-underline",
                   "px-5 py-5 md:px-8 md:py-6 md:text-lg",
-                  "[&[data-state=open]>svg]:text-primary [&>svg]:text-dark-50",
-                  "data-[state=open]:text-primary"
+                  "data-[state=open]:text-primary",
+                  "[&_.faq-arrow]:transition-transform [&_.faq-arrow]:duration-200",
+                  "[&[data-state=open]_.faq-arrow]:rotate-180",
+                  "[&[data-state=open]_.faq-arrow]:border-primary",
+                  "[&[data-state=open]_.faq-arrow_svg]:text-primary"
                 )}
               >
-                <span className="flex items-start gap-4">
-                  <span className="text-primary min-w-8 text-base font-semibold tabular-nums md:text-lg">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="flex-1">{item.question}</span>
+                <span className="flex-1">{item.question}</span>
+                <span
+                  aria-hidden="true"
+                  className="faq-arrow border-stroke flex h-8 w-8 shrink-0 items-center justify-center rounded-full border bg-white md:h-10 md:w-10"
+                >
+                  <ChevronDownIcon className="text-dark-50 h-4 w-4 md:h-5 md:w-5" />
                 </span>
               </AccordionTrigger>
 
@@ -110,7 +114,7 @@ export function StrapiFAQ({
                 <AccordionContent className="px-5 pb-6 md:px-8 md:pb-8">
                   <CkEditorCSRRenderer
                     htmlContent={item.answer.content}
-                    className="text-dark-50 ms-12 text-sm leading-6 md:text-base"
+                    className="text-dark-50 text-sm leading-6 md:text-base"
                   />
                 </AccordionContent>
               ) : null}
