@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_sections_main_abouts",
+  "info": {
+    "displayName": "MainAbout",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "titleStart": {
+      "type": "string"
+    },
+    "titleAccent": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    }
+  }
+}

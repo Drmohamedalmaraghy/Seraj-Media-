@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_sections_main_videos",
+  "info": {
+    "displayName": "MainVideos",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "titleStart": {
+      "type": "string"
+    },
+    "titleAccent": {
+      "type": "string"
+    },
+    "viewAllButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button"
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.main-video-card"
+    }
+  }
+}

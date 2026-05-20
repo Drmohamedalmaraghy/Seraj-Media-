@@ -5,6 +5,12 @@ import StrapiArticleContent from "@/components/page-builder/components/sections/
 import StrapiArticlesCollection from "@/components/page-builder/components/sections/article/StrapiArticlesCollection"
 import StrapiContacts from "@/components/page-builder/components/sections/contacts/StrapiContacts"
 import StrapiLocationsView from "@/components/page-builder/components/sections/locations-view/StrapiLocationsView"
+import MainAbout from "@/components/page-builder/components/sections/main/MainAbout"
+import MainBrands from "@/components/page-builder/components/sections/main/MainBrands"
+import MainHero from "@/components/page-builder/components/sections/main/MainHero"
+import MainLocations from "@/components/page-builder/components/sections/main/MainLocations"
+import MainNews from "@/components/page-builder/components/sections/main/MainNews"
+import MainVideos from "@/components/page-builder/components/sections/main/MainVideos"
 import StrapiOnePageHelper from "@/components/page-builder/components/sections/one-page-helper/StrapiOnePageHelper"
 import StrapiBanner from "@/components/page-builder/components/sections/StrapiBanner"
 import StrapiCarousel from "@/components/page-builder/components/sections/StrapiCarousel"
@@ -58,5 +64,13 @@ export const PageContentComponents: {
   "sections.locations-view": StrapiLocationsView,
   "sections.one-page-helper": StrapiOnePageHelper,
   "sections.contacts": StrapiContacts,
+
+  // Main landing sections
+  "sections.main-hero": MainHero,
+  "sections.main-about": MainAbout,
+  "sections.main-brands": MainBrands,
+  "sections.main-locations-grid": MainLocations,
+  "sections.main-news": MainNews,
+  "sections.main-videos": MainVideos,
   // Add more components here
 }

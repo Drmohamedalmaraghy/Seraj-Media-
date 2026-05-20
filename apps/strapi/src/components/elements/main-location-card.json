@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_elements_main_location_cards",
+  "info": {
+    "displayName": "MainLocationCard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "region": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "tag": {
+      "type": "string"
+    },
+    "image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.link"
+    }
+  }
+}

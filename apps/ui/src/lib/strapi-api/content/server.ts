@@ -73,6 +73,53 @@ export async function fetchPage(
   }
 }
 
+// Lightweight fetch used by RootLayout to decide whether to render the Main*
+// header/footer variants for the current page. Populates only the fields
+// required for that decision.
+export async function fetchPageLayout(fullPath: string, locale: AppLocale) {
+  const dm = await draftMode()
+
+  try {
+    return await PublicStrapiClient.fetchOneByFullPath(
+      "api::page.page",
+      fullPath,
+      {
+        locale,
+        status: dm.isEnabled ? "draft" : "published",
+        fields: ["isMainHeaderFooter"],
+        populate: {
+          mainHeader: {
+            populate: {
+              desktopLogo: { populate: { media: true } },
+              navLinks: true,
+              ctaButton: {
+                populate: { icon: { populate: { media: true } } },
+              },
+            },
+          },
+          mainFooter: {
+            populate: {
+              logo: { populate: { media: true } },
+              socials: {
+                populate: {
+                  image: { populate: { media: true } },
+                  link: true,
+                },
+              },
+              columns: { populate: { links: true } },
+            },
+          },
+        },
+      }
+    )
+  } catch (e: any) {
+    console.error({
+      message: `Error fetching page layout '${fullPath}' for locale '${locale}'`,
+      error: { error: e?.message, stack: e?.stack },
+    })
+  }
+}
+
 export async function fetchAllPages(
   uid: Extract<UID.ContentType, "api::page.page"> = "api::page.page",
   locale: AppLocale

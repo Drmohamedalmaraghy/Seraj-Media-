@@ -713,8 +713,28 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         "sections.locations-view",
         "sections.one-page-helper",
         "sections.contacts",
+        "sections.main-hero",
+        "sections.main-about",
+        "sections.main-brands",
+        "sections.main-locations-grid",
+        "sections.main-news",
+        "sections.main-videos",
       ]
     > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    isMainHeaderFooter: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>
+    mainHeader: Schema.Attribute.Component<"sections.main-header", false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    mainFooter: Schema.Attribute.Component<"sections.main-footer", false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true

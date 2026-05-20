@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_sections_main_brands",
+  "info": {
+    "displayName": "MainBrands",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "titleStart": {
+      "type": "string"
+    },
+    "titleAccent": {
+      "type": "string"
+    },
+    "sideDescription": {
+      "type": "text"
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.main-brand-card"
+    }
+  }
+}

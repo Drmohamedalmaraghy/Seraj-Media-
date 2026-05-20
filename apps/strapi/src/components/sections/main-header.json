@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_sections_main_headers",
+  "info": {
+    "displayName": "MainHeader",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "desktopLogo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    },
+    "navLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "utilities.link"
+    },
+    "withLanguageSwitch": {
+      "type": "boolean",
+      "default": true
+    },
+    "ctaButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button"
+    }
+  }
+}

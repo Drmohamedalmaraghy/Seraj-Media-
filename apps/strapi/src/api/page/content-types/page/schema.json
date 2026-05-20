@@ -74,8 +74,43 @@
         "sections.article-column-content",
         "sections.locations-view",
         "sections.one-page-helper",
-        "sections.contacts"
+        "sections.contacts",
+        "sections.main-hero",
+        "sections.main-about",
+        "sections.main-brands",
+        "sections.main-locations-grid",
+        "sections.main-news",
+        "sections.main-videos"
       ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "isMainHeaderFooter": {
+      "type": "boolean",
+      "default": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "mainHeader": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.main-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "mainFooter": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.main-footer",
       "pluginOptions": {
         "i18n": {
           "localized": true

@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_sections_main_heroes",
+  "info": {
+    "displayName": "MainHero",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "badgeText": {
+      "type": "string"
+    },
+    "titleStart": {
+      "type": "string"
+    },
+    "titleAccent": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "primaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button"
+    },
+    "secondaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.button"
+    },
+    "slides": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.main-hero-slide"
+    },
+    "autoplayMs": {
+      "type": "integer",
+      "default": 6000
+    }
+  }
+}
