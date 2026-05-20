@@ -1,7 +1,7 @@
 "use client"
 
-import { Data } from "@repo/strapi"
 import { ChevronDownIcon } from "@radix-ui/react-icons"
+import { Data } from "@repo/strapi"
 
 import { cn } from "@/lib/styles"
 import CkEditorCSRRenderer from "@/components/elementary/ck-editor/CkEditorCSRRenderer"
