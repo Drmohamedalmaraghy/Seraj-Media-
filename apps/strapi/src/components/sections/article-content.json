@@ -22,7 +22,8 @@
     "mediaPosition": {
       "type": "enumeration",
       "enum": ["before_title", "after_title", "bottom"],
-      "required": true
+      "required": true,
+      "default": "bottom"
     }
   }
 }

@@ -14,6 +14,7 @@ import MainVideos from "@/components/page-builder/components/sections/main/MainV
 import StrapiOnePageHelper from "@/components/page-builder/components/sections/one-page-helper/StrapiOnePageHelper"
 import StrapiBanner from "@/components/page-builder/components/sections/StrapiBanner"
 import StrapiCarousel from "@/components/page-builder/components/sections/StrapiCarousel"
+import StrapiFAQ from "@/components/page-builder/components/sections/StrapiFAQ"
 import StrapiHero from "@/components/page-builder/components/sections/StrapiHero"
 import StrapiIdealLocations from "@/components/page-builder/components/sections/StrapiIdealLocations"
 import StrapiIndustries from "@/components/page-builder/components/sections/StrapiIndustries"
@@ -72,5 +73,6 @@ export const PageContentComponents: {
   "sections.main-locations-grid": MainLocations,
   "sections.main-news": MainNews,
   "sections.main-videos": MainVideos,
+  "sections.faq": StrapiFAQ,
   // Add more components here
 }

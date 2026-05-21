@@ -424,6 +424,16 @@ const pagePopulateObject: FindOne<"api::page.page">["populate"] = {
       "sections.articles-collection": {
         fields: ["searchPlaceholder", "filterPlaceholder", "id", "type"],
       },
+      "sections.faq": {
+        populate: {
+          title: { fields: ["content", "id"] },
+          description: { fields: ["content", "id"] },
+          items: {
+            fields: ["question", "id"],
+            populate: { answer: { fields: ["content", "id"] } },
+          },
+        },
+      },
     },
   },
   seo: {

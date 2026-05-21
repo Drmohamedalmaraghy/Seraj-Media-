@@ -80,7 +80,8 @@
         "sections.main-brands",
         "sections.main-locations-grid",
         "sections.main-news",
-        "sections.main-videos"
+        "sections.main-videos",
+        "sections.faq"
       ],
       "pluginOptions": {
         "i18n": {
