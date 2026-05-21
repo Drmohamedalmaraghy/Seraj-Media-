@@ -23,7 +23,8 @@ const BRANDS = [
   {
     tag: "Studio",
     title: "Seraj Production",
-    description: "Full-service creative production for\nbrands and broadcasters.",
+    description:
+      "Full-service creative production for\nbrands and broadcasters.",
     image: "/landing-new/brand-card.png",
   },
 ]

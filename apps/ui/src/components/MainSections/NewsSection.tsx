@@ -10,7 +10,8 @@ const NEWS = [
   },
   {
     category: "Production",
-    title: "Inside the Seraj studio: behind the scenes of the new podcast network",
+    title:
+      "Inside the Seraj studio: behind the scenes of the new podcast network",
     date: "5 days ago",
     image: "/landing-new/brand-card.png",
   },

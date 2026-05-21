@@ -2,10 +2,7 @@ import Image from "next/image"
 
 export default function AboutSection() {
   return (
-    <section
-      id="about"
-      className="relative w-full px-6 py-32 lg:px-10"
-    >
+    <section id="about" className="relative w-full px-6 py-32 lg:px-10">
       <div className="mx-auto grid w-full max-w-[1352px] grid-cols-1 items-center gap-12 lg:grid-cols-[644px_1fr] lg:gap-16">
         {/* Team image with red blur halo */}
         <div className="relative w-full">

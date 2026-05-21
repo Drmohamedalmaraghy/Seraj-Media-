@@ -81,7 +81,7 @@ export default function HeroSection() {
           </span>
         </div>
 
-        <h1 className="font-[600] text-[clamp(48px,9vw,96px)] leading-[1.05] tracking-[-0.01em] text-[#FAFAFA]">
+        <h1 className="text-[clamp(48px,9vw,96px)] leading-[1.05] font-[600] tracking-[-0.01em] text-[#FAFAFA]">
           TO BE{" "}
           <span className="bg-[linear-gradient(155deg,#F62828_0%,#FF4D4D_100%)] bg-clip-text text-transparent">
             SEEN.
@@ -132,7 +132,9 @@ export default function HeroSection() {
                 type="button"
                 onClick={() => setCurrent(i)}
                 className={`text-[11px] tracking-[0.2em] uppercase transition-colors ${
-                  current === i ? "text-white" : "text-[#A6A6A6] hover:text-white"
+                  current === i
+                    ? "text-white"
+                    : "text-[#A6A6A6] hover:text-white"
                 }`}
               >
                 {slide.label}

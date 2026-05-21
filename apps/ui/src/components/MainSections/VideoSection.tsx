@@ -21,10 +21,7 @@ const VIDEOS = [
 
 export default function VideoSection() {
   return (
-    <section
-      id="videos"
-      className="relative w-full px-6 py-32 lg:px-10"
-    >
+    <section id="videos" className="relative w-full px-6 py-32 lg:px-10">
       <div className="mx-auto w-full max-w-[1352px]">
         {/* Heading row */}
         <div className="flex flex-wrap items-end justify-between gap-6">
