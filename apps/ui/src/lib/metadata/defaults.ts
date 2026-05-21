@@ -27,9 +27,9 @@ export function getDefaultMetadata(
     robots: t("metaRobots"),
     applicationName: t("applicationName"),
 
-    icons: {
-      icon: "favicon.png",
-    },
+    // Icons are provided by the Next.js App Router file convention
+    // (src/app/favicon.ico), which emits a correct absolute <link rel="icon">
+    // on every route. No manual `icons` entry needed.
 
     alternates: {
       canonical: buildUrl(locale),

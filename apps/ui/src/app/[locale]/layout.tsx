@@ -17,7 +17,6 @@ import { ErrorBoundary } from "@/components/elementary/ErrorBoundary"
 import StrapiPreviewListener from "@/components/elementary/StrapiPreviewListener"
 import { TailwindIndicator } from "@/components/elementary/TailwindIndicator"
 import { WhatsAppButton } from "@/components/elementary/WhatsAppButton"
-import LayoutHider from "@/components/MainSections/LayoutHider"
 import StrapiFooter from "@/components/page-builder/single-types/footer/StrapiFooter"
 import StrapiHeader from "@/components/page-builder/single-types/header/StrapiHeader"
 import StrapiMainFooter from "@/components/page-builder/single-types/main-footer/StrapiMainFooter"
@@ -126,11 +125,9 @@ export default async function RootLayout({ children, params }: LayoutProps) {
                   <StrapiMainHeader locale={locale} />
                 </ErrorBoundary>
               ) : (
-                <LayoutHider>
-                  <ErrorBoundary hideFallback>
-                    <StrapiHeader locale={locale} />
-                  </ErrorBoundary>
-                </LayoutHider>
+                <ErrorBoundary hideFallback>
+                  <StrapiHeader locale={locale} />
+                </ErrorBoundary>
               )}
 
               <div className="flex-1">
@@ -146,11 +143,9 @@ export default async function RootLayout({ children, params }: LayoutProps) {
                   <StrapiMainFooter locale={locale} />
                 </ErrorBoundary>
               ) : (
-                <LayoutHider>
-                  <ErrorBoundary hideFallback>
-                    <StrapiFooter locale={locale} />
-                  </ErrorBoundary>
-                </LayoutHider>
+                <ErrorBoundary hideFallback>
+                  <StrapiFooter locale={locale} />
+                </ErrorBoundary>
               )}
             </div>
 
