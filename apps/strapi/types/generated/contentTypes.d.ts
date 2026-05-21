@@ -726,20 +726,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
           localized: true
         }
       }>
-    isMainHeaderFooter: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<false>
-    mainHeader: Schema.Attribute.Component<"sections.main-header", false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    mainFooter: Schema.Attribute.Component<"sections.main-footer", false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
     createdAt: Schema.Attribute.DateTime
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private
@@ -750,9 +736,28 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
           localized: true
         }
       }>
+    isMainHeaderFooter: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false
+        }
+      }> &
+      Schema.Attribute.DefaultTo<false>
     locale: Schema.Attribute.String
     localizations: Schema.Attribute.Relation<"oneToMany", "api::page.page">
     location: Schema.Attribute.Relation<"oneToOne", "api::location.location">
+    mainFooter: Schema.Attribute.Component<"sections.main-footer", false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    mainHeader: Schema.Attribute.Component<"sections.main-header", false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     parent: Schema.Attribute.Relation<"manyToOne", "api::page.page">
     publishedAt: Schema.Attribute.DateTime
     redirects: Schema.Attribute.Relation<"oneToMany", "api::redirect.redirect">
