@@ -87,10 +87,12 @@ export async function StrapiHeader({ locale }: { readonly locale: AppLocale }) {
           <StrapiBasicImage
             className="hidden !h-full !w-auto lg:block"
             component={desktopLogo}
+            priority
           />
           <StrapiBasicImage
             className="!h-full !w-auto lg:hidden"
             component={mobileLogo}
+            priority
           />
         </AppLink>
 

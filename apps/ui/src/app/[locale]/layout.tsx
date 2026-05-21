@@ -119,9 +119,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* Google Tag Manager noscript End*/}
 
-        <StrapiPreviewListener />
         <TrackingScripts />
         <ServerProviders params={params}>
+          <StrapiPreviewListener />
           <ClientProviders>
             <div className="bg-destructive relative flex min-h-screen flex-col">
               {useMain ? (
