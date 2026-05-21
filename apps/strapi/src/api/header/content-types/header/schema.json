@@ -66,6 +66,16 @@
           "localized": true
         }
       }
+    },
+    "mainHeader": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.main-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

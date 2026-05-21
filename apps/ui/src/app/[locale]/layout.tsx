@@ -18,10 +18,10 @@ import StrapiPreviewListener from "@/components/elementary/StrapiPreviewListener
 import { TailwindIndicator } from "@/components/elementary/TailwindIndicator"
 import { WhatsAppButton } from "@/components/elementary/WhatsAppButton"
 import LayoutHider from "@/components/MainSections/LayoutHider"
-import MainFooter from "@/components/page-builder/components/sections/main/MainFooter"
-import MainHeader from "@/components/page-builder/components/sections/main/MainHeader"
 import StrapiFooter from "@/components/page-builder/single-types/footer/StrapiFooter"
 import StrapiHeader from "@/components/page-builder/single-types/header/StrapiHeader"
+import StrapiMainFooter from "@/components/page-builder/single-types/main-footer/StrapiMainFooter"
+import StrapiMainHeader from "@/components/page-builder/single-types/main-header/StrapiMainHeader"
 import { ClientProviders } from "@/components/providers/ClientProviders"
 import { ServerProviders } from "@/components/providers/ServerProviders"
 import TrackingScripts from "@/components/providers/TrackingScripts"
@@ -123,7 +123,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
             <div className="bg-destructive relative flex min-h-screen flex-col">
               {useMain ? (
                 <ErrorBoundary hideFallback>
-                  <MainHeader component={layoutData?.mainHeader} />
+                  <StrapiMainHeader locale={locale} />
                 </ErrorBoundary>
               ) : (
                 <LayoutHider>
@@ -143,7 +143,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
               {useMain ? (
                 <ErrorBoundary hideFallback>
-                  <MainFooter component={layoutData?.mainFooter} />
+                  <StrapiMainFooter locale={locale} />
                 </ErrorBoundary>
               ) : (
                 <LayoutHider>

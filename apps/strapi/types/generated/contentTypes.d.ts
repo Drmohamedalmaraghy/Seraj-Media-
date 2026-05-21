@@ -479,6 +479,12 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
       }>
     locale: Schema.Attribute.String
     localizations: Schema.Attribute.Relation<"oneToMany", "api::footer.footer">
+    mainFooter: Schema.Attribute.Component<"sections.main-footer", false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     publishedAt: Schema.Attribute.DateTime
     title: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
@@ -541,6 +547,12 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
       }>
     locale: Schema.Attribute.String
     localizations: Schema.Attribute.Relation<"oneToMany", "api::header.header">
+    mainHeader: Schema.Attribute.Component<"sections.main-header", false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     mobileLogo: Schema.Attribute.Component<"utilities.basic-image", false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -746,18 +758,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String
     localizations: Schema.Attribute.Relation<"oneToMany", "api::page.page">
     location: Schema.Attribute.Relation<"oneToOne", "api::location.location">
-    mainFooter: Schema.Attribute.Component<"sections.main-footer", false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    mainHeader: Schema.Attribute.Component<"sections.main-header", false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
     parent: Schema.Attribute.Relation<"manyToOne", "api::page.page">
     publishedAt: Schema.Attribute.DateTime
     redirects: Schema.Attribute.Relation<"oneToMany", "api::redirect.redirect">

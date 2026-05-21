@@ -48,6 +48,16 @@
           "localized": true
         }
       }
+    },
+    "mainFooter": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.main-footer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
