@@ -69,6 +69,90 @@ export interface ElementsIndustriesItem extends Struct.ComponentSchema {
   }
 }
 
+export interface ElementsMainBrandCard extends Struct.ComponentSchema {
+  collectionName: "components_elements_main_brand_cards"
+  info: {
+    description: ""
+    displayName: "MainBrandCard"
+  }
+  attributes: {
+    description: Schema.Attribute.Text
+    image: Schema.Attribute.Component<"utilities.basic-image", false>
+    link: Schema.Attribute.Component<"utilities.link", false>
+    tag: Schema.Attribute.String
+    title: Schema.Attribute.String & Schema.Attribute.Required
+  }
+}
+
+export interface ElementsMainFooterColumn extends Struct.ComponentSchema {
+  collectionName: "components_elements_main_footer_columns"
+  info: {
+    description: ""
+    displayName: "MainFooterColumn"
+  }
+  attributes: {
+    links: Schema.Attribute.Component<"utilities.link", true>
+    title: Schema.Attribute.String & Schema.Attribute.Required
+  }
+}
+
+export interface ElementsMainHeroSlide extends Struct.ComponentSchema {
+  collectionName: "components_elements_main_hero_slides"
+  info: {
+    description: ""
+    displayName: "MainHeroSlide"
+  }
+  attributes: {
+    image: Schema.Attribute.Component<"utilities.basic-image", false> &
+      Schema.Attribute.Required
+    label: Schema.Attribute.String & Schema.Attribute.Required
+  }
+}
+
+export interface ElementsMainLocationCard extends Struct.ComponentSchema {
+  collectionName: "components_elements_main_location_cards"
+  info: {
+    description: ""
+    displayName: "MainLocationCard"
+  }
+  attributes: {
+    city: Schema.Attribute.String & Schema.Attribute.Required
+    image: Schema.Attribute.Component<"utilities.basic-image", false>
+    link: Schema.Attribute.Component<"utilities.link", false>
+    region: Schema.Attribute.String
+    tag: Schema.Attribute.String
+  }
+}
+
+export interface ElementsMainNewsCard extends Struct.ComponentSchema {
+  collectionName: "components_elements_main_news_cards"
+  info: {
+    description: ""
+    displayName: "MainNewsCard"
+  }
+  attributes: {
+    category: Schema.Attribute.String
+    image: Schema.Attribute.Component<"utilities.basic-image", false>
+    link: Schema.Attribute.Component<"utilities.link", false>
+    publishedAt: Schema.Attribute.DateTime
+    title: Schema.Attribute.String & Schema.Attribute.Required
+  }
+}
+
+export interface ElementsMainVideoCard extends Struct.ComponentSchema {
+  collectionName: "components_elements_main_video_cards"
+  info: {
+    description: ""
+    displayName: "MainVideoCard"
+  }
+  attributes: {
+    duration: Schema.Attribute.String
+    image: Schema.Attribute.Component<"utilities.basic-image", false>
+    link: Schema.Attribute.Component<"utilities.link", false>
+    title: Schema.Attribute.String & Schema.Attribute.Required
+  }
+}
+
 export interface ElementsSolutionsItem extends Struct.ComponentSchema {
   collectionName: "components_elements_solutions_items"
   info: {
@@ -370,6 +454,85 @@ export interface SectionsLocationsView extends Struct.ComponentSchema {
   }
 }
 
+export interface SectionsMainAbout extends Struct.ComponentSchema {
+  collectionName: "components_sections_main_abouts"
+  info: {
+    description: ""
+    displayName: "MainAbout"
+  }
+  attributes: {
+    description: Schema.Attribute.Text
+    eyebrow: Schema.Attribute.String
+    image: Schema.Attribute.Component<"utilities.basic-image", false>
+    titleAccent: Schema.Attribute.String
+    titleStart: Schema.Attribute.String
+  }
+}
+
+export interface SectionsMainBrands extends Struct.ComponentSchema {
+  collectionName: "components_sections_main_brands"
+  info: {
+    description: ""
+    displayName: "MainBrands"
+  }
+  attributes: {
+    cards: Schema.Attribute.Component<"elements.main-brand-card", true>
+    eyebrow: Schema.Attribute.String
+    sideDescription: Schema.Attribute.Text
+    titleAccent: Schema.Attribute.String
+    titleStart: Schema.Attribute.String
+  }
+}
+
+export interface SectionsMainFooter extends Struct.ComponentSchema {
+  collectionName: "components_sections_main_footers"
+  info: {
+    description: ""
+    displayName: "MainFooter"
+  }
+  attributes: {
+    brandDescription: Schema.Attribute.Text
+    columns: Schema.Attribute.Component<"elements.main-footer-column", true>
+    copyright: Schema.Attribute.String
+    locationLine: Schema.Attribute.String
+    logo: Schema.Attribute.Component<"utilities.basic-image", false>
+    socials: Schema.Attribute.Component<"utilities.image-with-link", true>
+  }
+}
+
+export interface SectionsMainHeader extends Struct.ComponentSchema {
+  collectionName: "components_sections_main_headers"
+  info: {
+    description: ""
+    displayName: "MainHeader"
+  }
+  attributes: {
+    ctaButton: Schema.Attribute.Component<"utilities.button", false>
+    desktopLogo: Schema.Attribute.Component<"utilities.basic-image", false>
+    navLinks: Schema.Attribute.Component<"utilities.link", true>
+    withLanguageSwitch: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>
+  }
+}
+
+export interface SectionsMainHero extends Struct.ComponentSchema {
+  collectionName: "components_sections_main_heroes"
+  info: {
+    description: ""
+    displayName: "MainHero"
+  }
+  attributes: {
+    autoplayMs: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<6000>
+    badgeText: Schema.Attribute.String
+    description: Schema.Attribute.Text
+    primaryButton: Schema.Attribute.Component<"utilities.button", false>
+    secondaryButton: Schema.Attribute.Component<"utilities.button", false>
+    slides: Schema.Attribute.Component<"elements.main-hero-slide", true>
+    titleAccent: Schema.Attribute.String
+    titleStart: Schema.Attribute.String
+  }
+}
+
 export interface SectionsMainLocations extends Struct.ComponentSchema {
   collectionName: "components_sections_main_locations"
   info: {
@@ -394,6 +557,51 @@ export interface SectionsMainLocations extends Struct.ComponentSchema {
     seeDetailsLabel: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<"See Details">
     title: Schema.Attribute.Component<"utilities.ck-editor-content", false>
+  }
+}
+
+export interface SectionsMainLocationsGrid extends Struct.ComponentSchema {
+  collectionName: "components_sections_main_locations_grids"
+  info: {
+    description: ""
+    displayName: "MainLocationsGrid"
+  }
+  attributes: {
+    cards: Schema.Attribute.Component<"elements.main-location-card", true>
+    eyebrow: Schema.Attribute.String
+    titleAccent: Schema.Attribute.String
+    titleStart: Schema.Attribute.String
+    viewAllButton: Schema.Attribute.Component<"utilities.button", false>
+  }
+}
+
+export interface SectionsMainNews extends Struct.ComponentSchema {
+  collectionName: "components_sections_main_news"
+  info: {
+    description: ""
+    displayName: "MainNews"
+  }
+  attributes: {
+    cards: Schema.Attribute.Component<"elements.main-news-card", true>
+    eyebrow: Schema.Attribute.String
+    titleAccent: Schema.Attribute.String
+    titleStart: Schema.Attribute.String
+    viewAllLink: Schema.Attribute.Component<"utilities.link", false>
+  }
+}
+
+export interface SectionsMainVideos extends Struct.ComponentSchema {
+  collectionName: "components_sections_main_videos"
+  info: {
+    description: ""
+    displayName: "MainVideos"
+  }
+  attributes: {
+    cards: Schema.Attribute.Component<"elements.main-video-card", true>
+    eyebrow: Schema.Attribute.String
+    titleAccent: Schema.Attribute.String
+    titleStart: Schema.Attribute.String
+    viewAllButton: Schema.Attribute.Component<"utilities.button", false>
   }
 }
 
@@ -778,6 +986,12 @@ declare module "@strapi/strapi" {
       "elements.footer-item": ElementsFooterItem
       "elements.ideal-locations-item": ElementsIdealLocationsItem
       "elements.industries-item": ElementsIndustriesItem
+      "elements.main-brand-card": ElementsMainBrandCard
+      "elements.main-footer-column": ElementsMainFooterColumn
+      "elements.main-hero-slide": ElementsMainHeroSlide
+      "elements.main-location-card": ElementsMainLocationCard
+      "elements.main-news-card": ElementsMainNewsCard
+      "elements.main-video-card": ElementsMainVideoCard
       "elements.solutions-item": ElementsSolutionsItem
       "elements.statistic-item": ElementsStatisticItem
       "elements.teammate": ElementsTeammate
@@ -795,7 +1009,15 @@ declare module "@strapi/strapi" {
       "sections.ideal-locations": SectionsIdealLocations
       "sections.industries": SectionsIndustries
       "sections.locations-view": SectionsLocationsView
+      "sections.main-about": SectionsMainAbout
+      "sections.main-brands": SectionsMainBrands
+      "sections.main-footer": SectionsMainFooter
+      "sections.main-header": SectionsMainHeader
+      "sections.main-hero": SectionsMainHero
       "sections.main-locations": SectionsMainLocations
+      "sections.main-locations-grid": SectionsMainLocationsGrid
+      "sections.main-news": SectionsMainNews
+      "sections.main-videos": SectionsMainVideos
       "sections.news": SectionsNews
       "sections.one-page-helper": SectionsOnePageHelper
       "sections.solutions": SectionsSolutions

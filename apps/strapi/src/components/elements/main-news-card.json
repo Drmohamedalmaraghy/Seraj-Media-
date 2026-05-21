@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_elements_main_news_cards",
+  "info": {
+    "displayName": "MainNewsCard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "category": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "publishedAt": {
+      "type": "datetime"
+    },
+    "image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.basic-image"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utilities.link"
+    }
+  }
+}

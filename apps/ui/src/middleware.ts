@@ -7,6 +7,15 @@ import { routing } from "./lib/navigation"
 // https://next-intl-docs.vercel.app/docs/getting-started/app-router
 const intlMiddleware = createMiddleware(routing)
 
+// Exposes the current pathname to server components via request headers so
+// RootLayout can decide whether to render the classic StrapiHeader/Footer or
+// the Main* variants based on the matching Page's `isMainHeaderFooter` flag.
+function attachPathname(response: NextResponse, pathname: string) {
+  response.headers.set("x-middleware-override-headers", "x-pathname")
+  response.headers.set("x-middleware-request-x-pathname", pathname)
+  return response
+}
+
 // List all pages that require authentication (non-public)
 const authPages = ["/auth/change-password", "/auth/signout"]
 
@@ -89,11 +98,11 @@ export default function middleware(req: NextRequest) {
 
   // If the request is for a non-public (auth) page, require authentication
   if (isAuthPage) {
-    return (authMiddleware as any)(req)
+    return attachPathname((authMiddleware as any)(req), req.nextUrl.pathname)
   }
 
   // All other pages are public
-  return intlMiddleware(req)
+  return attachPathname(intlMiddleware(req), req.nextUrl.pathname)
 }
 
 export const config = {
