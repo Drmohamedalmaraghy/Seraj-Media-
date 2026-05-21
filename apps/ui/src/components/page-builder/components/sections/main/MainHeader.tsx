@@ -23,6 +23,7 @@ export function MainHeader({
             component={desktopLogo}
             className="h-11 w-auto object-contain"
             useNativeNextImageOnly
+            priority
           />
         </AppLink>
 
