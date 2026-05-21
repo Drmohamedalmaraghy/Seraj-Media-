@@ -434,6 +434,170 @@ const pagePopulateObject: FindOne<"api::page.page">["populate"] = {
           },
         },
       },
+      "sections.main-hero": {
+        populate: {
+          primaryButton: {
+            fields: ["label", "href", "newTab", "variant"],
+            populate: {
+              icon: {
+                fields: ["alt", "width", "height", "fallbackSrc"],
+                populate: { media: true },
+              },
+            },
+          },
+          secondaryButton: {
+            fields: ["label", "href", "newTab", "variant"],
+            populate: {
+              icon: {
+                fields: ["alt", "width", "height", "fallbackSrc"],
+                populate: { media: true },
+              },
+            },
+          },
+          slides: {
+            fields: ["label", "id"],
+            populate: {
+              image: {
+                fields: ["alt", "width", "height", "fallbackSrc"],
+                populate: {
+                  media: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "width",
+                      "height",
+                      "mime",
+                    ],
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      "sections.main-about": {
+        populate: {
+          image: {
+            fields: ["alt", "width", "height", "fallbackSrc"],
+            populate: {
+              media: {
+                fields: ["url", "alternativeText", "width", "height", "mime"],
+              },
+            },
+          },
+        },
+      },
+      "sections.main-brands": {
+        populate: {
+          cards: {
+            populate: {
+              image: {
+                fields: ["alt", "width", "height", "fallbackSrc"],
+                populate: {
+                  media: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "width",
+                      "height",
+                      "mime",
+                    ],
+                  },
+                },
+              },
+              link: { fields: ["label", "href", "newTab"] },
+            },
+          },
+        },
+      },
+      "sections.main-locations-grid": {
+        populate: {
+          viewAllButton: {
+            fields: ["label", "href", "newTab", "variant"],
+            populate: {
+              icon: {
+                fields: ["alt", "width", "height", "fallbackSrc"],
+                populate: { media: true },
+              },
+            },
+          },
+          cards: {
+            populate: {
+              image: {
+                fields: ["alt", "width", "height", "fallbackSrc"],
+                populate: {
+                  media: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "width",
+                      "height",
+                      "mime",
+                    ],
+                  },
+                },
+              },
+              link: { fields: ["label", "href", "newTab"] },
+            },
+          },
+        },
+      },
+      "sections.main-news": {
+        populate: {
+          viewAllLink: { fields: ["label", "href", "newTab"] },
+          cards: {
+            populate: {
+              image: {
+                fields: ["alt", "width", "height", "fallbackSrc"],
+                populate: {
+                  media: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "width",
+                      "height",
+                      "mime",
+                    ],
+                  },
+                },
+              },
+              link: { fields: ["label", "href", "newTab"] },
+            },
+          },
+        },
+      },
+      "sections.main-videos": {
+        populate: {
+          viewAllButton: {
+            fields: ["label", "href", "newTab", "variant"],
+            populate: {
+              icon: {
+                fields: ["alt", "width", "height", "fallbackSrc"],
+                populate: { media: true },
+              },
+            },
+          },
+          cards: {
+            populate: {
+              image: {
+                fields: ["alt", "width", "height", "fallbackSrc"],
+                populate: {
+                  media: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "width",
+                      "height",
+                      "mime",
+                    ],
+                  },
+                },
+              },
+              link: { fields: ["label", "href", "newTab"] },
+            },
+          },
+        },
+      },
     },
   },
   seo: {

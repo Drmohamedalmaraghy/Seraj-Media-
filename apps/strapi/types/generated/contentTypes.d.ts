@@ -731,6 +731,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         "sections.main-locations-grid",
         "sections.main-news",
         "sections.main-videos",
+        "sections.faq",
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
