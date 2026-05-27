@@ -7,6 +7,7 @@ import StrapiContacts from "@/components/page-builder/components/sections/contac
 import StrapiLocationsView from "@/components/page-builder/components/sections/locations-view/StrapiLocationsView"
 import MainAbout from "@/components/page-builder/components/sections/main/MainAbout"
 import MainBrands from "@/components/page-builder/components/sections/main/MainBrands"
+import MainCarousel from "@/components/page-builder/components/sections/main/MainCarousel"
 import MainHero from "@/components/page-builder/components/sections/main/MainHero"
 import MainLocations from "@/components/page-builder/components/sections/main/MainLocations"
 import MainNews from "@/components/page-builder/components/sections/main/MainNews"
@@ -73,6 +74,7 @@ export const PageContentComponents: {
   "sections.main-locations-grid": MainLocations,
   "sections.main-news": MainNews,
   "sections.main-videos": MainVideos,
+  "sections.main-carousel": MainCarousel,
   "sections.faq": StrapiFAQ,
   // Add more components here
 }

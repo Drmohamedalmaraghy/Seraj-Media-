@@ -18,7 +18,7 @@ export function MainFooter({
   const socialsList = socials ?? []
 
   return (
-    <footer className="relative w-full border-t border-[#292929] bg-[#1F1F1F]/30 px-6 pt-24 pb-8 lg:px-10">
+    <footer className="relative w-full border-t border-[#292929] bg-[#1F1F1F] px-6 pt-24 pb-8 lg:px-10">
       <div className="mx-auto w-full max-w-[1352px]">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1fr_repeat(3,200px)]">
           <div>

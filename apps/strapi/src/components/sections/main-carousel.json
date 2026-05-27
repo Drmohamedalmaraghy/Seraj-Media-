@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_main_carousels",
+  "info": {
+    "displayName": "MainCarousel",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "utilities.basic-image"
+    },
+    "speed": {
+      "type": "decimal",
+      "default": 0.5
+    }
+  }
+}
