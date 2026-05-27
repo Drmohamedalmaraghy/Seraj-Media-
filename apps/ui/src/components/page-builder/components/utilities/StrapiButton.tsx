@@ -3,6 +3,7 @@ import { Data } from "@repo/strapi"
 
 import { cn } from "@/lib/styles"
 import { ArrowIcon } from "@/components/icons/ArrowIcon"
+import { StrapiBasicImage } from "@/components/page-builder/components/utilities/StrapiBasicImage"
 import StrapiLink from "@/components/page-builder/components/utilities/StrapiLink"
 import { Button } from "@/components/ui/button"
 
@@ -21,6 +22,9 @@ export function StrapiButton({
   className,
   iconClassName,
 }: StrapiButtonProps) {
+  const strapiIcon = component.icon
+  const hasStrapiIcon = strapiIcon?.media != null
+
   return (
     <Button
       className={className}
@@ -30,7 +34,16 @@ export function StrapiButton({
     >
       <StrapiLink component={component}>
         {component.label}
-        {withIconArrow && (
+        {hasStrapiIcon ? (
+          <StrapiBasicImage
+            component={strapiIcon}
+            forcedSizes={{ width: 16, height: 16 }}
+            className={cn(
+              "ml-2 h-4 w-4 shrink-0 object-contain",
+              iconClassName
+            )}
+          />
+        ) : withIconArrow ? (
           <ArrowIcon
             className={cn(
               "w-0 transition-all duration-300 ease-out group-hover:w-6",
@@ -41,7 +54,7 @@ export function StrapiButton({
               iconClassName
             )}
           />
-        )}
+        ) : null}
       </StrapiLink>
     </Button>
   )

@@ -484,6 +484,18 @@ export interface SectionsMainBrands extends Struct.ComponentSchema {
   }
 }
 
+export interface SectionsMainCarousel extends Struct.ComponentSchema {
+  collectionName: "components_sections_main_carousels"
+  info: {
+    description: ""
+    displayName: "MainCarousel"
+  }
+  attributes: {
+    items: Schema.Attribute.Component<"utilities.basic-image", true>
+    speed: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0.5>
+  }
+}
+
 export interface SectionsMainFooter extends Struct.ComponentSchema {
   collectionName: "components_sections_main_footers"
   info: {
@@ -1011,6 +1023,7 @@ declare module "@strapi/strapi" {
       "sections.locations-view": SectionsLocationsView
       "sections.main-about": SectionsMainAbout
       "sections.main-brands": SectionsMainBrands
+      "sections.main-carousel": SectionsMainCarousel
       "sections.main-footer": SectionsMainFooter
       "sections.main-header": SectionsMainHeader
       "sections.main-hero": SectionsMainHero

@@ -81,6 +81,7 @@
         "sections.main-locations-grid",
         "sections.main-news",
         "sections.main-videos",
+        "sections.main-carousel",
         "sections.faq"
       ],
       "pluginOptions": {
