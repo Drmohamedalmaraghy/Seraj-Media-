@@ -15,7 +15,7 @@ export function MainBrands({
   return (
     <section
       id="brands"
-      className="relative w-full bg-[#1F1F1F]/40 px-6 py-32 lg:px-10"
+      className="relative w-full bg-[#1F1F1F] px-6 py-32 lg:px-10"
     >
       <div className="mx-auto w-full max-w-[1352px]">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-end">
@@ -76,7 +76,7 @@ export function MainBrands({
                     ) : null}
                   </div>
                   <div className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#292929] bg-[#0D0D0D]/60 text-white sm:flex">
-                    <ArrowUpRight className="h-4 w-4" />
+                    <ArrowUpRight className="h-4 w-4 text-[#F62828]" />
                   </div>
                 </div>
               </>
