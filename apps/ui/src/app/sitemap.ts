@@ -55,6 +55,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return allPages.reduce<MetadataRoute.Sitemap>((acc, { locale, page }) => {
     if (!page.fullPath) return acc
+    // TODO REMOVE THIS AFTER PREVIEW
+    if (page.fullPath === "/test-test-12345") return acc
+    // TODO REMOVE THIS AFTER PREVIEW
     acc.push({
       url: generateSitemapEntryUrl(page.fullPath, locale),
       lastModified: formatLastModified(page.updatedAt ?? page.createdAt),

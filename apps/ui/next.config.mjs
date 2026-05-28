@@ -51,6 +51,17 @@ const nextConfig = {
     // immutable headers from Next.js automatically.
     const STATIC_CACHE = "public, max-age=2592000, stale-while-revalidate=86400"
     return [
+      // TODO REMOVE THIS AFTER PREVIEW
+      {
+        source: "/test-test-12345",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow",
+          },
+        ],
+      },
+      // TODO REMOVE THIS AFTER PREVIEW
       {
         source: "/images/:path*",
         headers: [{ key: "Cache-Control", value: STATIC_CACHE }],
