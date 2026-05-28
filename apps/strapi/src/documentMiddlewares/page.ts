@@ -568,7 +568,7 @@ const pagePopulateObject: FindOne<"api::page.page">["populate"] = {
       },
       "sections.main-carousel": {
         populate: {
-          images: {
+          items: {
             fields: ["alt", "width", "height", "fallbackSrc"],
             populate: {
               media: {
