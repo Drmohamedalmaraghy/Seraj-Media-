@@ -1,7 +1,7 @@
 import { notFound, permanentRedirect, redirect } from "next/navigation"
-import * as Sentry from "@sentry/nextjs"
 import { ROOT_PAGE_PATH } from "@repo/shared-data"
 import { Data } from "@repo/strapi"
+import * as Sentry from "@sentry/nextjs"
 import { setRequestLocale } from "next-intl/server"
 
 import type { PageProps } from "@/types/next"
