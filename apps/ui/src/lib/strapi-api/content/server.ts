@@ -97,6 +97,33 @@ export async function fetchPageLayout(fullPath: string, locale: AppLocale) {
   }
 }
 
+// Looks up a permanent/temporary redirect record for a legacy path that no
+// longer resolves to a page (Strapi auto-creates these when a page's
+// fullPath changes, see hierarchyService.ts's CREATE_REDIRECT).
+export async function fetchRedirect(source: string) {
+  try {
+    const response = await PublicStrapiClient.fetchMany(
+      "api::redirect.redirect",
+      {
+        filters: { source: { $eq: source } },
+        pagination: { page: 1, pageSize: 1 },
+        status: "published",
+      },
+      { next: { revalidate: 300 } }
+    )
+    return response?.data?.[0] ?? null
+  } catch (e: any) {
+    console.error({
+      message: `Error fetching redirect for source '${source}'`,
+      error: {
+        error: e?.message,
+        stack: e?.stack,
+      },
+    })
+    return null
+  }
+}
+
 export async function fetchAllPages(
   uid: Extract<UID.ContentType, "api::page.page"> = "api::page.page",
   locale: AppLocale

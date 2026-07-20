@@ -1,4 +1,5 @@
-import { notFound } from "next/navigation"
+import { notFound, permanentRedirect, redirect } from "next/navigation"
+import * as Sentry from "@sentry/nextjs"
 import { ROOT_PAGE_PATH } from "@repo/shared-data"
 import { Data } from "@repo/strapi"
 import { setRequestLocale } from "next-intl/server"
@@ -9,7 +10,11 @@ import { isDevelopment } from "@/lib/general-helpers"
 import { getMetadataFromStrapi } from "@/lib/metadata"
 import { routing } from "@/lib/navigation"
 import { buildArticleJsonLd, getArticleType } from "@/lib/seo/article"
-import { fetchAllPages, fetchPage } from "@/lib/strapi-api/content/server"
+import {
+  fetchAllPages,
+  fetchPage,
+  fetchRedirect,
+} from "@/lib/strapi-api/content/server"
 import { cn } from "@/lib/styles"
 import { Breadcrumbs } from "@/components/elementary/Breadcrumbs"
 import { ErrorBoundary } from "@/components/elementary/ErrorBoundary"
@@ -101,7 +106,45 @@ export default async function StrapiPage(props: Props) {
     }
   }
 
-  if (data?.content == null) {
+  if (data == null || !data.content || data.content.length === 0) {
+    // TEMPORARY — soft-404 investigation (audit 2026-07-19: nonexistent
+    // paths return 200 in production despite this notFound() guard reading
+    // correctly). Remove once root cause is confirmed and fixed.
+    console.warn("[soft-404-debug]", {
+      fullPath,
+      locale: params.locale,
+      hasResponse: response != null,
+      hasData: data != null,
+      contentLength: data?.content?.length,
+      dataKeys: data ? Object.keys(data) : null,
+      meta: response?.meta,
+    })
+    Sentry.captureMessage("soft-404-debug", {
+      level: "warning",
+      extra: {
+        fullPath,
+        locale: params.locale,
+        hasResponse: response != null,
+        hasData: data != null,
+        contentLength: data?.content?.length,
+        dataKeys: data ? Object.keys(data) : null,
+      },
+    })
+
+    const redirectMatch = await fetchRedirect(fullPath)
+
+    if (redirectMatch?.destination) {
+      const destination =
+        params.locale === routing.defaultLocale
+          ? redirectMatch.destination
+          : `/${params.locale}${redirectMatch.destination}`
+
+      if (redirectMatch.permanent) {
+        permanentRedirect(destination) // 308
+      }
+      redirect(destination) // 307
+    }
+
     notFound()
   }
 

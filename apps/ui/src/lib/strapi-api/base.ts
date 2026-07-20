@@ -21,6 +21,7 @@ export const API_ENDPOINTS: { [key in UID.ContentType]?: string } = {
   "api::location.location": "/locations",
   "api::region.region": "/regions",
   "api::city.city": "/cities",
+  "api::redirect.redirect": "/redirects",
 } as const
 
 export default abstract class BaseStrapiClient {

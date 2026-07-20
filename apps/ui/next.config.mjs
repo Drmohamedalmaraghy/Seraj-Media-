@@ -50,6 +50,26 @@ const nextConfig = {
     // performance. Hashed assets in /_next/static get their own 1-year
     // immutable headers from Next.js automatically.
     const STATIC_CACHE = "public, max-age=2592000, stale-while-revalidate=86400"
+
+    // Report-Only for now: GTM/GA, ContentSquare, Google Maps, YouTube embeds,
+    // Sentry, and Strapi-hosted images (any https host) all need to be
+    // accounted for, and the Strapi admin embeds this site in an iframe for
+    // live preview (frame-ancestors). Monitor violations for a while before
+    // switching this to an enforced Content-Security-Policy header.
+    const CSP_REPORT_ONLY = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://*.contentsquare.net https://maps.googleapis.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: https:",
+      "font-src 'self' data:",
+      "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.contentsquare.net https://*.sentry.io https://maps.googleapis.com",
+      "frame-src 'self' https://www.googletagmanager.com https://www.youtube.com https://www.youtube-nocookie.com",
+      `frame-ancestors 'self' ${new URL(env.STRAPI_URL).origin}`,
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ].join("; ")
+
     return [
       // TODO REMOVE THIS AFTER PREVIEW
       {
@@ -77,6 +97,21 @@ const nextConfig = {
       {
         source: "/meta-image.jpg",
         headers: [{ key: "Cache-Control", value: STATIC_CACHE }],
+      },
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+          },
+          {
+            key: "Content-Security-Policy-Report-Only",
+            value: CSP_REPORT_ONLY,
+          },
+        ],
       },
     ]
   },

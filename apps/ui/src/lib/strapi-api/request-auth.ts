@@ -12,6 +12,7 @@ const ALLOWED_GET_STRAPI_ENDPOINTS = [
   "api/regions",
   "api/locations",
   "api/cities",
+  "api/redirects",
 ]
 
 /**

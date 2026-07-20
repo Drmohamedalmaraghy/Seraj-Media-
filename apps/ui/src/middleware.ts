@@ -89,6 +89,23 @@ export default function middleware(req: NextRequest) {
     return NextResponse.redirect(url, 301)
   }
 
+  // 4. Default-locale prefix removal (SEO canonicalization): next-intl's
+  // redirect helper never sets a status, so this case defaults to 307 even
+  // though it's a fixed mapping. Only fires when the pathname already has an
+  // explicit "/en" prefix — never the Accept-Language negotiation redirect
+  // for "/".
+  if (routing.localePrefix === "as-needed") {
+    const defaultPrefix = `/${routing.defaultLocale}`
+    if (
+      req.nextUrl.pathname === defaultPrefix ||
+      req.nextUrl.pathname.startsWith(`${defaultPrefix}/`)
+    ) {
+      const url = req.nextUrl.clone()
+      url.pathname = req.nextUrl.pathname.slice(defaultPrefix.length) || "/"
+      return NextResponse.redirect(url, 301)
+    }
+  }
+
   // Build regex for auth (non-public) pages
   const authPathnameRegex = RegExp(
     `^(/(${routing.locales.join("|")}))?(${authPages.join("|")})/?$`,
