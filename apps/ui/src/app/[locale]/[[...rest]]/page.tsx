@@ -1,7 +1,6 @@
 import { notFound, permanentRedirect, redirect } from "next/navigation"
 import { ROOT_PAGE_PATH } from "@repo/shared-data"
 import { Data } from "@repo/strapi"
-import * as Sentry from "@sentry/nextjs"
 import { setRequestLocale } from "next-intl/server"
 
 import type { PageProps } from "@/types/next"
@@ -10,6 +9,7 @@ import { isDevelopment } from "@/lib/general-helpers"
 import { getMetadataFromStrapi } from "@/lib/metadata"
 import { routing } from "@/lib/navigation"
 import { buildArticleJsonLd, getArticleType } from "@/lib/seo/article"
+import { serializeJsonLd } from "@/lib/seo/urls"
 import {
   fetchAllPages,
   fetchPage,
@@ -53,6 +53,17 @@ type Props = PageProps<{
   rest: string[]
 }>
 
+// Orphaned paths from the previous site structure that still get crawled
+// (SEO audit 2026-09). Only used when no Strapi page or redirect record
+// matches, so editors can still take these paths over from the CMS.
+const LEGACY_REDIRECTS: Record<string, string> = {
+  "/for-partners": "/partners",
+  "/for-brands": "/brands",
+  "/indoor-media": "/locations",
+  "/outdoor-media": "/locations",
+  "/services": "/brands",
+}
+
 export async function generateMetadata(props: Props) {
   const params = await props.params
   const searchParams = await props.searchParams
@@ -84,6 +95,28 @@ export async function generateMetadata(props: Props) {
     }
   }
 
+  // Each paginated listing page shows a different set of articles, so it is
+  // canonical to itself rather than to page 1. No hreflang alternates: the
+  // locales have different article counts, so page N doesn't correspond.
+  // Out-of-range pages 404 in StrapiArticlesCollection.
+  // Parsed like StrapiArticlesCollection does, so the canonical always matches
+  // the page that is actually rendered.
+  const rawPage = searchParams?.page
+  const pageNumber = Number.parseInt(
+    (Array.isArray(rawPage) ? rawPage[0] : rawPage) ?? "",
+    10
+  )
+  if (isArticleListing && pageNumber > 1 && base?.alternates) {
+    return {
+      ...base,
+      alternates: {
+        ...base.alternates,
+        canonical: `${String(base.alternates.canonical)}?page=${pageNumber}`,
+        languages: undefined,
+      },
+    }
+  }
+
   return base
 }
 
@@ -107,42 +140,23 @@ export default async function StrapiPage(props: Props) {
   }
 
   if (data == null || !data.content || data.content.length === 0) {
-    // TEMPORARY — soft-404 investigation (audit 2026-07-19: nonexistent
-    // paths return 200 in production despite this notFound() guard reading
-    // correctly). Remove once root cause is confirmed and fixed.
-    console.warn("[soft-404-debug]", {
-      fullPath,
-      locale: params.locale,
-      hasResponse: response != null,
-      hasData: data != null,
-      contentLength: data?.content?.length,
-      dataKeys: data ? Object.keys(data) : null,
-      meta: response?.meta,
-    })
-    Sentry.captureMessage("soft-404-debug", {
-      level: "warning",
-      extra: {
-        fullPath,
-        locale: params.locale,
-        hasResponse: response != null,
-        hasData: data != null,
-        contentLength: data?.content?.length,
-        dataKeys: data ? Object.keys(data) : null,
-      },
-    })
-
+    // notFound()/redirect() only set the HTTP status while the response shell
+    // hasn't been flushed yet. A Suspense boundary above this page (e.g. a
+    // [locale]/loading.tsx) would flush a 200 first and turn every 404 into a
+    // soft 404, so don't add one.
     const redirectMatch = await fetchRedirect(fullPath)
+    const target = redirectMatch?.destination ?? LEGACY_REDIRECTS[fullPath]
 
-    if (redirectMatch?.destination) {
+    if (target) {
       const destination =
         params.locale === routing.defaultLocale
-          ? redirectMatch.destination
-          : `/${params.locale}${redirectMatch.destination}`
+          ? target
+          : `/${params.locale}${target}`
 
-      if (redirectMatch.permanent) {
-        permanentRedirect(destination) // 308
+      if (redirectMatch?.destination && !redirectMatch.permanent) {
+        redirect(destination) // 307
       }
-      redirect(destination) // 307
+      permanentRedirect(destination) // 308
     }
 
     notFound()
@@ -205,7 +219,7 @@ export default async function StrapiPage(props: Props) {
         <script
           id="articleJsonLd"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleJsonLd) }}
         />
       ) : null}
 

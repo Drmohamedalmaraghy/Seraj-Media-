@@ -19,8 +19,15 @@ type PageWithLocalizations = {
   locale?: string | null
   updatedAt?: string | null
   createdAt?: string | null
+  content?: unknown[] | null
   localizations?: Array<{ fullPath?: string | null; locale?: string | null }>
 }
+
+// The page route returns 404 for these, so they must not be listed: pages
+// without content blocks, and pages whose fullPath is malformed in Strapi
+// (missing leading slash) and therefore never resolves.
+const isServablePage = (page: PageWithLocalizations) =>
+  Boolean(page.fullPath?.startsWith("/") && page.content?.length)
 
 /**
  * Note: We could use generateSitemaps to separate the sitemaps, however that does not create the root sitemap.
@@ -38,12 +45,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const result of perLocale) {
     if (result.status !== "fulfilled") continue
     for (const page of result.value.pages) {
-      allPages.push({ locale: result.value.locale, page })
+      if (isServablePage(page)) {
+        allPages.push({ locale: result.value.locale, page })
+      }
     }
   }
 
-  // Cross-locale index: fullPath -> Map<locale, fullPath>.
-  // Used as a fallback when Strapi's i18n localizations relation isn't linked.
+  // Cross-locale index of servable pages: fullPath -> Map<locale, fullPath>.
+  // Used to validate linked localizations and as a fallback when Strapi's
+  // i18n localizations relation isn't linked.
   const fullPathIndex = new Map<string, Map<string, string>>()
   for (const { locale, page } of allPages) {
     if (!page.fullPath) continue
@@ -91,9 +101,16 @@ const buildLanguagesMap = (
     )
   }
 
-  // 1) Linked localizations (handles cases where slugs differ across locales)
+  // 1) Linked localizations (handles cases where slugs differ across locales).
+  // fullPathIndex only holds servable pages, so localizations that would 404
+  // are not advertised as alternates.
   page.localizations?.forEach((loc) => {
-    if (loc.fullPath && loc.locale && !languages[loc.locale]) {
+    if (
+      loc.fullPath &&
+      loc.locale &&
+      !languages[loc.locale] &&
+      fullPathIndex.get(loc.fullPath)?.has(loc.locale)
+    ) {
       languages[loc.locale] = generateSitemapEntryUrl(loc.fullPath, loc.locale)
     }
   })

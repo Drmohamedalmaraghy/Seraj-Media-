@@ -69,6 +69,10 @@
     },
     "dialog": {
       "confirmClose": "Do you want to close the dialog? You will lose all unsaved changes."
+    },
+    "locationsDirectory": {
+      "title": "All advertising locations in Oman",
+      "screens": "{count, plural, one {# screen} other {# screens}}"
     }
   },
 

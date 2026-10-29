@@ -35,75 +35,84 @@ const authMiddleware = withAuth(
 )
 
 // Normalizes a pathname by collapsing duplicate slashes, dropping the trailing
-// slash (except for root), and lowercasing. Returns null if no change needed.
-function normalizePath(pathname: string): string | null {
+// slash (except for root), and lowercasing. Percent-escapes stay uppercase
+// (the form Next/URL emit), so encoded Arabic paths aren't redirected.
+function normalizePath(pathname: string): string {
   let normalized = pathname.replace(/\/+/g, "/")
   if (normalized.length > 1 && normalized.endsWith("/")) {
     normalized = normalized.slice(0, -1)
   }
-  normalized = normalized.toLowerCase()
-  return normalized === pathname ? null : normalized
+  return normalized
+    .toLowerCase()
+    .replace(/%[0-9a-f]{2}/g, (escape) => escape.toUpperCase())
 }
+
+// next-intl's default locale cookie name.
+const LOCALE_COOKIE = "NEXT_LOCALE"
 
 // Legacy/duplicate homepage paths that should funnel to the canonical homepage.
 const HOMEPAGE_DUPLICATES = ["/home", "/index.html", "/index.php"]
 
-// Returns the canonical homepage URL for a duplicate path (with optional locale
-// prefix), or null if the path is not a homepage duplicate.
-function getHomepageRedirect(pathname: string): string | null {
+// Applies every canonicalization rule in one pass, so a URL that needs several
+// fixes (e.g. "/en/Home") redirects in a single 301 hop instead of a chain.
+function getCanonicalPathname(pathname: string): string {
+  let path = normalizePath(pathname)
+  let localePrefix = ""
+
   for (const locale of routing.locales) {
-    for (const dup of HOMEPAGE_DUPLICATES) {
-      if (pathname === `/${locale}${dup}`) {
-        return locale === routing.defaultLocale ? "/" : `/${locale}`
-      }
+    if (path === `/${locale}` || path.startsWith(`/${locale}/`)) {
+      // With "as-needed" prefixes the default locale is served without one.
+      // next-intl would redirect "/en/..." itself, but always with a 307.
+      const keepPrefix =
+        locale !== routing.defaultLocale || routing.localePrefix !== "as-needed"
+      localePrefix = keepPrefix ? `/${locale}` : ""
+      path = path.slice(locale.length + 1) || "/"
+      break
     }
   }
-  if (HOMEPAGE_DUPLICATES.includes(pathname)) {
-    return "/"
+
+  if (HOMEPAGE_DUPLICATES.includes(path)) {
+    path = "/"
   }
-  return null
+
+  if (!localePrefix) {
+    return path
+  }
+  return path === "/" ? localePrefix : `${localePrefix}${path}`
 }
 
 export default function middleware(req: NextRequest) {
-  // 1. www → non-www (301 permanent redirect for SEO canonicalization)
+  // SEO canonicalization (301): www → non-www, path normalization, homepage
+  // duplicates and default-locale prefix removal.
   const host = req.headers.get("host") ?? ""
-  if (host.startsWith("www.")) {
-    const url = req.nextUrl.clone()
-    url.host = host.slice(4)
-    return NextResponse.redirect(url, 301)
-  }
-
-  // 2. Path normalization: collapse slashes, drop trailing slash, lowercase
-  const normalized = normalizePath(req.nextUrl.pathname)
-  if (normalized !== null) {
-    const url = req.nextUrl.clone()
-    url.pathname = normalized
-    return NextResponse.redirect(url, 301)
-  }
-
-  // 3. Homepage duplicates: /home, /index.html, /index.php → canonical homepage
-  const homeRedirect = getHomepageRedirect(req.nextUrl.pathname)
-  if (homeRedirect !== null) {
-    const url = req.nextUrl.clone()
-    url.pathname = homeRedirect
-    return NextResponse.redirect(url, 301)
-  }
-
-  // 4. Default-locale prefix removal (SEO canonicalization): next-intl's
-  // redirect helper never sets a status, so this case defaults to 307 even
-  // though it's a fixed mapping. Only fires when the pathname already has an
-  // explicit "/en" prefix — never the Accept-Language negotiation redirect
-  // for "/".
-  if (routing.localePrefix === "as-needed") {
-    const defaultPrefix = `/${routing.defaultLocale}`
-    if (
-      req.nextUrl.pathname === defaultPrefix ||
-      req.nextUrl.pathname.startsWith(`${defaultPrefix}/`)
-    ) {
-      const url = req.nextUrl.clone()
-      url.pathname = req.nextUrl.pathname.slice(defaultPrefix.length) || "/"
-      return NextResponse.redirect(url, 301)
+  const url = new URL(req.url)
+  const canonicalPathname = getCanonicalPathname(url.pathname)
+  if (host.startsWith("www.") || canonicalPathname !== url.pathname) {
+    if (host.startsWith("www.")) {
+      url.host = host.slice(4)
     }
+    const hadDefaultLocalePrefix = new RegExp(
+      `^/${routing.defaultLocale}(/|$)`,
+      "i"
+    ).test(url.pathname)
+    url.pathname = canonicalPathname
+    const response = NextResponse.redirect(url, 301)
+
+    // The locale switchers navigate to "/en/..." so next-intl can store the
+    // new locale in its cookie. This redirect answers before next-intl runs,
+    // so set the cookie here — otherwise next-intl sends the user back to
+    // "/ar/..." based on the old cookie. no-store keeps the browser from
+    // replaying the cached 301 without the cookie.
+    if (hadDefaultLocalePrefix) {
+      response.cookies.set(LOCALE_COOKIE, routing.defaultLocale, {
+        path: "/",
+        sameSite: "lax",
+        maxAge: 60 * 60 * 24 * 365,
+      })
+      response.headers.set("Cache-Control", "no-store")
+    }
+
+    return response
   }
 
   // Build regex for auth (non-public) pages
@@ -133,5 +142,9 @@ export const config = {
 
     // Skip all paths that should not be internationalized
     "/((?!_next|_vercel|api|robots.txt|favicon.png|sitemap|.*\\..*).*)",
+
+    // Homepage duplicates with a file extension, excluded by the rule above.
+    "/index.html",
+    "/index.php",
   ],
 }

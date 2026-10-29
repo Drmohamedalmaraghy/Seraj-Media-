@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation"
 import { Data } from "@repo/strapi"
 
 import type { AppLocale } from "@/types/general"
@@ -81,6 +82,14 @@ export async function StrapiArticlesCollection({
 
   const articles = articlesRes?.data ?? []
   const totalPages = articlesRes?.meta?.pagination?.pageCount ?? 1
+
+  // Paginated listings are self-canonical, so a page past the end must not
+  // render as an empty indexable listing. Only when Strapi actually answered —
+  // a failed fetch must not turn real pages into 404s.
+  if (articlesRes != null && page > 1 && page > totalPages) {
+    notFound()
+  }
+
   const showFilters = collectionType !== ArticleCollectionTypes.Blog
 
   return (

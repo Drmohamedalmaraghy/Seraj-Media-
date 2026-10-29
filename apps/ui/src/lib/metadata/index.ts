@@ -91,9 +91,12 @@ async function fetchAndMapStrapiMetadata(
 ) {
   const res = await fetchSeo(uid, fullPath, locale)
   const seo = res?.data?.seo
+  // Pages without an SEO component (e.g. some location pages) would otherwise
+  // get the generic homepage title from translations.
+  const title = seo?.metaTitle || res?.data?.title
 
   const strapiMeta: Metadata = {
-    title: seo?.metaTitle,
+    title,
     description: seo?.metaDescription,
     keywords: seo?.keywords,
     robots: seo?.metaRobots,
@@ -102,7 +105,7 @@ async function fetchAndMapStrapiMetadata(
 
   const strapiOgMeta: Metadata["openGraph"] = {
     siteName: seo?.siteName ?? undefined,
-    title: seo?.metaTitle ?? undefined,
+    title: title ?? undefined,
     description: seo?.metaDescription ?? undefined,
     emails: seo?.email ?? undefined,
     images: seo?.metaImage

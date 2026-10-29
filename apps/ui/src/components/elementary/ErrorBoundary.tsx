@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { unstable_rethrow } from "next/navigation"
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons"
 import * as Sentry from "@sentry/nextjs"
 import { XIcon } from "lucide-react"
@@ -10,6 +11,11 @@ import { ErrorBoundary as ErrorBoundaryComp } from "react-error-boundary"
 import { isDevelopment } from "@/lib/general-helpers"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
+
+// notFound(), redirect() etc. are thrown as errors with a "NEXT_" digest.
+const isNextControlFlowError = (error: unknown) =>
+  typeof (error as { digest?: unknown })?.digest === "string" &&
+  (error as { digest: string }).digest.startsWith("NEXT_")
 
 function ErrorBoundaryFallback({
   error,
@@ -102,6 +108,10 @@ export function ErrorBoundary({
     error: Error,
     info: { componentStack?: string | null; digest?: string | null }
   ) => {
+    if (isNextControlFlowError(error)) {
+      return
+    }
+
     if (onError) {
       onError(error, info)
     }
@@ -111,8 +121,12 @@ export function ErrorBoundary({
 
   return (
     <ErrorBoundaryComp
-      fallbackRender={(props) =>
-        hideFallback ? null : (
+      fallbackRender={(props) => {
+        // notFound()/redirect() thrown by a section must reach Next's own
+        // boundaries instead of rendering as an error alert.
+        unstable_rethrow(props.error)
+
+        return hideFallback ? null : (
           <ErrorBoundaryFallback
             {...props}
             hideReset={hideReset}
@@ -120,7 +134,7 @@ export function ErrorBoundary({
             showErrorMessage={showErrorMessage}
           />
         )
-      }
+      }}
       onError={handleError}
       onReset={onReset}
     >

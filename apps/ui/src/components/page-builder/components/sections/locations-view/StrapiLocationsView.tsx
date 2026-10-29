@@ -1,6 +1,7 @@
 import { Data } from "@repo/strapi"
 
 import { PublicStrapiClient } from "@/lib/strapi-api"
+import LocationsDirectory from "@/components/page-builder/components/sections/locations-view/LocationsDirectory"
 import LocationsViewCSR from "@/components/page-builder/components/sections/locations-view/LocationsViewCSR"
 
 export async function StrapiLocationsView({
@@ -38,13 +39,16 @@ export async function StrapiLocationsView({
   })
 
   return (
-    <section>
-      <LocationsViewCSR
-        regions={regions}
-        component={component}
-        locale={pageParams.locale}
-      />
-    </section>
+    <>
+      <section>
+        <LocationsViewCSR
+          regions={regions}
+          component={component}
+          locale={pageParams.locale}
+        />
+      </section>
+      <LocationsDirectory regions={regions?.data} locale={pageParams.locale} />
+    </>
   )
 }
 

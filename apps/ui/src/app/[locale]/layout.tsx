@@ -1,5 +1,6 @@
 import "@/styles/globals.css"
 
+import { Suspense } from "react"
 import { Metadata } from "next"
 import { headers } from "next/headers"
 import { notFound } from "next/navigation"
@@ -14,6 +15,7 @@ import { routing } from "@/lib/navigation"
 import { buildOrganizationJsonLd } from "@/lib/seo/organization"
 import { fetchPageLayout } from "@/lib/strapi-api/content/server"
 import { ErrorBoundary } from "@/components/elementary/ErrorBoundary"
+import { NavigationProgress } from "@/components/elementary/NavigationProgress"
 import StrapiPreviewListener from "@/components/elementary/StrapiPreviewListener"
 import { TailwindIndicator } from "@/components/elementary/TailwindIndicator"
 import { WhatsAppButton } from "@/components/elementary/WhatsAppButton"
@@ -122,6 +124,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <TrackingScripts />
         <ServerProviders params={params}>
           <StrapiPreviewListener />
+          {/* Own Suspense boundary for useSearchParams — it must not wrap the
+              page, or 404s would be sent with a 200 status. */}
+          <Suspense fallback={null}>
+            <NavigationProgress />
+          </Suspense>
           <ClientProviders>
             <div className="bg-destructive relative flex min-h-screen flex-col">
               {useMain ? (

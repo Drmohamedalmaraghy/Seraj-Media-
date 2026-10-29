@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import type { getTranslations } from "next-intl/server"
 
 import { routing } from "@/lib/navigation"
+import { buildPageUrl } from "@/lib/seo/urls"
 
 type TranslateFn = Awaited<ReturnType<typeof getTranslations>>
 
@@ -14,11 +15,7 @@ export function getDefaultMetadata(
   fullPath: string | undefined
 ) {
   const baseUrl = siteUrl.replace(/\/+$/, "")
-  const pathSuffix = fullPath && fullPath !== "/" ? fullPath : ""
-  const buildUrl = (loc: string) => {
-    const localePrefix = loc === routing.defaultLocale ? "" : `/${loc}`
-    return `${baseUrl}${localePrefix}${pathSuffix}`
-  }
+  const buildUrl = (loc: AppLocale) => buildPageUrl(fullPath, loc, siteUrl)
 
   return {
     title: t("metaTitle"),
@@ -60,7 +57,8 @@ export function getDefaultOgMeta(
     description: t("metaDescription"),
     emails: [t("email")],
     images: [t("metaImageUrl")],
-    url: `/${locale}${fullPath ?? ""}`,
+    // Same URL as the canonical — "/en/..." would be a redirect.
+    url: buildPageUrl(fullPath, locale ?? routing.defaultLocale),
   }
 }
 

@@ -61,6 +61,8 @@ export function OnePageHelperMedia({
                     <StrapiBasicImage
                       className="!h-full !w-auto object-cover object-bottom"
                       component={image}
+                      // The main photo is the page's LCP element.
+                      priority={image === photo}
                     />
                   </div>
                 )
@@ -117,6 +119,7 @@ export function OnePageHelperMedia({
       <StrapiBasicImage
         component={photo}
         className="!h-full !w-auto rounded-[10px] object-cover object-bottom"
+        priority
       />
     </div>
   )

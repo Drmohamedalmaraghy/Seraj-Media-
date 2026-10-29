@@ -89,9 +89,12 @@ export async function StrapiHeader({ locale }: { readonly locale: AppLocale }) {
             component={desktopLogo}
             priority
           />
+          {/* The Arabic header has no mobile logo uploaded — reuse the desktop one
+              instead of rendering an empty <img> without src/alt. */}
           <StrapiBasicImage
             className="!h-full !w-auto lg:hidden"
-            component={mobileLogo}
+            component={mobileLogo?.media ? mobileLogo : desktopLogo}
+            hideWhenMissing
             priority
           />
         </AppLink>

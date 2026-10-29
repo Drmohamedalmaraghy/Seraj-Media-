@@ -9,6 +9,30 @@ import { PublicStrapiClient } from "@/lib/strapi-api"
 
 // ------ Page fetching functions
 
+// Everything a screen page renders from its location.
+const LOCATION_POPULATE = {
+  city: {
+    populate: {
+      region: true,
+    },
+  },
+  photo: {
+    populate: {
+      media: true,
+    },
+  },
+  multimedia: {
+    populate: {
+      video: { populate: { uploadedVideo: true } },
+      image: {
+        populate: {
+          media: true,
+        },
+      },
+    },
+  },
+} as const
+
 export async function fetchPage(
   fullPath: string,
   locale: AppLocale,
@@ -38,23 +62,7 @@ export async function fetchPage(
             },
           },
           location: {
-            populate: {
-              photo: {
-                populate: {
-                  media: true,
-                },
-              },
-              multimedia: {
-                populate: {
-                  video: { populate: { uploadedVideo: true } },
-                  image: {
-                    populate: {
-                      media: true,
-                    },
-                  },
-                },
-              },
-            },
+            populate: LOCATION_POPULATE,
           },
         },
         middlewarePopulate: ["content", "seo"], // ensures the middleware is triggered and the populate object is replaced
@@ -70,6 +78,32 @@ export async function fetchPage(
         stack: e?.stack,
       },
     })
+  }
+}
+
+// Default-locale location of a page, matched by the page's documentId (shared
+// by all its localizations, unlike fullPath). Used when a localized screen
+// page has no localized location linked in Strapi.
+export async function fetchDefaultLocaleLocation(pageDocumentId: string) {
+  try {
+    const response = await PublicStrapiClient.fetchMany(
+      "api::location.location",
+      {
+        filters: { page: { documentId: { $eq: pageDocumentId } } } as any,
+        populate: LOCATION_POPULATE,
+        pagination: { page: 1, pageSize: 1 },
+      }
+    )
+    return response?.data?.[0] ?? null
+  } catch (e: any) {
+    console.error({
+      message: `Error fetching location for page '${pageDocumentId}'`,
+      error: {
+        error: e?.message,
+        stack: e?.stack,
+      },
+    })
+    return null
   }
 }
 
@@ -133,6 +167,8 @@ export async function fetchAllPages(
       locale,
       fields: ["fullPath", "locale", "updatedAt", "createdAt", "slug"],
       populate: {
+        // Only top-level blocks — enough to tell pages that would 404 apart.
+        content: true,
         localizations: { fields: ["fullPath", "locale"] },
       },
       status: "published",
@@ -167,7 +203,7 @@ export async function fetchSeo(
           },
         },
       },
-      fields: [],
+      fields: ["title"],
     })
   } catch (e: any) {
     console.error({

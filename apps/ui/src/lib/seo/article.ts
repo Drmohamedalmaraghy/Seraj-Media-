@@ -1,9 +1,7 @@
-import { env } from "@/env.mjs"
-
 import type { AppLocale } from "@/types/general"
 
-import { routing } from "@/lib/navigation"
 import { buildOrganizationJsonLd } from "@/lib/seo/organization"
+import { buildMediaUrl, buildPageUrl } from "@/lib/seo/urls"
 
 type ArticleType = "BlogPosting" | "NewsArticle" | "Article"
 
@@ -40,22 +38,6 @@ export function getArticleType(fullPath: string): ArticleType | null {
   return null
 }
 
-function buildArticleUrl(fullPath: string, locale: AppLocale): string {
-  const baseUrl = (env.APP_PUBLIC_URL ?? "").replace(/\/+$/, "")
-  const localePrefix = locale === routing.defaultLocale ? "" : `/${locale}`
-  return `${baseUrl}${localePrefix}${fullPath}`
-}
-
-function pickImageUrl(
-  metaImage: { url?: string | null } | null | undefined
-): string | null {
-  const url = metaImage?.url
-  if (!url) return null
-  if (/^https?:\/\//.test(url)) return url
-  const baseUrl = (env.APP_PUBLIC_URL ?? "").replace(/\/+$/, "")
-  return `${baseUrl}${url.startsWith("/") ? url : `/${url}`}`
-}
-
 export function buildArticleJsonLd(
   type: ArticleType,
   pageData: PageDataLike,
@@ -72,7 +54,7 @@ export function buildArticleJsonLd(
     toIsoDate(pageData.createdAt)
   const dateModified = toIsoDate(pageData.updatedAt) ?? datePublished
 
-  const imageUrl = pickImageUrl(pageData.seo?.metaImage)
+  const imageUrl = buildMediaUrl(pageData.seo?.metaImage?.url)
 
   const organization = buildOrganizationJsonLd()
 
@@ -81,7 +63,7 @@ export function buildArticleJsonLd(
     "@type": type,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": buildArticleUrl(pageData.fullPath, locale),
+      "@id": buildPageUrl(pageData.fullPath, locale),
     },
     headline,
     publisher: {

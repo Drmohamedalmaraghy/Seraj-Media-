@@ -69,6 +69,10 @@
     },
     "dialog": {
       "confirmClose": "Chcete zavřít dialog? Ztratíte tím všechny rozpracované změny."
+    },
+    "locationsDirectory": {
+      "title": "جميع مواقع الإعلانات في عُمان",
+      "screens": "{count, plural, zero {لا شاشات} one {شاشة واحدة} two {شاشتان} few {# شاشات} many {# شاشة} other {# شاشة}}"
     }
   },
 

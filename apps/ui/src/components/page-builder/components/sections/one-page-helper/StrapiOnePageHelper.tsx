@@ -1,6 +1,9 @@
 import { Data } from "@repo/strapi"
 
+import { buildPlaceJsonLd } from "@/lib/seo/place"
+import { serializeJsonLd } from "@/lib/seo/urls"
 import { PublicStrapiClient } from "@/lib/strapi-api"
+import { fetchDefaultLocaleLocation } from "@/lib/strapi-api/content/server"
 import BackButton from "@/components/elementary/BackButton"
 import CkEditorSSRRenderer from "@/components/elementary/ck-editor/CkEditorSSRRenderer"
 import { Container } from "@/components/elementary/Container"
@@ -14,6 +17,9 @@ import OnePageHelperMedia from "@/components/page-builder/components/sections/on
 import OnePageLocationCarousel from "@/components/page-builder/components/sections/one-page-helper/OnePageLocationCarousel"
 import StrapiButton from "@/components/page-builder/components/utilities/StrapiButton"
 
+const CAROUSEL_LOCATIONS_COUNT = 10
+const NEARBY_LOCATIONS_COUNT = 6
+
 export async function StrapiOnePageHelper({
   component,
   page,
@@ -23,6 +29,8 @@ export async function StrapiOnePageHelper({
   readonly page: {
     seo: Data.Component<"seo-utilities.seo">
     title: string | null | undefined
+    documentId?: string | null
+    fullPath?: string | null
     location: Data.ContentType<"api::location.location">
   }
   readonly pageParams: {
@@ -33,7 +41,17 @@ export async function StrapiOnePageHelper({
     return null
   }
 
-  const { seo, title, location } = page
+  const { seo, title } = page
+
+  // Some Arabic screen pages have no localized location linked in Strapi —
+  // use the English one so the screen details still render.
+  const location =
+    page.location ??
+    (page.documentId ? await fetchDefaultLocaleLocation(page.documentId) : null)
+
+  if (!location) {
+    return null
+  }
 
   const {
     alsoInterested,
@@ -45,25 +63,72 @@ export async function StrapiOnePageHelper({
     description,
   } = component
 
-  const { data: locationsCards } = await PublicStrapiClient.fetchMany(
-    "api::location.location",
-    {
+  const cardPopulate = {
+    photo: { populate: { media: true } },
+    page: true,
+  }
+
+  // Screens in the same city come first so every screen page links to its
+  // neighbours (most screen pages had no internal links at all); the main
+  // locations fill the remaining slots.
+  const cityDocumentId = location.city?.documentId
+  const [cityLocations, mainLocations] = await Promise.all([
+    cityDocumentId
+      ? PublicStrapiClient.fetchMany("api::location.location", {
+          filters: {
+            city: { documentId: { $eq: cityDocumentId } },
+            documentId: { $ne: location.documentId },
+            page: { fullPath: { $startsWith: "/" } },
+          } as any,
+          populate: cardPopulate,
+          sort: ["name:asc"],
+          pagination: {
+            page: 1,
+            pageSize: NEARBY_LOCATIONS_COUNT,
+          },
+        })
+      : null,
+    PublicStrapiClient.fetchMany("api::location.location", {
       filters: {
         isMainLocation: true,
       } as any,
-      populate: {
-        photo: { populate: { media: true } },
-        page: true,
-      },
+      populate: cardPopulate,
       pagination: {
         page: 1,
-        pageSize: 10,
+        pageSize: CAROUSEL_LOCATIONS_COUNT,
       },
-    }
-  )
+    }),
+  ])
+
+  const nearbyLocations = cityLocations?.data ?? []
+  const locationsCards = [
+    ...nearbyLocations,
+    ...mainLocations.data.filter(
+      (card) =>
+        card.documentId !== location.documentId &&
+        !nearbyLocations.some((nearby) => nearby.documentId === card.documentId)
+    ),
+  ].slice(0, CAROUSEL_LOCATIONS_COUNT)
+
+  const heading = seo?.metaTitle || title || location.name
 
   return (
     <Section className="mt-5 flex-col gap-5 !pt-[80px] md:gap-10 lg:gap-15 lg:pt-0">
+      <script
+        id="placeJsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(
+            buildPlaceJsonLd({
+              location,
+              name: heading ?? "",
+              description: seo?.metaDescription,
+              fullPath: page.fullPath,
+              locale: pageParams.locale,
+            })
+          ),
+        }}
+      />
       {location.photo ? (
         <Container className="flex-col gap-5" size="3xl">
           <div className="flex flex-col gap-5 lg:gap-15 xl:flex-row">
@@ -86,9 +151,9 @@ export async function StrapiOnePageHelper({
 
             <div className="flex flex-col justify-between gap-5 md:gap-10">
               <div className="flex flex-col gap-4">
-                {seo?.metaTitle ? (
+                {heading ? (
                   <h1 className="text-[40px] font-bold md:text-[60px]">
-                    {seo.metaTitle}
+                    {heading}
                   </h1>
                 ) : null}
 
