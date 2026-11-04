@@ -69,6 +69,11 @@
     "initialZoom": {
       "type": "integer",
       "required": true
+    },
+    "defaultRegion": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::region.region"
     }
   }
 }

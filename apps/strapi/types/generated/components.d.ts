@@ -434,6 +434,7 @@ export interface SectionsLocationsView extends Struct.ComponentSchema {
     continueTitle: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<"Continue">
+    defaultRegion: Schema.Attribute.Relation<"oneToOne", "api::region.region">
     initialLatitude: Schema.Attribute.Float & Schema.Attribute.Required
     initialLongitude: Schema.Attribute.Float & Schema.Attribute.Required
     initialZoom: Schema.Attribute.Integer & Schema.Attribute.Required

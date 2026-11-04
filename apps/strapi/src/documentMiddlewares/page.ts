@@ -116,6 +116,9 @@ const pagePopulateObject: FindOne<"api::page.page">["populate"] = {
       },
       "sections.locations-view": {
         populate: {
+          defaultRegion: {
+            fields: ["name"],
+          },
           bookButton: {
             fields: ["label", "href", "newTab", "variant"],
             populate: {

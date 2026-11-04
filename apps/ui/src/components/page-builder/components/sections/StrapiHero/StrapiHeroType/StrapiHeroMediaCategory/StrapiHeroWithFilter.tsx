@@ -63,6 +63,10 @@ interface Props {
 }
 
 const TAB_QUERY = "tab"
+// `?region=all` means the user explicitly cleared the region filter. Needed
+// only when a default region is configured in Strapi: without the marker,
+// a missing `region` param would fall back to the default again.
+const ALL_REGIONS = "all"
 interface Option {
   label: string
 }
@@ -173,7 +177,23 @@ const FilterHeader: FC<Props> = ({
 
   const responseRegionsData = regions.data
 
-  const [regionFilter, setRegionFilter] = useState<string[]>([])
+  // Region preselected when the URL has no `region` param (set in Strapi on
+  // the LocationsView section). Kept out of the URL so plain /locations stays
+  // the canonical, indexable address.
+  const defaultRegions = useMemo(() => {
+    const name = component?.defaultRegion?.name
+    if (!name || !responseRegionsData?.some((r) => r.name === name)) return []
+    return [name]
+  }, [component, responseRegionsData])
+
+  const parseRegionParam = useCallback(() => {
+    const v = searchParams.get("region")
+    if (v === ALL_REGIONS) return [] as string[]
+    if (!v) return defaultRegions
+    return v.split(",").filter(Boolean)
+  }, [searchParams, defaultRegions])
+
+  const [regionFilter, setRegionFilter] = useState<string[]>(parseRegionParam)
   const [cityFilter, setCityFilter] = useState<string[]>([])
   const [sizesFilter, setSizesFilter] = useState<string[]>([])
   const [typeFilter, setTypeFilter] = useState<string[]>([])
@@ -219,8 +239,15 @@ const FilterHeader: FC<Props> = ({
     }) => {
       const params = new URLSearchParams(Array.from(searchParams.entries()))
       if (next.region !== undefined) {
-        if (next.region.length) params.set("region", next.region.join(","))
-        else params.delete("region")
+        if (defaultRegions.length && arraysEqual(next.region, defaultRegions)) {
+          params.delete("region")
+        } else if (next.region.length) {
+          params.set("region", next.region.join(","))
+        } else if (defaultRegions.length) {
+          params.set("region", ALL_REGIONS)
+        } else {
+          params.delete("region")
+        }
       }
       if (next.city !== undefined) {
         if (next.city.length) params.set("city", next.city.join(","))
@@ -242,7 +269,7 @@ const FilterHeader: FC<Props> = ({
       const url = qs ? `${pathname}?${qs}` : pathname
       router.replace(url, { scroll: false })
     },
-    [searchParams, router, pathname]
+    [searchParams, router, pathname, defaultRegions]
   )
 
   // --- derived option lists ---
@@ -314,7 +341,7 @@ const FilterHeader: FC<Props> = ({
 
   // --- sync FROM URL ---
   useEffect(() => {
-    const nextRegion = parseParam("region")
+    const nextRegion = parseRegionParam()
     const nextCity = parseParam("city")
     const nextType = parseParam("type")
     const nextSizes = parseParam("sizes")
@@ -324,7 +351,7 @@ const FilterHeader: FC<Props> = ({
     if (!arraysEqual(nextType, typeFilter)) setTypeFilter(nextType)
     if (!arraysEqual(nextSizes, sizesFilter)) setSizesFilter(nextSizes)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams])
+  }, [searchParams, defaultRegions])
 
   // --- handlers ---
   const handleRegionChange = useCallback(
@@ -510,7 +537,7 @@ const FilterHeader: FC<Props> = ({
 
   // reset
   const handleResetAll = () => {
-    setRegionFilter([])
+    setRegionFilter(defaultRegions)
     setCityFilter([])
     setTypeFilter([])
     setSizesFilter([])
