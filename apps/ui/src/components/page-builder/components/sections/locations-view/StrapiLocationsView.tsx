@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { Data } from "@repo/strapi"
 
 import { PublicStrapiClient } from "@/lib/strapi-api"
@@ -39,11 +40,16 @@ export async function StrapiLocationsView({
 
   return (
     <section>
-      <LocationsViewCSR
-        regions={regions}
-        component={component}
-        locale={pageParams.locale}
-      />
+      {/* LocationsViewCSR reads the filters from the URL (useSearchParams),
+          which needs a Suspense boundary on this statically rendered page.
+          It renders nothing on the server anyway (it mounts into a portal). */}
+      <Suspense fallback={null}>
+        <LocationsViewCSR
+          regions={regions}
+          component={component}
+          locale={pageParams.locale}
+        />
+      </Suspense>
     </section>
   )
 }

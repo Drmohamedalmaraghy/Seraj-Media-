@@ -7,12 +7,60 @@ import { routing } from "./lib/navigation"
 // https://next-intl-docs.vercel.app/docs/getting-started/app-router
 const intlMiddleware = createMiddleware(routing)
 
-// Exposes the current pathname to server components via request headers so
-// RootLayout can decide whether to render the classic StrapiHeader/Footer or
-// the Main* variants based on the matching Page's `isMainHeaderFooter` flag.
-function attachPathname(response: NextResponse, pathname: string) {
-  response.headers.set("x-middleware-override-headers", "x-pathname")
-  response.headers.set("x-middleware-request-x-pathname", pathname)
+// Internal route segment of the dynamic twin of the catch-all page
+// (app/[locale]/query-view/[[...rest]]). Everything else is static/ISR.
+const QUERY_VIEW_SEGMENT = "query-view"
+
+// Listings whose server-rendered output depends on the query string
+// (?page, ?search, ?tags). All their requests are served by the dynamic
+// route — also without a query — so client-side filtering and paging stay
+// within one route tree and keep component state (e.g. search input focus).
+const QUERY_VIEW_PATHS = ["/blog", "/news"]
+
+// Location filters live only in the URL and are handled client-side; the
+// static page can't see them, so the noindex they used to get via metadata is
+// sent as a header instead.
+const LOCATION_FILTER_PARAMS = ["region", "city", "type", "sizes", "tab"]
+
+const LOCALE_PATH_REGEX = new RegExp(
+  `^(?:/(${routing.locales.join("|")}))?(/.*)?$`
+)
+
+function splitLocale(pathname: string) {
+  const match = pathname.match(LOCALE_PATH_REGEX)
+  return {
+    locale: match?.[1] ?? routing.defaultLocale,
+    path: match?.[2] || "/",
+  }
+}
+
+function isRedirect(response: Response) {
+  return response.status >= 300 && response.status < 400
+}
+
+// Re-targets the (possibly already rewritten) intl response to the dynamic
+// query-view route, keeping the cookies and headers next-intl set.
+function routeToQueryView(response: NextResponse, req: NextRequest) {
+  if (isRedirect(response)) return response
+
+  const { locale, path } = splitLocale(req.nextUrl.pathname)
+  if (!QUERY_VIEW_PATHS.includes(path)) return response
+
+  const target = req.nextUrl.clone()
+  target.pathname = `/${locale}/${QUERY_VIEW_SEGMENT}${path}`
+  response.headers.delete("x-middleware-next")
+  response.headers.set("x-middleware-rewrite", target.toString())
+  return response
+}
+
+function addLocationFiltersNoindex(response: NextResponse, req: NextRequest) {
+  const { path } = splitLocale(req.nextUrl.pathname)
+  const hasFilters = LOCATION_FILTER_PARAMS.some((param) =>
+    req.nextUrl.searchParams.has(param)
+  )
+  if (path === "/locations" && hasFilters && !isRedirect(response)) {
+    response.headers.set("X-Robots-Tag", "noindex, follow")
+  }
   return response
 }
 
@@ -106,6 +154,23 @@ export default function middleware(req: NextRequest) {
     }
   }
 
+  // 5. The dynamic twin route is internal — send direct hits to the public URL.
+  const { locale: reqLocale, path: reqPath } = splitLocale(
+    req.nextUrl.pathname
+  )
+  if (
+    reqPath === `/${QUERY_VIEW_SEGMENT}` ||
+    reqPath.startsWith(`/${QUERY_VIEW_SEGMENT}/`)
+  ) {
+    const url = req.nextUrl.clone()
+    const publicPath = reqPath.slice(QUERY_VIEW_SEGMENT.length + 1) || "/"
+    url.pathname =
+      reqLocale === routing.defaultLocale
+        ? publicPath
+        : `/${reqLocale}${publicPath === "/" ? "" : publicPath}`
+    return NextResponse.redirect(url, 301)
+  }
+
   // Build regex for auth (non-public) pages
   const authPathnameRegex = RegExp(
     `^(/(${routing.locales.join("|")}))?(${authPages.join("|")})/?$`,
@@ -115,11 +180,12 @@ export default function middleware(req: NextRequest) {
 
   // If the request is for a non-public (auth) page, require authentication
   if (isAuthPage) {
-    return attachPathname((authMiddleware as any)(req), req.nextUrl.pathname)
+    return (authMiddleware as any)(req)
   }
 
   // All other pages are public
-  return attachPathname(intlMiddleware(req), req.nextUrl.pathname)
+  const response = intlMiddleware(req)
+  return addLocationFiltersNoindex(routeToQueryView(response, req), req)
 }
 
 export const config = {

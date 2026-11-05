@@ -1,10 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { Data } from "@repo/strapi"
 
 import { cn } from "@/lib/styles"
+import { WithSearchParams } from "@/components/elementary/WithSearchParams"
 import { OtherIcon } from "@/components/icons/OtherIcon"
 import StrapiLink from "@/components/page-builder/components/utilities/StrapiLink"
 import useHeaderItems from "@/components/page-builder/single-types/header/HeaderItems/useHeaderItems"
@@ -14,18 +15,18 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-const HeaderItems = ({
+const HeaderItemsView = ({
   links,
+  search,
 }: {
   readonly links: Data.Component<"utilities.link">[]
+  readonly search: string
 }) => {
   const { visibleItemsCount, navRef, isClient } = useHeaderItems({ links })
   const hiddenItems = links.slice(visibleItemsCount)
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const [open, setOpen] = useState(false)
-  const currentFullPath =
-    pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "")
+  const currentFullPath = pathname + (search ? `?${search}` : "")
 
   const normalize = (url: string) => url.replace(/^\/(ar|en|ua)(\/|$)/, "/")
   const currentNorm = normalize(currentFullPath)
@@ -105,6 +106,16 @@ const HeaderItems = ({
     </div>
   )
 }
+
+const HeaderItems = ({
+  links,
+}: {
+  readonly links: Data.Component<"utilities.link">[]
+}) => (
+  <WithSearchParams
+    render={(search) => <HeaderItemsView links={links} search={search} />}
+  />
+)
 
 HeaderItems.displayName = "HeaderItems"
 

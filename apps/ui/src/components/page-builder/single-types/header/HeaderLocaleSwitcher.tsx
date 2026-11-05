@@ -1,7 +1,6 @@
 "use client"
 
 import React, { Fragment, useTransition } from "react"
-import { useSearchParams } from "next/navigation"
 import { Globe } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 
@@ -21,11 +20,12 @@ const HeaderLocaleSwitcher = () => {
 
   const pathname = usePathname()
   const router = useRouter()
-  const searchParams = useSearchParams()
   const activeLocale = useLocale()
 
   const handleLocaleChange = (locale: AppLocale) => {
-    const queryParams = searchParams.toString()
+    // Read at click time instead of useSearchParams(), which would need a
+    // Suspense boundary on statically rendered pages.
+    const queryParams = window.location.search.slice(1)
 
     startTransition(() => {
       router.replace(

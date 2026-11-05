@@ -1,12 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { Data } from "@repo/strapi"
 import { Menu, XIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/styles"
+import { WithSearchParams } from "@/components/elementary/WithSearchParams"
 import StrapiButton from "@/components/page-builder/components/utilities/StrapiButton"
 import StrapiLink from "@/components/page-builder/components/utilities/StrapiLink"
 import { Button } from "@/components/ui/button"
@@ -19,21 +20,22 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-export const HeaderMobileMenu = ({
-  links,
-  button,
-}: {
+type HeaderMobileMenuProps = {
   readonly links: Data.Component<"utilities.link">[]
   readonly button: Data.Component<"utilities.button"> | null | undefined
-}) => {
+}
+
+const HeaderMobileMenuView = ({
+  links,
+  button,
+  search,
+}: HeaderMobileMenuProps & { readonly search: string }) => {
   const t = useTranslations("general")
   const [opened, setOpened] = useState(false)
 
   const pathname = usePathname()
-  const searchParams = useSearchParams()
 
-  const currentFullPath =
-    pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "")
+  const currentFullPath = pathname + (search ? `?${search}` : "")
 
   const normalize = (url: string) => url.replace(/^\/(ar|en|ua)(\/|$)/, "/")
   const currentNorm = normalize(currentFullPath)
@@ -106,6 +108,12 @@ export const HeaderMobileMenu = ({
     </Sheet>
   )
 }
+
+export const HeaderMobileMenu = (props: HeaderMobileMenuProps) => (
+  <WithSearchParams
+    render={(search) => <HeaderMobileMenuView {...props} search={search} />}
+  />
+)
 
 HeaderMobileMenu.displayName = "HeaderMobileMenu"
 

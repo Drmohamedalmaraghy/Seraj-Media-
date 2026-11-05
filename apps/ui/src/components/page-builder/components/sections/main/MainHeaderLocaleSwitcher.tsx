@@ -1,7 +1,6 @@
 "use client"
 
 import { useTransition } from "react"
-import { useSearchParams } from "next/navigation"
 import { useLocale } from "next-intl"
 
 import { AppLocale } from "@/types/general"
@@ -18,12 +17,13 @@ export default function MainHeaderLocaleSwitcher() {
   const [, startTransition] = useTransition()
   const pathname = usePathname()
   const router = useRouter()
-  const searchParams = useSearchParams()
   const activeLocale = useLocale() as AppLocale
 
   const handleLocaleChange = (locale: AppLocale) => {
     if (locale === activeLocale) return
-    const queryParams = searchParams.toString()
+    // Read at click time instead of useSearchParams(), which would need a
+    // Suspense boundary on statically rendered pages.
+    const queryParams = window.location.search.slice(1)
     startTransition(() => {
       router.replace(
         queryParams.length > 0 ? `${pathname}?${queryParams}` : pathname,
